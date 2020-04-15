@@ -357,4 +357,5 @@ Android开发交流QQ群：**820198451**
 
 ## 微信公众号
 Android开发之家
+
 ![](https://github.com/CurvedBowZhang/Android-Notes/blob/master/screenshots/%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true)
