@@ -1,5 +1,5 @@
 # Android-Notes
-Android知识笔记目录：  
+Android开发核心知识点笔记-目录：  
 
 ## Java 知识点汇总
 
