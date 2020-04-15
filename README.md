@@ -1,3 +1,5 @@
+>如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料，都可以加上微信或QQ群领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
+
 # Android-Notes
 Android开发核心知识点笔记-目录：  
 
@@ -338,3 +340,12 @@ Android开发核心知识点笔记-目录：
    * [其他](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/常见面试算法题汇总.md#其他)
      * [反转整数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/常见面试算法题汇总.md#反转整数)
      * [LRU缓存策略](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/常见面试算法题汇总.md#lru缓存策略)
+     
+# Contanct Me
+如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料，都可以加上微信或QQ群领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
+
+## 微信
+微信：15388039515
+
+## QQ群
+Android开发交流QQ群：820198451
