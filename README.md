@@ -1,5 +1,7 @@
 >如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料，都可以加上微信或QQ群领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
+
 [微信]（https://github.com/CurvedBowZhang/Android-Notes#%E5%BE%AE%E4%BF%A1）
+
 [QQ群](https://github.com/CurvedBowZhang/Android-Notes#qq%E7%BE%A4)
 
 # Android-Notes
