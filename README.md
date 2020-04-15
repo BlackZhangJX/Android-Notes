@@ -347,8 +347,10 @@ Android开发核心知识点笔记-目录：
 
 ## 微信
 微信：15388039515
+
 ![](https://github.com/CurvedBowZhang/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true)
 
 ## QQ群
 Android开发交流QQ群：820198451
+
 ![](https://github.com/CurvedBowZhang/Android-Notes/blob/master/screenshots/Android%E5%BC%80%E5%8F%91%E4%BA%A4%E6%B5%81%E7%BE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.png?raw=true)
