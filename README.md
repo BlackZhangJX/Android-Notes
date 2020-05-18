@@ -1,6 +1,6 @@
 >所有内容收集整理于网络，在此也再次感谢所有内容产出者的贡献！
 
->如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料、面试资料，进阶、架构资料，都可以加上[微信](https://github.com/CurvedBowZhang/Android-Notes#%E5%BE%AE%E4%BF%A1)或[QQ群](https://github.com/CurvedBowZhang/Android-Notes#qq%E7%BE%A4)领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
+>如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料、面试资料，进阶、架构资料，都可以加上[QQ群](https://github.com/CurvedBowZhang/Android-Notes#qq%E7%BE%A4)领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
 
 
 # Android-Notes
@@ -345,19 +345,12 @@ Android开发核心知识点笔记-目录：
      * [LRU缓存策略](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/常见面试算法题汇总.md#lru缓存策略)
      
 # Contanct Me
-如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料，都可以加上微信或QQ群领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
-
-## 微信
-
-微信：**15388039515**  （备注一下GitHub，免得被看成卖茶叶的）
-
-![](https://github.com/CurvedBowZhang/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true)
+如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料，都可以加上QQ群领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
 
 ## QQ群
 
-Android开发交流QQ群：**820198451**  （备注一下GitHub，免得被认成打无良广告的）
+Android开发交流QQ群：**1087509153**  （备注一下GitHub，免得被认成打无良广告的）
 
-![](https://github.com/CurvedBowZhang/Android-Notes/blob/master/screenshots/Android%E5%BC%80%E5%8F%91%E4%BA%A4%E6%B5%81%E7%BE%A4%E4%BA%8C%E7%BB%B4%E7%A0%81.png?raw=true)
 
 ## 微信公众号
 
