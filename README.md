@@ -184,6 +184,7 @@ Android开发核心知识点笔记-目录：
      * [基本流程](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#基本流程)
      * [使用示例](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#使用示例)
    * [Proguard](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#proguard)
+     * [规则](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86%E7%82%B9.md#%E8%A7%84%E5%88%99)
      * [公共模板](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#公共模板)
      * [常用的自定义混淆规则](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#常用的自定义混淆规则)
      * [aar中增加独立的混淆配置](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#aar中增加独立的混淆配置)
