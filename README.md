@@ -1,6 +1,6 @@
 >所有内容收集整理于网络，在此也再次感谢所有内容产出者的贡献！
 
->如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料、面试资料，进阶、架构资料，都可以加上[QQ群](https://github.com/CurvedBowZhang/Android-Notes#qq%E7%BE%A4)领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
+>如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料、面试资料，进阶、架构资料，都可以加上[QQ群](https://github.com/CurvedBowZhang/Android-Notes#qq群)领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
 
 
 # Android-Notes
@@ -184,7 +184,7 @@ Android开发核心知识点笔记-目录：
      * [基本流程](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#基本流程)
      * [使用示例](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#使用示例)
    * [Proguard](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#proguard)
-     * [规则](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86%E7%82%B9.md#%E8%A7%84%E5%88%99)
+     * [规则](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#规则)
      * [公共模板](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#公共模板)
      * [常用的自定义混淆规则](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#常用的自定义混淆规则)
      * [aar中增加独立的混淆配置](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#aar中增加独立的混淆配置)
