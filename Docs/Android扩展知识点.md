@@ -219,6 +219,40 @@ Proguard 具有以下三个功能：
 - 优化（Optimize） : 分析和优化Java字节码
 - 混淆（Obfuscate）: 使用简短的无意义的名称，对类，字段和方法进行重命名
 
+## 规则
+- 关键字
+
+ | 关键字 | 描述
+|--|--
+| keep | 保留类和类中的成员，防止被混淆或移除
+| keepnames | 保留类和类中的成员，防止被混淆，成员没有被引用会被移除
+| keepclassmembers | 只保留类中的成员，防止被混淆或移除
+| keepclassmembernames | 只保留类中的成员，防止被混淆，成员没有引用会被移除
+| keepclasseswithmembers | 保留类和类中的成员，防止被混淆或移除，保留指明的成员
+| keepclasseswithmembernames | 保留类和类中的成员，防止被混淆，保留指明的成员，成员没有引用会被移除
+
+ - 通配符
+
+ | 通配符 | 描述
+|--|--
+| \<field\> | 匹配类中的所有字段
+| \<method\> | 匹配类中所有的方法
+| \<init\> | 匹配类中所有的构造函数
+| * | 匹配任意长度字符，不包含包名分隔符(.)
+| ** | 匹配任意长度字符，包含包名分隔符(.)
+| *** | 匹配任意参数类型
+
+ - 指定混淆时可使用字典
+```
+-applymapping filename 指定重用一个已经写好了的map文件作为新旧元素名的映射。
+-obfuscationdictionary filename 指定一个文本文件用来生成混淆后的名字。
+-classobfuscationdictionary filename 指定一个混淆类名的字典
+-packageobfuscationdictionary filename 指定一个混淆包名的字典
+-overloadaggressively 混淆的时候大量使用重载，多个方法名使用同一个混淆名（慎用）
+```
+
+ ## 公共模板	
+
 ## 公共模板
 ```
 #############################################
