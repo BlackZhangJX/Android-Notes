@@ -15,7 +15,7 @@
   - [基本流程](#%e5%9f%ba%e6%9c%ac%e6%b5%81%e7%a8%8b)
   - [使用示例](#%e4%bd%bf%e7%94%a8%e7%a4%ba%e4%be%8b)
 - [Proguard](#proguard)
-  - [规则](%E6%89%A9%E5%B1%95%E7%9F%A5%E8%AF%86%E7%82%B9.md#%E8%A7%84%E5%88%99)
+  - [规则](#%E8%A7%84%E5%88%99)
   - [公共模板](#%e5%85%ac%e5%85%b1%e6%a8%a1%e6%9d%bf)
   - [常用的自定义混淆规则](#%e5%b8%b8%e7%94%a8%e7%9a%84%e8%87%aa%e5%ae%9a%e4%b9%89%e6%b7%b7%e6%b7%86%e8%a7%84%e5%88%99)
   - [aar中增加独立的混淆配置](#aar%e4%b8%ad%e5%a2%9e%e5%8a%a0%e7%8b%ac%e7%ab%8b%e7%9a%84%e6%b7%b7%e6%b7%86%e9%85%8d%e7%bd%ae)
@@ -251,8 +251,6 @@ Proguard 具有以下三个功能：
 -packageobfuscationdictionary filename 指定一个混淆包名的字典
 -overloadaggressively 混淆的时候大量使用重载，多个方法名使用同一个混淆名（慎用）
 ```
-
- ## 公共模板	
 
 ## 公共模板
 ```
