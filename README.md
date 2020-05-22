@@ -6,9 +6,9 @@
 # Android-Notes
 Android开发核心知识点笔记-目录：  
 
-| 一 | 二 | 三 | 四 | 五 | 六 | 七 |
+| :one: | :two: | :three: | :four: | :five: | :six: | :seven: |
 | :--------: | :---------: | :---------: | :---------: | :---------: | :---------:| :---------: |
-| [Java 知识点汇总](#Java-知识点汇总) | [Android 知识点汇总](#Android-知识点汇总) | [Android 扩展知识点汇总](#Android-扩展知识点汇总) | [Android 开源库源码分析](#Android-开源库源码分析) | [设计模式汇总](#设计模式汇总) | [计算机网络基础](#计算机网络基础) | [常见面试算法题汇总](#常见面试算法题汇总) |
+| Java知识点汇总 [ :tea:](#Java-知识点汇总) | Android知识点汇总[iphone](#Android-知识点汇总) | Android扩展知识点汇总[:calling:](#Android-扩展知识点汇总) | Android开源库源码分析[:mag:](#Android-开源库源码分析) | 设计模式汇总[:hammer_and_wrench:](#设计模式汇总) | 计算机网络基础[:computer:](#计算机网络基础) | 常见面试算法题汇总[memo](#常见面试算法题汇总) |
 
 ## Java 知识点汇总
 
