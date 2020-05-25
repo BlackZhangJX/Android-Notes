@@ -10,8 +10,6 @@ Android开发核心知识点笔记-目录：
 | :--------: | :---------: | :---------: | :---------: | :---------: | :---------:| :---------: | :---------: |
 | Java<br>知识点汇总<br>[:coffee:](#Java-知识点汇总) | Android<br>知识点汇总<br>[:calling:](#Android-知识点汇总) | Android扩展<br>知识点汇总<br>[:vibration_mode:](#Android-扩展知识点汇总) | Android开源库<br>源码分析<br>[:mag:](#Android-开源库源码分析) | 设计模式<br>汇总<br>[:hammer_and_wrench:](#设计模式汇总) | Gradle知识点<br>汇总<br>[:notebook_with_decorative_cover:](#Gradle知识点汇总) | 计算机<br>网络基础<br>[:computer:](#计算机网络基础) | 常见面试<br>算法题汇总<br>[:memo:](#常见面试算法题汇总) |
 
-:notebook_with_decorative_cover:
-
 ## Java 知识点汇总
 
    * [JVM](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Java知识点汇总.md#jvm)
