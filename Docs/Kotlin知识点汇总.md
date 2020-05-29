@@ -1360,9 +1360,9 @@ println("测试结束")
 ```
 
 ```kotlin
-17:02:08.686 System.out: 测试是否为主线程true
+17:02:08.686 System.out: 测试是否为主线程 true
 17:02:08.686 System.out: 测试开始
-17:02:08.688 System.out: 测试是否为主线程true
+17:02:08.688 System.out: 测试是否为主线程 true
 17:02:08.688 System.out: 测试延迟开始
 17:02:28.692 System.out: 测试延迟结束
 17:02:28.693 System.out: 测试结束
@@ -1386,10 +1386,10 @@ println("测试结束")
 ```
 
 ```kotlin
-17:19:17.190 System.out: 测试是否为主线程true
+17:19:17.190 System.out: 测试是否为主线程 true
 17:19:17.190 System.out: 测试开始
 17:19:17.202 System.out: 测试结束
-17:19:17.203 System.out: 测试是否为主线程false
+17:19:17.203 System.out: 测试是否为主线程 false
 17:19:17.203 System.out: 测试延迟开始
 17:19:37.223 System.out: 测试延迟结束
 ```
@@ -1412,10 +1412,10 @@ println("测试结束")
 ```
 
 ```kotlin
-17:29:00.694 System.out: 测试是否为主线程true
+17:29:00.694 System.out: 测试是否为主线程 true
 17:29:00.694 System.out: 测试开始
 17:29:00.697 System.out: 测试结束
-17:29:00.697 System.out: 测试是否为主线程false
+17:29:00.697 System.out: 测试是否为主线程 false
 17:29:00.697 System.out: 测试延迟开始
 17:29:20.707 System.out: 测试延迟结束
 ```
@@ -1439,10 +1439,10 @@ runBlocking {
 ```
 
 ```kotlin
-17:50:57.117 System.out: 测试是否为主线程true
+17:50:57.117 System.out: 测试是否为主线程 true
 17:50:57.117 System.out: 测试开始
 17:50:57.120 System.out: 测试结束
-17:50:57.120 System.out: 测试是否为主线程false
+17:50:57.120 System.out: 测试是否为主线程 false
 17:50:57.120 System.out: 测试延迟开始
 17:51:17.131 System.out: 测试延迟结束
 17:51:17.133 System.out: 测试返回值：666666
@@ -1466,10 +1466,10 @@ println("测试结束")
 ```
 
 ```kotlin
-18:00:23.243 System.out: 测试是否为主线程true
+18:00:23.243 System.out: 测试是否为主线程 true
 18:00:23.244 System.out: 测试开始
 18:00:23.246 System.out: 测试结束
-18:00:23.246 System.out: 测试是否为主线程false
+18:00:23.246 System.out: 测试是否为主线程 false
 18:00:23.247 System.out: 测试延迟开始
 18:00:43.256 System.out: 测试延迟结束
 ```
@@ -1494,10 +1494,10 @@ println("测试结束")
 ```
 
 ```kotlin
-18:07:20.181 System.out: 测试是否为主线程true
+18:07:20.181 System.out: 测试是否为主线程 true
 18:07:20.181 System.out: 测试开始
 18:07:20.186 System.out: 测试结束
-18:07:20.192 System.out: 测试是否为主线程true
+18:07:20.192 System.out: 测试是否为主线程 true
 18:07:20.192 System.out: 测试延迟开始
 18:07:40.214 System.out: 测试延迟结束
 ```
