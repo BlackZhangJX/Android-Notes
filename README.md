@@ -8,8 +8,8 @@ Android开发核心知识点笔记-目录：
 
 | :one: | :two: | :three: | :four: | :five: | :six: | :seven: | :eight: | :nine: | :keycap_ten: |
 | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: | :--------: |
-| Java<br>知识点<br>汇总 | Android<br>知识点<br>汇总 | Android扩展<br>知识点<br>汇总 | 未完成<br>[性能优化<br>知识点<br>汇总](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md) | Android<br>开源库<br>源码分析 | 未完成<br>Kotlin<br>知识点<br>汇总 | 设计模式<br>汇总 | Gradle<br>知识点<br>汇总 | 计算机<br>网络基础 | 常见面试<br>算法题<br>汇总 |
-| [:coffee:](#Java-知识点汇总) | [:calling:](#Android-知识点汇总) | [:vibration_mode:](#Android-扩展知识点汇总) | :gear: | [:mag:](#Android-开源库源码分析) | :lollipop: |  [:hammer_and_wrench:](#设计模式汇总) | [:notebook_with_decorative_cover:](#Gradle知识点汇总) |  [:computer:](#计算机网络基础) | [:memo:](#常见面试算法题汇总) |
+| Java<br>知识点<br>汇总 | Android<br>知识点<br>汇总 | Android扩展<br>知识点<br>汇总 | [性能优化<br>知识点<br>汇总] | Android<br>开源库<br>源码分析 | Kotlin<br>知识点<br>汇总 | 设计模式<br>汇总 | Gradle<br>知识点<br>汇总 | 计算机<br>网络基础 | 常见面试<br>算法题<br>汇总 |
+| [:coffee:](#Java-知识点汇总) | [:calling:](#Android-知识点汇总) | [:vibration_mode:](#Android-扩展知识点汇总) | [:gear:](#性能优化知识点汇总) | [:mag:](#Android-开源库源码分析) | [:lollipop:](#Kotlin知识点汇总) |  [:hammer_and_wrench:](#设计模式汇总) | [:notebook_with_decorative_cover:](#Gradle知识点汇总) |  [:computer:](#计算机网络基础) | [:memo:](#常见面试算法题汇总) |
 
 
 ## Java 知识点汇总
@@ -215,6 +215,28 @@ Android开发核心知识点笔记-目录：
    * [类加载器](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#类加载器)
      * [双亲委托模式](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#双亲委托模式)
      * [DexPathList](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android扩展知识点.md#dexpathlist)
+     
+## 性能优化知识点汇总
+
+   * [启动优化](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#启动优化)
+     * [视觉优化](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#视觉优化)
+       * [启动主题优化](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#启动主题优化)
+     * [代码优化](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#代码优化)
+       * [冷启动耗时统计](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#冷启动耗时统计)
+       * [Application 优化](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#Application-优化)
+       * [闪屏页业务优化](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#闪屏页业务优化)
+       * [广告页优化](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#广告页优化)
+     * [优化效果](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#优化效果)
+     * [启动窗口](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#启动窗口)
+   * UI渲染优化(未完成)
+   * 崩溃优化(未完成)
+   * 内存优化(未完成)
+   * 卡顿优化(未完成)
+   * 存储优化(未完成)
+   * 网络优化(未完成)
+   * 耗电优化(未完成)
+   * 多线程并发优化(未完成)
+   * 安装包优化(未完成)
 
 
 ## Android 开源库源码分析
@@ -227,6 +249,58 @@ Android开发核心知识点笔记-目录：
      * [自定义注解](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android开源库源码分析.md#自定义注解) 
      * [注册订阅者](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android开源库源码分析.md#注册订阅者) 
      * [发送事件](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Android开源库源码分析.md#发送事件) 
+     
+## Kotlin知识点汇总
+   * [语法](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#语法)
+     * [对象](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#对象)
+     * [类](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#类)
+     * [继承](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#继承)
+     * [变量](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#变量)
+     * [常量](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#常量)
+     * [静态常量](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#静态常量)
+     * [定义方法](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#定义方法)
+     * [重载方法](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#重载方法)
+     * [基本数据类型](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#基本数据类型)
+     * [比较类型](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#比较类型)
+     * [转换符](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#转换符)
+     * [字符串比较](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#字符串比较)
+     * [数组](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#数组)
+     * [循环](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#循环)
+     * [角标循环](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#角标循环)
+     * [高级循环](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#高级循环)
+     * [判断器](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#判断器)
+     * [构造函数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#构造函数)
+     * [类创建](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#类创建)
+     * [私有化 set 方法](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#私有化-set-方法)
+     * [私有化 get 方法](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#私有化-get-方法)
+     * [枚举](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#枚举)
+     * [接口](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#接口)
+     * [匿名内部类](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#匿名内部类)
+     * [内部类](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#内部类)
+     * [内部类访问外部类同名变量](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#内部类访问外部类同名变量)
+     * [抽象类](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#抽象类)
+     * [静态变量和方法](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#静态变量和方法)
+     * [可变参数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#可变参数)
+     * [泛型](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#泛型)
+     * [构造代码块](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#构造代码块)
+     * [静态代码块](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#静态代码块)
+     * [方法代码块](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#方法代码块)
+     * [可见修饰符](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#可见修饰符)
+     * [无需 findViewById](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#无需-findViewById)
+     * [Lambda](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#Lambda)
+     * [函数变量](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#函数变量)
+     * [空安全](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#空安全)
+     * [方法支持添加默认参数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#方法支持添加默认参数)
+     * [类方法扩展](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#类方法扩展)
+     * [运算符重载](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#运算符重载)
+     * [扩展函数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#扩展函数)
+       * [let 函数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#let-函数)
+       * [with 函数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#with-函数)
+       * [run 函数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#run-函数)
+       * [apply 函数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#apply-函数)
+       * [also 函数](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#also-函数)
+       * [总结](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#总结)
+     * [协程](https://github.com/CurvedBowZhang/Android-Notes/blob/master/Docs/Kotlin知识点汇总.md#协程)
 
 ## 设计模式汇总 
 
