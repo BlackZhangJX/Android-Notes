@@ -234,7 +234,7 @@ Android开发核心知识点笔记-目录：
      * [clipRect解决自定义View的OverDraw](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#clipRect解决自定义View的OverDraw)
      * [Hierarchy Viewer的使用](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#Hierarchy-Viewer的使用)
      * [内存抖动现象](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#内存抖动现象)
-   * 崩溃优化(https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#崩溃优化)
+   * [崩溃优化](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#崩溃优化)
      * [崩溃](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#崩溃)
        * [崩溃的收集](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#崩溃的收集)
        * [ANR](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/性能优化知识点汇总.md#ANR)
