@@ -489,7 +489,9 @@ PS：平常很忙，找桃子小姐姐领取就好了，别找我
 
 **Android开发之家**
 
-![](https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true)
+<div align="center">
+<img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg">
+</div>
 
 # 版权声明
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可。
@@ -499,4 +501,6 @@ PS：平常很忙，找桃子小姐姐领取就好了，别找我
 
 可以扫描下面的二维码，让我可以喝一杯:coffee:or:beer:。非常感谢您对我产出的鼓励。谢谢！
 
-![](https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E6%94%B6%E6%AC%BE%E7%A0%81.png?raw=true)![](https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE%E7%A0%81.jpg?raw=true)
+<div align="center">
+<img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E6%94%B6%E6%AC%BE%E7%A0%81.png" width=25%><img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE%E7%A0%81.jpg" width=25%>
+</div>
