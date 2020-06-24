@@ -470,7 +470,7 @@ Android开发核心知识点笔记-目录：
 # 赞赏本库
 如果这个库对您有很大帮助，您愿意支持这个项目的进一步开发以及这个项目的持续维护👇
 
-可以扫描下面的二维码，让我可以喝一杯:coffee:or:beer:  非常感谢您对我产出内容的鼓励，谢谢！
+可以扫描下面的二维码，让我可以喝一杯:coffee:or:beer:  非常感谢您对我内容产出的鼓励，谢谢！
 
 <div align="center">
 <img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E6%94%B6%E6%AC%BE%E7%A0%81.png" width=25%><img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE%E7%A0%81.jpg" width=25%>
