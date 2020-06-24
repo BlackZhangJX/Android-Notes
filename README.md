@@ -469,7 +469,15 @@ Android开发核心知识点笔记-目录：
      * [反转整数](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/常见面试算法题汇总.md#反转整数)
      * [LRU缓存策略](https://github.com/BlackZhangJX/Android-Notes/blob/master/Docs/常见面试算法题汇总.md#lru缓存策略)
      
-     
+# 赞赏本库
+如果这个库对您有很大帮助，您愿意支持这个项目的进一步开发和这个项目的持续维护。
+
+可以扫描下面的二维码，让我可以喝一杯:coffee:or:beer:。非常感谢您对我产出的鼓励。谢谢！
+
+<div align="center">
+<img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E6%94%B6%E6%AC%BE%E7%A0%81.png" width=25%><img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE%E7%A0%81.jpg" width=25%>
+</div>
+
 # Contanct Me
 如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料，都可以加上QQ群领取
 >本群由我创立，目前已将群主权限交由合作方便于进行日常管理，介意的朋友们在GitHub上看最新版就好了
@@ -495,12 +503,3 @@ PS：平常很忙，找桃子小姐姐领取就好了，别找我
 
 # 版权声明
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可。
-
-# 赞赏本库
-如果这个库对您有很大帮助，您愿意支持这个项目的进一步开发和这个项目的持续维护。
-
-可以扫描下面的二维码，让我可以喝一杯:coffee:or:beer:。非常感谢您对我产出的鼓励。谢谢！
-
-<div align="center">
-<img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E6%94%B6%E6%AC%BE%E7%A0%81.png" width=25%><img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE%E7%A0%81.jpg" width=25%>
-</div>
