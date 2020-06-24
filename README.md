@@ -1,8 +1,6 @@
 >部分内容收集整理于网络，在此也再次感谢所有内容产出者的贡献！
-
-> [版权声明](#版权声明)
-
->如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料、面试资料，进阶、架构资料，都可以加上[QQ群](#qq群)领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
+>> [版权声明](#版权声明)
+>>>如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料、面试资料，进阶、架构资料，都可以加上[QQ群](#qq群)领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
 
 
 # Android-Notes
@@ -472,7 +470,7 @@ Android开发核心知识点笔记-目录：
 # 赞赏本库
 如果这个库对您有很大帮助，您愿意支持这个项目的进一步开发以及这个项目的持续维护👇
 
-可以扫描下面的二维码，让我可以喝一杯:coffee:or:beer:。非常感谢您对我产出的鼓励。谢谢！
+可以扫描下面的二维码，让我可以喝一杯:coffee:or:beer:  非常感谢您对我产出内容的鼓励，谢谢！
 
 <div align="center">
 <img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E6%94%B6%E6%AC%BE%E7%A0%81.png" width=25%><img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E6%94%AF%E4%BB%98%E5%AE%9D%E6%94%B6%E6%AC%BE%E7%A0%81.jpg" width=25%>
@@ -489,9 +487,8 @@ Android开发核心知识点笔记-目录：
 ## QQ群
 
 Android开发交流QQ群：**1087509153**  （备注一下GitHub，免得被认成打无良广告的）
-
-PS：平常很忙，找桃子小姐姐领取就好了，别找我
-
+>PS：
+>>平常很忙，找桃子小姐姐领取就好了，别找我
 
 ## 微信公众号
 
