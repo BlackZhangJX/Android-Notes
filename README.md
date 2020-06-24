@@ -489,7 +489,18 @@ PS：平常很忙，找桃子小姐姐领取就好了，别找我
 
 **Android开发之家**
 
-![](https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%85%AC%E4%BC%97%E5%8F%B7%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true)
+<center class="half">
+    <img src="https://github.com/BlackZhangJX/Android-Notes/tree/master/screenshots/公众号二维码.jpg" width="400"/>
+</center>
 
 # 版权声明
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可。
+
+# 赞赏本库
+如果这个库对您有很大帮助，您愿意支持这个项目的进一步开发和这个项目的持续维护。
+
+可以扫描下面的二维码，让我可以喝一杯:coffee:or:beer:。非常感谢您对我产出的鼓励。谢谢！
+
+<center class="half">
+    <img src="https://github.com/BlackZhangJX/Android-Notes/tree/master/screenshots/微信收款码.png" width="300"/><img src="https://github.com/BlackZhangJX/Android-Notes/tree/master/screenshots/支付宝收款码.jpg" width="300"/>
+</center>
