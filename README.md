@@ -507,3 +507,9 @@ Android开发交流QQ群：**1087509153**  （备注一下GitHub，免得被认�
 
 # 版权声明
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="知识共享许可协议" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />本作品采用<a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">知识共享署名-非商业性使用-禁止演绎 4.0 国际许可协议</a>进行许可。
+
+Copyright © 2019-present BlackZhangJX
+
+转载本作品内容须遵守上述协议，保证作品内容的完整并注明作者及出处。
+
+任何个人或组织，未经作者本人沟通许可，不得将文中全部或部分内容洗稿和用于写书、卖课等商业活动。
