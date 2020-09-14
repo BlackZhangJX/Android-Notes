@@ -1,60 +1,54 @@
-- [语法](#语法)
-  - [对象](#对象)
-  - [类](#类)
-  - [继承](#继承)
-  - [变量](#变量)
-  - [常量](#常量)
-  - [静态常量](#静态常量)
-  - [定义方法](#定义方法)
-  - [重载方法](#重载方法)
-  - [基本数据类型](#基本数据类型)
-  - [比较类型](#比较类型)
-  - [转换符](#转换符)
-  - [字符串比较](#字符串比较)
-  - [数组](#数组)
-  - [循环](#循环)
-  - [角标循环](#角标循环)
-  - [高级循环](#高级循环)
-  - [判断器](#判断器)
-  - [构造函数](#构造函数)
-  - [类创建](#类创建)
-  - [私有化 set 方法](#私有化-set-方法)
-  - [私有化 get 方法](#私有化-get-方法)
-  - [枚举](#枚举)
-  - [接口](#接口)
-  - [匿名内部类](#匿名内部类)
-  - [内部类](#内部类)
-  - [内部类访问外部类同名变量](#内部类访问外部类同名变量)
-  - [抽象类](#抽象类)
-  - [静态变量和方法](#静态变量和方法)
-  - [可变参数](#可变参数)
-  - [泛型](#泛型)
-  - [构造代码块](#构造代码块)
-  - [静态代码块](#静态代码块)
-  - [方法代码块](#方法代码块)
-  - [可见修饰符](#可见修饰符)
-  - [无需 findViewById](#无需-findViewById)
-  - [Lambda](#Lambda)
-  - [函数变量](#函数变量)
-  - [空安全](#空安全)
-  - [方法支持添加默认参数](#方法支持添加默认参数)
-  - [类方法扩展](#类方法扩展)
-  - [运算符重载](#运算符重载)
-  - [扩展函数](#扩展函数)
-    - [let 函数](#let-函数)
-    - [with 函数](#with-函数)
-    - [run 函数](#run-函数)
-    - [apply 函数](#apply-函数)
-    - [also 函数](#also-函数)
-    - [总结](#总结)
-  - [协程](#协程)
+- [对象](#对象)
+- [类](#类)
+- [继承](#继承)
+- [变量](#变量)
+- [常量](#常量)
+- [静态常量](#静态常量)
+- [定义方法](#定义方法)
+- [重载方法](#重载方法)
+- [基本数据类型](#基本数据类型)
+- [比较类型](#比较类型)
+- [转换符](#转换符)
+- [字符串比较](#字符串比较)
+- [数组](#数组)
+- [循环](#循环)
+- [角标循环](#角标循环)
+- [高级循环](#高级循环)
+- [判断器](#判断器)
+- [构造函数](#构造函数)
+- [类创建](#类创建)
+- [私有化 set 方法](#私有化-set-方法)
+- [私有化 get 方法](#私有化-get-方法)
+- [枚举](#枚举)
+- [接口](#接口)
+- [匿名内部类](#匿名内部类)
+- [内部类](#内部类)
+- [内部类访问外部类同名变量](#内部类访问外部类同名变量)
+- [抽象类](#抽象类)
+- [静态变量和方法](#静态变量和方法)
+- [可变参数](#可变参数)
+- [泛型](#泛型)
+- [构造代码块](#构造代码块)
+- [静态代码块](#静态代码块)
+- [方法代码块](#方法代码块)
+- [可见修饰符](#可见修饰符)
+- [无需 findViewById](#无需-findViewById)
+- [Lambda](#Lambda)
+- [函数变量](#函数变量)
+- [空安全](#空安全)
+- [方法支持添加默认参数](#方法支持添加默认参数)
+- [类方法扩展](#类方法扩展)
+- [运算符重载](#运算符重载)
+- [扩展函数](#扩展函数)
+  - [let 函数](#let-函数)
+  - [with 函数](#with-函数)
+  - [run 函数](#run-函数)
+  - [apply 函数](#apply-函数)
+  - [also 函数](#also-函数)
+  - [总结](#总结)
+- [协程](#协程)
 
-# 语法
-随着 Kotlin 越来越火爆，学习 Kotlin 已经成为我们的必经之路
-
-多余的话就不说了，代码是最好的老师
-
-## 对象
+# 对象
 > Java 的写法
 ```java
 MainActivity.this
@@ -65,7 +59,7 @@ MainActivity.this
 this@MainActivity
 ```
 
-## 类
+# 类
 > Java 的写法
 ```java
 MainActivity.class
@@ -76,7 +70,7 @@ MainActivity.class
 MainActivity::class.java
 ```
 
-## 继承
+# 继承
 > Java 的写法
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -91,7 +85,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 变量
+# 变量
 > Java 的写法
 ```java
 Intent intent = new Intent();
@@ -102,7 +96,7 @@ Intent intent = new Intent();
 var intent = Intent()
 ```
 
-## 常量
+# 常量
 > Java 的写法
 ```java
 final String text = "";
@@ -113,7 +107,7 @@ final String text = "";
 val text = ""
 ```
 
-## 静态常量
+# 静态常量
 > Java 的写法
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -131,7 +125,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 定义方法
+# 定义方法
 > Java 的写法
 ```java
 public void test(String message) {
@@ -150,7 +144,7 @@ fun test(message : String) {
 }
 ```
 
-## 重载方法
+# 重载方法
 > Java 的写法
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -172,7 +166,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 基本数据类型
+# 基本数据类型
 > Java 的写法
 ```java
 int i = 1;
@@ -203,7 +197,7 @@ var c = 'A'
 var s = "text"
 ```
 
-## 比较类型
+# 比较类型
 > Java 的写法
 ```java
 if ("" instanceof String) {
@@ -218,7 +212,7 @@ if ("" is String) {
 }
 ```
 
-## 转换符
+# 转换符
 > Java 的写法
 ```java
 int number = 100;
@@ -237,7 +231,7 @@ var number = 100
 println("商品数量有\$number")
 ```
 
-## 字符串比较
+# 字符串比较
 > Java 的写法
 ```java
 String s1 = "text";
@@ -256,7 +250,7 @@ if (s1 == s2) {
 }
 ```
 
-## 数组
+# 数组
 > Java 的写法
 ```java
 int[] array1 = {1, 2, 3};
@@ -271,7 +265,7 @@ val array2 = floatArrayOf(1f, 2f, 3f)
 val array3 = arrayListOf("1", "2", "3")
 ```
 
-## 循环
+# 循环
 > Java 的写法
 ```java
 String[] array = {"1", "2", "3"};
@@ -290,7 +284,7 @@ for (i in array.indices) {
 }
 ```
 
-## 角标循环
+# 角标循环
 > Java 的写法
 ```java
 String[] array = {"1", "2", "3"};
@@ -321,7 +315,7 @@ for (i in 1 until array.size) {
 }
 ```
 
-## 高级循环
+# 高级循环
 > Java 的写法
 ```java
 String[] array = {"1", "2", "3"};
@@ -340,7 +334,7 @@ for (text in array) {
 }
 ```
 
-## 判断器
+# 判断器
 > Java 的写法
 ```java
 int count = 1;
@@ -384,7 +378,7 @@ when (count) {
 }
 ```
 
-## 构造函数
+# 构造函数
 > Java 的写法
 ```java
 public class MyView extends View {
@@ -434,7 +428,7 @@ class MyView(context: Context?) : View(context) {
 }
 ```
 
-## 类创建
+# 类创建
 > Java 的写法
 ```java
 public class Person {
@@ -489,7 +483,7 @@ person.age = 50
 println("name: {$person.name}, age: {$person.age}")
 ```
 
-## 私有化 set 方法
+# 私有化 set 方法
 > Java 的写法
 ```java
 public class Person {
@@ -532,7 +526,7 @@ class Person {
 }
 ```
 
-## 私有化 get 方法
+# 私有化 get 方法
 > Java 的写法
 ```java
 public class Person {
@@ -573,7 +567,7 @@ class Person {
 }
 ```
 
-## 枚举
+# 枚举
 > Java 的写法
 ```java
 enum Sex {
@@ -592,7 +586,7 @@ enum class Sex (var isMan: Boolean) {
 }
 ```
 
-## 接口
+# 接口
 > Java 的写法
 ```java
 public interface Callback {
@@ -609,7 +603,7 @@ interface Callback {
 }
 ```
 
-## 匿名内部类
+# 匿名内部类
 > Java 的写法
 ```java
 new Callback() {
@@ -640,7 +634,7 @@ object:Callback {
 }
 ```
 
-## 内部类
+# 内部类
 > Java 的写法
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -661,7 +655,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 内部类访问外部类同名变量
+# 内部类访问外部类同名变量
 > Java 的写法
 ```java
 String name = "CurvedBowZhang";
@@ -690,7 +684,7 @@ inner class MyTask {
 }
 ```
 
-## 抽象类
+# 抽象类
 > Java 的写法
 ```java
 public abstract class BaseActivity extends AppCompatActivity implements Runnable {
@@ -707,7 +701,7 @@ abstract class BaseActivity : AppCompatActivity(), Runnable {
 }
 ```
 
-## 静态变量和方法
+# 静态变量和方法
 > Java 的写法
 ```
 public class ToastUtils {
@@ -732,7 +726,7 @@ companion object ToastUtils {
 }
 ```
 
-## 可变参数
+# 可变参数
 > Java 的写法
 ```java
 public int add(int... array) {
@@ -758,7 +752,7 @@ fun add(vararg array: Int) : Int {
 }
 ```
 
-## 泛型
+# 泛型
 > Java 的写法
 ```java
 public class Bean<T extends String> {
@@ -781,7 +775,7 @@ var bean = Bean<String>("666666")
 var bean = Bean("666666")
 ```
 
-## 构造代码块
+# 构造代码块
 > Java 的写法
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -806,7 +800,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 静态代码块
+# 静态代码块
 > Java 的写法
 ```java
 public class MainActivity extends AppCompatActivity {
@@ -834,7 +828,7 @@ class MainActivity : AppCompatActivity() {
 }
 ```
 
-## 方法代码块
+# 方法代码块
 > Java 的写法
 ```java
 void test(){
@@ -853,7 +847,7 @@ fun test() {
 }
 ```
 
-## 可见修饰符
+# 可见修饰符
 > Java 的写法（默认为 default）
 
 | 修饰符 | 作用 |
@@ -872,12 +866,7 @@ fun test() {
 | protected | 子类可见 |
 | private | 仅对自己类可见 |
 
-
-
-
-
-
-## 无需 findViewById
+# 无需 findViewById
 > 在布局中定义
 ```kotlin
 <TextView
@@ -892,7 +881,7 @@ fun test() {
 tv_content.text = "改变文本"
 ```
 
-## Lambda
+# Lambda
 > Lambda 表达式虽然在 Java JDK 已经加上了，但是没有普及开来，现在搭配 Kotlin 是一个不错的选择
 ```kotlin
 tv_content.setOnClickListener(View.OnClickListener(
@@ -908,7 +897,7 @@ tv_content.setOnClickListener(View.OnClickListener(
 tv_content.setOnClickListener { v -> v.visibility = View.GONE }
 ```
 
-## 函数变量
+# 函数变量
 > 在 Kotlin 语法中函数是可以作为变量进行传递的
 ```kotlin
 var result = fun(number1 : Int, number2 : Int) : Int {
@@ -921,7 +910,7 @@ var result = fun(number1 : Int, number2 : Int) : Int {
 println(result(1, 2))
 ```
 
-## 空安全
+# 空安全
 > 在 Java 不用强制我们处理空对象，所以常常会导致 NullPointerException 空指针出现，现在 Kotlin 对空对象进行了限定，必须在编译时处理对象是否为空的情况，不然会编译不通过
 
 > 在对象不可空的情况下，可以直接使用这个对象
@@ -962,7 +951,7 @@ val text = getText()
 print(text?.length)
 ```
 
-## 方法支持添加默认参数
+# 方法支持添加默认参数
 > 在 Java 上，我们可能会为了扩展某个方法而进行多次重载
 ```java
 public void toast(String text) {
@@ -997,7 +986,7 @@ toast(this, "弹个吐司")
 toast(this, "弹个吐司", Toast.LENGTH_LONG)
 ```
 
-## 类方法扩展
+# 类方法扩展
 > 可以在不用继承的情况下对扩展原有类的方法，例如对 String 类进行扩展方法
 ```kotlin
 fun String.handle() : String {
@@ -1014,7 +1003,7 @@ print("ZJX = ".handle())
 ZJX = CurvedBowZhang
 ```
 
-## 运算符重载
+# 运算符重载
 > 在 Kotlin 中使用运算符最终也会调用对象对应的方法，我们可以通过重写这些方法使得这个对象支持运算符，这里不再演示代码
 
 | 运算符 | 调用方法 |
@@ -1079,10 +1068,10 @@ ZJX = CurvedBowZhang
 | a <= b | a.compareTo(b) <= 0 |
 
 
-## 扩展函数
+# 扩展函数
 > 扩展函数是 Kotlin 用于简化一些代码的书写产生的，其中有 let、with、run、apply、also 五个函数
 
-### let 函数
+## let 函数
 
 > 在函数块内可以通过 it 指代该对象。返回值为函数块的最后一行或指定return表达式
 
@@ -1124,7 +1113,7 @@ mVideoPlayer?.let {
 
 > 又或者是需要去明确一个变量所处特定的作用域范围内可以使用
 
-### with 函数
+## with 函数
 
 > 前面的几个函数使用方式略有不同，因为它不是以扩展的形式存在的。它是将某对象作为函数的参数，在函数块内可以通过 this 指代该对象。返回值为函数块的最后一行或指定return表达式
 
@@ -1173,7 +1162,7 @@ override fun onBindViewHolder(holder: ViewHolder, position: Int){
 }
 ```
 
-### run 函数
+## run 函数
 
 > 实际上可以说是let和with两个函数的结合体，run函数只接收一个lambda函数为参数，以闭包形式返回，返回值为最后一行的值或者指定的return的表达式
 
@@ -1214,7 +1203,7 @@ override fun onBindViewHolder(holder: ViewHolder, position: Int){
 }
 ```
 
-### apply 函数
+## apply 函数
 
 > 从结构上来看apply函数和run函数很像，唯一不同点就是它们各自返回的值不一样，run函数是以闭包形式返回最后一行代码的值，而apply函数的返回的是传入对象的本身
 
@@ -1288,7 +1277,7 @@ mSectionMetaData?.apply {
 }
 ```
 
-### also 函数
+## also 函数
 
 > also函数的结构实际上和let很像唯一的区别就是返回值的不一样，let是以闭包的形式返回，返回函数体内最后一行的值，如果最后一行为空就返回一个Unit类型的默认值。而also函数返回的则是传入对象的本身
 ```kotlin
@@ -1312,11 +1301,11 @@ fun main() {
 
 > 适用于let函数的任何场景，also函数和let很像，只是唯一的不同点就是let函数最后的返回值是最后一行的返回值而also函数的返回值是返回当前的这个对象。一般可用于多个扩展函数链式调用
 
-### 总结
+## 总结
 
 > 通过以上几种函数的介绍，可以很方便优化kotlin中代码编写，整体看起来几个函数的作用很相似，但是各自又存在着不同。使用的场景有相同的地方比如run函数就是let和with的结合体
 
-## 协程
+# 协程
 > 子任务协作运行，优雅的处理异步问题解决方案
 
 > 协程实际上就是极大程度的复用线程，通过让线程满载运行，达到最大程度的利用CPU，进而提升应用性能
