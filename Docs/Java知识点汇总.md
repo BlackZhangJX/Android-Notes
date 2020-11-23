@@ -324,9 +324,11 @@ public int hashCode() {
 ## HashMap
 ### 结构图
 - **JDK 1.7 HashMap 结构图**
+
 ![](https://user-gold-cdn.xitu.io/2019/6/23/16b833f4ac8f44fd?w=1636&h=742&f=png&s=88323)
 
 - **JDK 1.8 HashMap 结构图**
+
 ![](https://user-gold-cdn.xitu.io/2018/7/23/164c47f32f9650ba?imageView2/0/w/1280/h/960/format/webp/ignore-error/1)
 
 ### HashMap 的工作原理
