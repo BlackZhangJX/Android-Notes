@@ -108,7 +108,7 @@ Java堆是垃圾收集器管理的主要区域，从内存回收的角度来看�
 既然运行时常量池是方法区的一部分，自然受到方法区内存的限制，当常量池无法再申请到内存时就会抛出 OutOfMemoryError 异常。
 
 ## 方法指令
-| 指令 | 说明                      
+| 指令 | 说明 |                     
 |----------|-----|
 | invokeinterface | 用以调用接口方法 |
 | invokevirtual | 指令用于调用对象的实例方法 |
@@ -116,13 +116,13 @@ Java堆是垃圾收集器管理的主要区域，从内存回收的角度来看�
 | invokespecial | 用于调用一些需要特殊处理的实例方法，包括实例初始化方法、私有方法和父类方法 | 
 
 ## 类加载器
-| 类加载器 | 说明                      
+| 类加载器 | 说明 |                     
 |----------|-----|
 | BootstrapClassLoader | Bootstrap 类加载器负责加载 rt.jar 中的 JDK 类文件，它是所有类加载器的父加载器。Bootstrap 类加载器没有任何父类加载器，如果你调用 String.class.getClassLoader()，会返回 null，任何基于此的代码会抛出 NUllPointerException 异常。Bootstrap 加载器被称为初始类加载器 |
 | ExtClassLoader | 而 Extension 将加载类的请求先委托给它的父加载器，也就是Bootstrap，如果没有成功加载的话，再从 jre/lib/ext 目录下或者 java.ext.dirs 系统属性定义的目录下加载类。Extension 加载器由 sun.misc.Launcher$ExtClassLoader 实现 |
 | AppClassLoader | 第三种默认的加载器就是 System 类加载器（又叫作 Application 类加载器）了。它负责从 classpath 环境变量中加载某些应用相关的类，classpath 环境变量通常由 -classpath 或 -cp 命令行选项来定义，或者是 JAR 中的 Manifest 的 classpath 属性。Application 类加载器是 Extension 类加载器的子加载器 |
 
-| 工作原理 | 说明                      
+| 工作原理 | 说明 |                     
 |----------|------|
 | 委托机制 | 加载任务委托交给父类加载器，如果不行就向下传递委托任务，由其子类加载器加载，保证 java 核心库的安全性 |
 | 可见性机制 | 子类加载器可以看到父类加载器加载的类，而反之则不行 |
@@ -291,7 +291,7 @@ public int hashCode() {
 | NumberFormatException | SecurityException | UnsupportedOperationException |
 | 常见的检查性异常 |  |
 | IOException | CloneNotSupportedException | IllegalAccessException |
-| NoSuchFieldException | NoSuchMethodException | FileNotFoundException
+| NoSuchFieldException | NoSuchMethodException | FileNotFoundException |
 
 # 内部类
 - 非静态内部类没法在外部类的静态方法中实例化。
@@ -760,35 +760,35 @@ public class CustomManager{
 线程是进程中可独立执行的最小单位，也是 CPU 资源（时间片）分配的基本单位。同一个进程中的线程可以共享进程中的资源，如内存空间和文件句柄。
 
 ## 属性
-| 属性 | 说明 
-|--|--
-| id | 线程 id 用于标识不同的线程。编号可能被后续创建的线程使用。编号是只读属性，不能修改
-| name | 名字的默认值是 Thread-(id)
-| daemon | 分为守护线程和用户线程，我们可以通过 setDaemon(true) 把线程设置为守护线程。守护线程通常用于执行不重要的任务，比如监控其他线程的运行情况，GC 线程就是一个守护线程。setDaemon() 要在线程启动前设置，否则 JVM 会抛出非法线程状态异常，可被继承。
-| priority | 线程调度器会根据这个值来决定优先运行哪个线程（不保证），优先级的取值范围为 1~10，默认值是 5，可被继承。Thread 中定义了下面三个优先级常量：<br>- 最低优先级：MIN_PRIORITY = 1<br>- 默认优先级：NORM_PRIORITY = 5<br>- 最高优先级：MAX_PRIORITY = 10
+| 属性 | 说明 |
+|--|--|
+| id | 线程 id 用于标识不同的线程。编号可能被后续创建的线程使用。编号是只读属性，不能修改 |
+| name | 名字的默认值是 Thread-(id) |
+| daemon | 分为守护线程和用户线程，我们可以通过 setDaemon(true) 把线程设置为守护线程。守护线程通常用于执行不重要的任务，比如监控其他线程的运行情况，GC 线程就是一个守护线程。setDaemon() 要在线程启动前设置，否则 JVM 会抛出非法线程状态异常，可被继承。 |
+| priority | 线程调度器会根据这个值来决定优先运行哪个线程（不保证），优先级的取值范围为 1~10，默认值是 5，可被继承。Thread 中定义了下面三个优先级常量：<br>- 最低优先级：MIN_PRIORITY = 1<br>- 默认优先级：NORM_PRIORITY = 5<br>- 最高优先级：MAX_PRIORITY = 10 |
 
 ## 状态
 ![](https://pic2.zhimg.com/80/v2-326a2be9b86b1446d75b6f52f54c98fb_hd.jpg)
 
-| 状态 | 说明 
-|--|--
-| New | 新创建了一个线程对象，但还没有调用start()方法。
-| Runnable | Ready 状态 线程对象创建后，其他线程(比如 main 线程）调用了该对象的 start() 方法。该状态的线程位于可运行线程池中，等待被线程调度选中 获取 cpu 的使用权。Running 绪状态的线程在获得 CPU 时间片后变为运行中状态（running）。
-| Blocked | 线程因为某种原因放弃了cpu 使用权（等待锁），暂时停止运行
-| Waiting | 线程进入等待状态因为以下几个方法：<br>- Object#wait()<br>- Thread#join()<br>- LockSupport#park()
-| Timed Waiting | 有等待时间的等待状态。
-| Terminated | 表示该线程已经执行完毕。
+| 状态 | 说明 |
+|--|--|
+| New | 新创建了一个线程对象，但还没有调用start()方法。 |
+| Runnable | Ready 状态 线程对象创建后，其他线程(比如 main 线程）调用了该对象的 start() 方法。该状态的线程位于可运行线程池中，等待被线程调度选中 获取 cpu 的使用权。Running 绪状态的线程在获得 CPU 时间片后变为运行中状态（running）。 |
+| Blocked | 线程因为某种原因放弃了cpu 使用权（等待锁），暂时停止运行 |
+| Waiting | 线程进入等待状态因为以下几个方法：<br>- Object#wait()<br>- Thread#join()<br>- LockSupport#park() |
+| Timed Waiting | 有等待时间的等待状态。 |
+| Terminated | 表示该线程已经执行完毕。 |
 
 ## 状态控制
 - wait() / notify() / notifyAll()
   
 ``wait()``，``notify()``，``notifyAll()`` 是定义在Object类的实例方法，用于控制线程状态，三个方法都必须在synchronized 同步关键字所限定的作用域中调用，否则会报错 ``java.lang.IllegalMonitorStateException``。
 
-| 方法 | 说明
-|--|--
-| ``wait()`` | 线程状态由 的使用权。Running 变为 Waiting, 并将当前线程放入等待队列中
-| ``notify()`` | notify() 方法是将等待队列中一个等待线程从等待队列移动到同步队列中
-| ``notifyAll() `` | 则是将所有等待队列中的线程移动到同步队列中
+| 方法 | 说明 |
+|--|--|
+| ``wait()`` | 线程状态由 的使用权。Running 变为 Waiting, 并将当前线程放入等待队列中 |
+| ``notify()`` | notify() 方法是将等待队列中一个等待线程从等待队列移动到同步队列中 |
+| ``notifyAll() `` | 则是将所有等待队列中的线程移动到同步队列中 |
 
 被移动的线程状态由 Running 变为 Blocked，notifyAll 方法调用后，等待线程依旧不会从 wait() 返回,需要调用 notify() 或者 notifyAll() 的线程释放掉锁后，等待线程才有机会从 wait() 返回。
 
@@ -848,12 +848,12 @@ public interface Lock {
     Condition newCondition();
 }
 ```
-| 方法 | 说明
-|--|--
-| ``lock()`` | 用来获取锁，如果锁被其他线程获取，处于等待状态。如果采用 Lock，必须主动去释放锁，并且在发生异常时，不会自动释放锁。因此一般来说，使用Lock必须在 try{}catch{} 块中进行，并且将释放锁的操作放在finally块中进行，以保证锁一定被被释放，防止死锁的发生。
-| ``lockInterruptibly()`` | 通过这个方法去获取锁时，如果线程正在等待获取锁，则这个线程能够响应中断，即中断线程的等待状态。
-| ``tryLock()`` | tryLock 方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回 true，如果获取失败（即锁已被其他线程获取），则返回 false，也就说这个方法无论如何都会立即返回。在拿不到锁时不会一直在那等待。
-| ``tryLock(long，TimeUnit)`` | 与 tryLock 类似，只不过是有等待时间，在等待时间内获取到锁返回 true，超时返回 false。
+| 方法 | 说明 |
+|--|--|
+| ``lock()`` | 用来获取锁，如果锁被其他线程获取，处于等待状态。如果采用 Lock，必须主动去释放锁，并且在发生异常时，不会自动释放锁。因此一般来说，使用Lock必须在 try{}catch{} 块中进行，并且将释放锁的操作放在finally块中进行，以保证锁一定被被释放，防止死锁的发生。 |
+| ``lockInterruptibly()`` | 通过这个方法去获取锁时，如果线程正在等待获取锁，则这个线程能够响应中断，即中断线程的等待状态。 |
+| ``tryLock()`` | tryLock 方法是有返回值的，它表示用来尝试获取锁，如果获取成功，则返回 true，如果获取失败（即锁已被其他线程获取），则返回 false，也就说这个方法无论如何都会立即返回。在拿不到锁时不会一直在那等待。 |
+| ``tryLock(long，TimeUnit)`` | 与 tryLock 类似，只不过是有等待时间，在等待时间内获取到锁返回 true，超时返回 false。 |
 
 
 ## 锁的分类
@@ -1069,11 +1069,11 @@ public static byte[] generateProxyClass(final String name,
 # 元注解
 @Retention：保留的范围，可选值有三种。
 
-| RetentionPolicy | 说明
-|----|----
-| SOURCE | 注解将被编译器丢弃（该类型的注解信息只会保留在源码里，源码经过编译后，注解信息会被丢弃，不会保留在编译好的class文件里），如 @Override
-| CLASS | 注解在class文件中可用，但会被 VM 丢弃（该类型的注解信息会保留在源码里和 class 文件里，在执行的时候，不会加载到虚拟机中），请注意，当注解未定义 Retention 值时，默认值是 CLASS。
-| RUNTIME | 注解信息将在运行期 (JVM) 也保留，因此可以通过反射机制读取注解的信息（源码、class 文件和执行的时候都有注解的信息），如 @Deprecated
+| RetentionPolicy | 说明 |
+|----|----|
+| SOURCE | 注解将被编译器丢弃（该类型的注解信息只会保留在源码里，源码经过编译后，注解信息会被丢弃，不会保留在编译好的class文件里），如 @Override |
+| CLASS | 注解在class文件中可用，但会被 VM 丢弃（该类型的注解信息会保留在源码里和 class 文件里，在执行的时候，不会加载到虚拟机中），请注意，当注解未定义 Retention 值时，默认值是 CLASS。 |
+| RUNTIME | 注解信息将在运行期 (JVM) 也保留，因此可以通过反射机制读取注解的信息（源码、class 文件和执行的时候都有注解的信息），如 @Deprecated |
 
 @Target：可以用来修饰哪些程序元素，如 TYPE, METHOD, CONSTRUCTOR, FIELD, PARAMETER等，未标注则表示可修饰所有
 
