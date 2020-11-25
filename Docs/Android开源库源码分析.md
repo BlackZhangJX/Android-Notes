@@ -71,7 +71,7 @@
 
 OKHttp内部的大致请求流程图如下所示：
 
-![image](https:////p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/976154d56c224d96b33b1ca424e935a2~tplv-k3u1fbpfcp-zoom-1.image)
+![image](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/976154d56c224d96b33b1ca424e935a2~tplv-k3u1fbpfcp-zoom-1.image)
 
 如下为使用OKHttp进行Get请求的步骤：
 
@@ -771,7 +771,7 @@ public interface GitHubService {
 
 ### 创建Retrofit并生成API的实现
 
-> （**注意：**方法上面的注解表示请求的接口部分，返回类型是请求的返回值类型，方法的参数即是请求的参数）
+> （**注意：** 方法上面的注解表示请求的接口部分，返回类型是请求的返回值类型，方法的参数即是请求的参数）
 
 ```
 // 1.Retrofit构建过程
@@ -1465,7 +1465,7 @@ public void enqueue(final Callback<T> callback) {
 
 建议大家自己主动配合着Retrofit最新版的源码一步步去彻底地认识它，只有这样，你才能看到它真实的内心，附上一张Retrofit源码流程图，要注意的是，这是V2.5之前版本的流程，但是，在看完上面的源码分析后，我们知道，主体流程是没有变化的。
 
-![image](https:////p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7ab58d6242cc4fae96cd73eb198e325a~tplv-k3u1fbpfcp-zoom-1.image)
+![image](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/7ab58d6242cc4fae96cd73eb198e325a~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
@@ -1507,7 +1507,7 @@ public class MyAppGlideModule extends AppGlideModule {
 
 首先，用这份Glide框架图让我们对Glide的总体框架有一个初步的了解。
 
-![image](https:////p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2478933d44534c2fabb6466049b9f3b7~tplv-k3u1fbpfcp-zoom-1.image)
+![image](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/2478933d44534c2fabb6466049b9f3b7~tplv-k3u1fbpfcp-zoom-1.image)
 
 从GlideApp.with这行代码开始，内部主线执行流程如下。
 
@@ -1722,7 +1722,7 @@ public RequestManager get(@NonNull Context context) {
 
 ### with方法的执行流程
 
-![image](https:////p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a307a034fea446a486c4f988849751a0~tplv-k3u1fbpfcp-zoom-1.image)
+![image](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/a307a034fea446a486c4f988849751a0~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## load(url)源码详解
 
@@ -1760,7 +1760,7 @@ private RequestBuilder<TranscodeType> loadGeneric(@Nullable Object model) {
 
 ### load方法的执行流程
 
-![image](https:////p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/33114794d81a421ea4345806826919b7~tplv-k3u1fbpfcp-zoom-1.image)
+![image](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/33114794d81a421ea4345806826919b7~tplv-k3u1fbpfcp-zoom-1.image)
 
 ## into(iv)源码详解
 
@@ -2976,7 +2976,7 @@ public class BitmapImageViewTarget extends ImageViewTarget<Bitmap> {
 
 ## 完整Glide加载流程图
 
-![img](https:////p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f9da2924eeab4ef79249b5836fd916da~tplv-k3u1fbpfcp-zoom-1.image)
+![img](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/f9da2924eeab4ef79249b5836fd916da~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
@@ -3027,7 +3027,7 @@ public class HistoryData {
 
 ### 选择ReBuild Project，HistoryData会被自动添加Set/get方法，并生成整个项目的DaoMaster、DaoSession类，以及与该实体HistoryData对应的HistoryDataDao。
 
-![image](https:////p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/75ea30aea6034e939918d0da2b43c9d9~tplv-k3u1fbpfcp-zoom-1.image)
+![image](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/75ea30aea6034e939918d0da2b43c9d9~tplv-k3u1fbpfcp-zoom-1.image)
 
 ```
 @Entity
@@ -3291,7 +3291,7 @@ public abstract class AbstractDaoMaster {
 }
 ```
 
-在AbstractDaoMaster对象的构造方法中，除了记录当前的数据库对象db和版本schemaVersion之外，还创建了一个类型为**HashMap<Class>, DaoConfig>()的daoConfigMap对象用于保存每一个DAO对应的数据配置对象DaoConfig，并且Daoconfig对象存储了对应的Dao对象所必需的数据**。最后，在DaoMaster的构造方法中使用了registerDaoClass(HistoryDataDao.class)方法将HistoryDataDao类对象进行了注册，实际上，就是为HistoryDataDao这个Dao对象创建了相应的DaoConfig对象并将它放入daoConfigMap对象中保存起来。
+在AbstractDaoMaster对象的构造方法中，除了记录当前的数据库对象db和版本schemaVersion之外，还创建了一个类型为**HashMap`<Class>`, DaoConfig>()的daoConfigMap对象用于保存每一个DAO对应的数据配置对象DaoConfig，并且Daoconfig对象存储了对应的Dao对象所必需的数据**。最后，在DaoMaster的构造方法中使用了registerDaoClass(HistoryDataDao.class)方法将HistoryDataDao类对象进行了注册，实际上，就是为HistoryDataDao这个Dao对象创建了相应的DaoConfig对象并将它放入daoConfigMap对象中保存起来。
 
 ### 创建DaoSession对象
 
