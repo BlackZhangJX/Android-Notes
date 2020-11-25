@@ -5349,7 +5349,7 @@ public class DisplayLeakService extends AbstractAnalysisResultService {
 
 ## LeakCanary运作流程
 
-![image](https:////p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d0363331db824e7ab342e4bd74702a93~tplv-k3u1fbpfcp-zoom-1.image)
+![image](https://p3-juejin.byteimg.com/tos-cn-i-k3u1fbpfcp/d0363331db824e7ab342e4bd74702a93~tplv-k3u1fbpfcp-zoom-1.image)
 
 
 
