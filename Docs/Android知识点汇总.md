@@ -555,7 +555,7 @@ imageView.setOnTouchListener(new View.OnTouchListener() {
 如果是监听滑动相关，建议在 ``onTouchEvent`` 中实现，如果要监听双击，那么就使用 ``GestureDectector``。
 
 ## Scroller
-弹性滑动对象，用于实现 View 的弹性滑动，**Scroller** 本身无法让 View 弹性滑动，需要和 View 的 ``computeScroll`` 方法配合使用。``startScroll`` 方法是无法让 View 滑动的，``invalidate`` 会导致 View 重绘，重回后会在 ``draw`` 方法中又会去调用 ``computeScroll`` 方法，``computeScroll`` 方法又会去向 Scroller 获取当前的 scrollX 和 scrollY，然后通过 ``scrollTo`` 方法实现滑动，接着又调用 ``postInvalidate`` 方法如此反复。
+弹性滑动对象，用于实现 View 的弹性滑动，**Scroller** 本身无法让 View 弹性滑动，需要和 View 的 ``computeScroll`` 方法配合使用。``startScroll`` 方法是无法让 View 滑动的，``invalidate`` 会导致 View 重绘，重绘后会在 ``draw`` 方法中又会去调用 ``computeScroll`` 方法，``computeScroll`` 方法又会去向 Scroller 获取当前的 scrollX 和 scrollY，然后通过 ``scrollTo`` 方法实现滑动，接着又调用 ``postInvalidate`` 方法如此反复。
 ```java
 Scroller mScroller = new Scroller(mContext);
 
