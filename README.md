@@ -9,7 +9,7 @@ Emm……辛辛苦苦种树……确定不来个Star鼓励一下？
 
 >部分内容收集整理于网络，在此也再次感谢所有内容产出者的贡献！
 >> [**版权声明**](#版权声明)
->>>如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料、面试资料，进阶、架构资料，都可以加上[**QQ群**](#contanct-me)领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
+>>>如果觉得看起来比较麻烦，需要PDF版本，或是需要更多学习资料、面试资料，进阶、架构资料，都可以加上[**VX或QQ群**](#contanct-me)领取。祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
 
 
 # Android-Notes
@@ -635,6 +635,16 @@ Android开发核心知识点笔记-目录：
 >>>行了行了，名字很随意已经有很多人说过了…毕竟还是要恰饭的嘛…
 
 祝愿每一位有追求的Android开发同胞都能进大厂拿高薪！
+
+## 微信
+
+VX号：**mm14525201314**（需要资料备注一下GitHub，资料）
+
+<div align="center">
+<img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true">
+</div>
+
+想加入微信群聊的话，备注：GitHub，加群
 
 ## QQ群
 
