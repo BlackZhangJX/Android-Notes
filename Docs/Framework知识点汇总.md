@@ -192,7 +192,7 @@
       - [addWindow方法总结](#addwindow方法总结)
     - [结语](#结语)
   - [WMS（三）：Window的删除过程](#wms三window的删除过程)
-    - [Window的删除过程](#window的删除过程)# Handler
+    - [Window的删除过程](#window的删除过程)
 
 # Handler
 
