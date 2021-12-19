@@ -1,0 +1,2959 @@
+- [启动优化](#启动优化)
+  - [视觉优化](#视觉优化)
+    - [启动主题优化](#启动主题优化)
+  - [代码优化](#代码优化)
+    - [冷启动耗时统计](#冷启动耗时统计)
+    - [Application 优化](#Application-优化)
+    - [闪屏页业务优化](#闪屏页业务优化)
+    - [广告页优化](#广告页优化)
+  - [优化效果](#优化效果)
+  - [启动窗口](#启动窗口)
+- [UI渲染优化](#UI渲染优化)
+  - [CPU、GPU的职责](#CPUGPU的职责)
+  - [查找Overdraw](#查找Overdraw)
+  - [clipRect解决自定义View的OverDraw](#clipRect解决自定义View的OverDraw)
+  - [Hierarchy Viewer的使用](#Hierarchy-Viewer的使用)
+  - [内存抖动现象](#内存抖动现象)
+- [崩溃优化](#崩溃优化)
+  - [崩溃](#崩溃)
+    - [崩溃的收集](#崩溃的收集)
+    - [ANR](#ANR)
+    - [应用退出](#应用退出)
+  - [崩溃处理](#崩溃处理)
+    - [崩溃现场](#崩溃现场)
+    - [崩溃分析](#崩溃分析)
+    - [系统崩溃](#系统崩溃)
+- [内存优化](#内存优化)
+  - [优化工具](#优化工具)
+    - [Memory Profiler](#Memory-Profiler)
+    - [Memory Analyzer（MAT）](#Memory-AnalyzerMAT)
+    - [LeakCannary](#LeakCannary)
+  - [内存管理](#内存管理)
+    - [内存区域](#内存区域)
+    - [对象存活判断](#对象存活判断)
+    - [垃圾回收算法](#垃圾回收算法)
+  - [内存抖动](#内存抖动)
+    - [模拟内存抖动](#模拟内存抖动)
+    - [分析并定位](#分析并定位)
+  - [内存泄露](#内存泄露)
+    - [模拟内存泄露](#模拟内存泄露)
+    - [分析并定位](#分析并定位-1)
+  - [MAT分析工具](#MAT分析工具)
+    - [Overview](#Overview)
+    - [Histogram](#Histogram)
+    - [Dominator_tree](#Dominator_tree)
+    - [SQL](#SQL)
+    - [Thread_overview](#Thread_overview)
+    - [Top Consumers](#Top-Consumers)
+    - [Leak Suspects](#Leak-Suspects)
+  - [通过ARTHook检测不合理图片](#通过ARTHook检测不合理图片)
+    - [获取Bitmap占用内存](#获取Bitmap占用内存)
+    - [检测大图](#检测大图)
+  - [线上内存监控](#线上内存监控)
+    - [常规方案](#常规方案)
+    - [LeakCannary定制改造](#LeakCannary定制改造)
+    - [完整方案](#完整方案)
+- [卡顿优化](#卡顿优化)
+  - [卡顿](#卡顿)
+  - [帧率](#帧率)
+  - [卡顿原因](#卡顿原因)
+  - [卡顿检测](#卡顿检测)
+    - [使用dumpsys gfxinfo](#使用dumpsys-gfxinfo)
+    - [使用systrace](#使用systrace)
+    - [使用BlockCanary](#使用BlockCanary)
+    - [使用Choreographer](#使用Choreographer)
+  - [优化](#优化)
+- [存储优化](#存储优化)
+  - [交换数据格式](#交换数据格式)
+  - [SharePreferences 优化](#SharePreferences-优化)
+  - [Bitmap 解码](Bitmap-解码)
+  - [数据库优化](#数据库优化)
+    - [事务](#事务)
+    - [SQLiteStatement](#SQLiteStatement)    
+    - [索引](#索引)
+  - [其它通用优化](#其它通用优化)
+- [网络优化](#网络优化)
+  - [网络连接对用户的影响](#网络连接对用户的影响)
+  - [分析网络连接的工具](#分析网络连接的工具)
+    - [Network Monitor](#Network-Monitor)
+    - [网络代理工具](#网络代理工具)
+  - [从哪些方面优化网络连接](#从哪些方面优化网络连接)
+    - [接口设计](#接口设计)
+    - [网络缓存](#网络缓存)
+    - [弱网测试&优化](#弱网测试&优化)
+- [耗电优化](#耗电优化)
+  - [耗电监控](#耗电监控)
+    - [Android Vitals](#Android-Vitals)
+  - [耗电监控都监控什么](#耗电监控都监控什么)
+  - [如何监控耗电](#如何监控耗电)
+    - [Java Hook](#Java-Hook)
+    - [插桩](#插桩)
+- [多线程并发优化](#多线程并发优化)
+  - [Thread 使用](#Thread-使用)
+    - [Thread 中断](#Thread-中断)
+    - [同步](#同步)
+  - [Android Threading](#Android-Threading)
+    - [AsyncTask](#AsyncTask)
+    - [HandlerThread](#HandlerThread)
+    - [IntentService](#IntentService)
+    - [Loader](#Loader)
+    - [ThreadPool](#ThreadPool)
+  - [线程优先级](#线程优先级)
+- [安装包优化](#安装包优化)
+  - [常用的优化方式](#常用的优化方式)
+    - [清理无用资源](#清理无用资源)
+    - [图片资源优化](#图片资源优化)
+    - [资源动态加载](#资源动态加载)
+    - [lib库优化](#lib库优化)
+    - [7zip压缩资源](#7zip压缩资源)
+    - [代码混淆](#代码混淆)
+    - [资源(res)混淆](#资源res混淆)
+    - [使用微信AndResGuard](#使用微信AndResGuard)
+    - [Facebook的redex优化字节码](#Facebook的redex优化字节码)
+
+# 启动优化
+一个应用App的启动速度能够影响用户的首次体验，启动速度较慢(感官上)的应用可能导致用户再次开启App的意图下降，或者卸载放弃该应用程序。
+
+## 视觉优化
+应用程序启动有三种状态，每种状态都会影响应用程序对用户可见所需的时间：冷启动，热启动和温启动。
+
+> 在冷启动时，应用程序从头开始。在其他状态下，系统需要将正在运行的应用程序从后台运行到前台。我们建议您始终根据冷启动的假设进行优化。这样做也可以改善热启动和温启动的性能。
+
+在冷启动开始时，系统有三个任务。这些任务是：
+1. 加载并启动应用程序。
+2. 启动后立即显示应用程序空白的启动窗口。
+3. 创建应用程序进程。
+
+> 一旦系统创建应用程序进程，应用程序进程就会负责下一阶段。这些阶段是：
+1. 创建app对象.
+2. 启动主线程(main thread).
+3. 创建应用入口的Activity对象.
+4. 填充加载布局Views
+5. 在屏幕上执行View的绘制过程.measure -> layout -> draw
+
+> 应用程序进程完成第一次绘制后，系统进程会交换当前显示的背景窗口，将其替换为主活动。此时，用户可以开始使用该应用程序。
+
+![](https://img-blog.csdn.net/20180821203949125?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+因为App应用进程的创建过程是由手机的软硬件决定的，所以我们只能在这个创建过程中视觉优化。
+
+### 启动主题优化
+冷启动阶段 :
+1. 加载并启动应用程序。
+2. 启动后立即显示应用程序空白的启动窗口。
+3. 创建应用程序进程。
+所谓的主题优化，就是应用程序在冷启动的时候(1~2阶段)，设置启动窗口的主题。
+
+因为现在 App 应用启动都会先进入一个闪屏页(LaunchActivity) 来展示应用信息。
+
+- **默认情况**
+
+如果我们对App没有做处理(设置了默认主题)，并且在 Application 初始化了其它第三方的服务(假设需要加载2000ms)，那么冷启动过程就会如下图 ：
+
+![](https://img-blog.csdn.net/20180821174737118?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+系统默认会在启动应用程序的时候**启动空白窗口**，直到 App 应用程序的入口 Activity 创建成功，视图绘制完毕。( 大概是onWindowFocusChanged方法回调的时候 )
+
+- **透明主题优化**
+
+为了解决启动窗口白屏问题，许多开发者使用透明主题来解决这个问题，但是治标不治本。
+虽然解决了上面这个问题，但是仍然有些不足。
+
+```java
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+```
+
+![](https://img-blog.csdn.net/2018082120304024?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+(无白屏,不过从点击到App仍然存在视觉延迟~)
+
+- **设置闪屏图片主题**
+
+为了更顺滑无缝衔接我们的闪屏页，可以在启动 Activity 的 Theme中设置闪屏页图片，这样启动窗口的图片就会是闪屏页图片，而不是白屏。
+
+```java
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowBackground">@drawable/lunch</item>  //闪屏页图片
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowDrawsSystemBarBackgrounds">false</item><!--显示虚拟按键，并腾出空间-->
+    </style>
+```
+
+![](https://img-blog.csdn.net/20180821204758547?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+这样设置的话，就会在冷启动的时候，展示闪屏页的图片，等App进程初始化加载入口 Activity (也是闪屏页) 就可以无缝衔接。
+
+其实这种方式并没有真正的加速应用进程的启动速度，而只是通过用户视觉效果带来的优化体验。
+
+## 代码优化
+当然上面使用设置主题的方式优化用户体验效果治标不治本，关键还在于对代码的优化。
+
+首先统计一下应用冷启动的时间。
+
+### 冷启动耗时统计
+- **adb 命令统计**
+
+adb命令 :`adb shell am start -S -W 包名/启动类的全限定名`， -S 表示重启当前应用
+
+```java
+C:\Android\Demo>adb shell am start -S -W com.example.moneyqian.demo/com.example.moneyqian.demo.MainActivity
+Stopping: com.example.moneyqian.demo
+Starting: Intent { act=android.intent.action.MAIN cat=[android.intent.category.LAUNCHER] cmp=com.example.moneyqian.demo/.MainActivity }
+Status: ok
+Activity: com.example.moneyqian.demo/.MainActivity
+ThisTime: 2247
+TotalTime: 2247
+WaitTime: 2278
+Complete
+```
+
+- ThisTime : 最后一个 Activity 的启动耗时(例如从 LaunchActivity - >MainActivity「adb命令输入的Activity」 , 只统计 MainActivity 的启动耗时)
+
+- TotalTime : 启动一连串的 Activity 总耗时.(有几个Activity 就统计几个)
+
+- WaitTime : 应用进程的创建过程 + TotalTime .
+
+![](https://img-blog.csdn.net/20180823165453780?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+- 在第①个时间段内，AMS 创建 ActivityRecord 记录块和选择合理的 Task、将当前Resume 的 Activity 进行 pause.
+
+- 在第②个时间段内，启动进程、调用无界面 Activity 的 onCreate() 等、 pause/finish 无界面的 Activity.
+
+- 在第③个时间段内，调用有界面 Activity 的 onCreate、onResume.
+
+```java
+//ActivityRecord
+
+    private void reportLaunchTimeLocked(final long curTime) {
+……
+        final long thisTime = curTime - displayStartTime;
+        final long totalTime = stack.mLaunchStartTime != 0 ? (curTime - stack.mLaunchStartTime) : thisTime;
+    }
+```
+
+如果需要统计从点击桌面图标到 Activity 启动完毕，可以用WaitTime作为标准，但是系统的启动时间优化不了，所以优化冷启动只要在意**ThisTime**即可。
+
+- **系统日志统计**
+
+也可以根据系统日志来统计启动耗时，在Android Studio中查找已用时间，必须在logcat视图中禁用过滤器(No Filters)。因为这个是系统的日志输出，而不是应用程序的。你也可以查看其它应用程序的启动耗时。
+
+过滤`displayed`输出的启动日志.
+
+![](https://img-blog.csdn.net/20180823173958565?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+根据上面启动时间的输出统计，就可以先记录优化前的冷启动耗时，然后再对比优化之后的启动时间。
+
+### Application 优化
+
+Application 作为 应用程序的整个初始化配置入口，时常担负着它不应该有的负担
+
+有很多第三方组件（包括App应用本身）都在 Application 中抢占先机，完成初始化操作。
+
+但是在 Application 中完成繁重的初始化操作和复杂的逻辑就会影响到**应用的启动性能**
+
+通常，有机会优化这些工作以实现性能改进，这些常见问题包括：
+1. 复杂繁琐的布局初始化
+2. 阻塞主线程 UI 绘制的操作，如 I/O 读写或者是网络访问.
+3. Bitmap 大图片或者 VectorDrawable加载
+4. 其它占用主线程的操作
+
+我们可以根据这些组件的轻重缓急之分，对初始化做一下分类 ：
+1. 必要的组件一定要在**主线程中立即**初始化(入口 Activity 可能立即会用到)
+2. 组件一定要在**主线程**中初始化，但是可以延迟初始化。
+3. 组件可以在**子线程**中初始化。
+
+**放在子线程的组件初始化建议延迟初始化**，这样就可以了解是否会对项目造成影响！
+
+所以对于上面的分析，可以在项目中 Application 的加载组件进行如下优化 ：
+
+- **将Bugly，x5内核初始化，SP的读写，友盟等组件放到子线程中初始化。**（子线程初始化不能影响到组件的使用）
+
+```java
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                //设置线程的优先级，不与主线程抢资源
+                Process.setThreadPriority(Process.THREAD_PRIORITY_BACKGROUND);
+				//子线程初始化第三方组件
+				Thread.sleep(5000);//建议延迟初始化，可以发现是否影响其它功能，或者是崩溃！
+            }
+        }).start();
+```
+
+- **将需要在主线程中初始化但是可以不用立即完成的动作延迟加载**（原本是想在入口 Activity 中进行此项操作，不过组件的初始化放在 Application 中统一管理为妙.）
+
+```java
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+				//延迟初始化组件
+            }
+        }, 3000);
+```
+
+### 闪屏页业务优化
+最后还剩下那些为数不多的组件在主线程初始化动作，例如**埋点，点击流，数据库初始化**等，不过这些消耗的时间可以在其它地方**相抵**。
+
+**需求背景**： 应用App通常会设置一个固定的闪屏页展示时间，例如2000ms，所以我们可以根据用户手机的运行速度，对展示时间做出调整，但是总时间仍然为 2000ms。
+
+**闪屏页政展示总时间** = **组件初始化时间** + **剩余展示时间**。
+
+也就是2000ms的总时间，组件初始化了800ms，那么就再展示1200ms即可。
+
+先了解一下 Application的启动过程
+虽然这个以下图片的源码并不是最新源码（5.0源码），不过不影响整体流程。（7.0,8.0方法名会有所改变）。
+
+![](https://img-blog.csdn.net/20180823215319329?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+![](https://img-blog.csdn.net/20180826181521975?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+冷启动的过程中系统会初始化应用程序进程，创建Application等任务，这时候会展示一个**启动窗口** Starting Window，如果没有优化主题的话，那么就是白屏。
+
+分析源码后，我们可以知道 Application 初始化后会调用`attachBaseContext()`方法，再调用 Application 的`onCreate()`，再到入口 Activity的创建和执行`onCreate()`方法。所以我们就可以在 Application 中记录启动时间。
+
+```java
+//Application
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+		SPUtil.putLong("application_attach_time", System.currentTimeMillis());//记录Application初始化时间
+    }
+```
+
+有了启动时间，我们得知道入口的 Acitivty 显示给用户的时间（View绘制完毕），在`onWindowFocusChanged()`的回调时机中表示可以获取用户的触摸时间和View的流程绘制完毕，所以可以在这个方法里记录显示时间。
+
+```java
+//入口Activity
+
+    @Override
+    public void onWindowFocusChanged(boolean hasFocus) {
+        super.onWindowFocusChanged(hasFocus);
+  
+          long appAttachTime = SPUtil.getLong("application_attach_time");
+          long diffTime = System.currentTimeMillis() - appAttachTime;//从application到入口Acitity的时间
+ 
+		 //所以闪屏页展示的时间为 2000ms - diffTime.
+    }
+```
+
+所以就可以动态的设置应用闪屏的显示时间，尽量让每一部手机展示的时间一致，这样就不会让手机配置较低的用户感觉漫长难熬的闪屏页时间（例如初始化了2000ms，又要展示2000ms的闪屏页时间.），优化用户体验。
+
+### 广告页优化
+闪屏页过后就要展示金主爸爸们的广告页了。
+
+因为项目中广告页图片有可能是大图，APng动态图片，所以需要将这些图片下载到本地文件，下载完成后再显示，这个过程往往会遇到以下两个问题 ：
+- 广告页的下载，由于这个是一个异步过程，所以往往不知道加载到页面的合适时机。
+- 广告页的保存，因为保存是 I/O 流操作，很有可能被用户中断，下次拿到破损的图片。
+
+因为不清楚用户的网络环境，有些用户下载广告页可能需要一段时间，这时候又不可能无限的等候。所以针对这个问题可以开启`IntentService`用来下载广告页图片。
+- 在入口 Acitivity 中开启**IntentService**来下载广告页。 或者是其它异步下载操作。
+- 在广告页图片**文件流完全写入后**记录图片大小，或者记录一个标识。
+
+在下次的广告页加载中可以**判断是否已经下载**好了广告页图片以及图片**是否完整**，否则删除并且再次下载图片。
+
+另外因为在闪屏页中仍然有**剩余展示时间**，所以在这个时间段里如果用户已经下载好了图片并且图片完整，就可以显示广告页。否则进入主 Activity ， 因为`IntentService`仍然在后台继续默默的下载并保存图片~
+
+## 优化效果
+优化前 ： （小米6）
+| Displayed | LaunchActivity |	MainActivity |
+| :--------: | :--------: | :--------: |
+|  | +2s526ms |	+1s583ms |
+|  | +2s603ms |	+1s533ms |
+|  | +2s372ms |	+1s556ms |
+
+优化后 ： （小米6）
+| Displayed |	LaunchActivity |	MainActivity |
+| :--------: | :--------: | :--------: |
+|  | +995ms |	+1s191ms |
+|  | +911ms |	+1s101ms |
+|  | +903ms |	+1s187ms |
+
+通过手上 小米6，小米 mix2s，还有小米 2s的启动测试，发现优化后App冷启动的启动速度均提升了 60% !!! ，并且可以再看一下手机冷启动时候的内存情况 ：
+
+优化前 ： 伴随着大量对象的创建回收，15s内系统GC 5次。内存使用波澜荡漾。
+
+![](https://img-blog.csdn.net/20180825150849193?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+优化后 ： 趋于平稳上升状态创建对象，15s内系统GC 2次。（后期业务拓展加入新功能，所以代码量增加。）之后总内存使用平缓下降。
+
+![](https://img-blog.csdn.net/20180825151003130?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+- **Other**：应用使用的系统不确定如何分类的内存。
+- **Code**：应用用于处理代码和资源（如 dex 字节码、已优化或已编译的 dex 码、.so 库和字体）的内存。
+- **Stack**： 应用中的原生堆栈和 Java 堆栈使用的内存。 这通常与您的应用运行多少线程有关。
+- **Graphics**：图形缓冲区队列向屏幕显示像素（包括 GL 表面、GL 纹理等等）所使用的内存。 （请注意，这是与 CPU 共享的内存，不是 GPU 专用内存。）
+- **Native**：从 C 或 C++ 代码分配的对象内存。即使应用中不使用 C++，也可能会看到此处使用的一些原生内存，因为 Android 框架使用原生内存代表处理各种任务，如处理图像资源和其他图形时，即使编写的代码采用 Java 或 Kotlin 语言。
+- **Java**：从 Java 或 Kotlin 代码分配的对象内存。
+- **Allocated**：应用分配的 Java/Kotlin 对象数。 它没有计入 C 或 C++ 中分配的对象。
+
+## 启动窗口
+优化完代码后，分析一下启动窗口的源码。基于 android-25 (7.1.1)
+
+启动窗口是由 `WindowManagerService` 统一管理的 `Window` 窗口，一般作为冷启动页入口 Activity 的预览窗口，启动窗口由 `ActivityManagerService` 来决定是否显示的，并不是每一个 Activity 的启动和跳转都会显示这个窗口。
+
+`WindowManagerService` 通过窗口管理策略类 `PhoneWindowManager` 来创建启动窗口。
+![](https://img-blog.csdn.net/2018082515534691?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+**AMS启动Activity流程**
+
+![](https://img-blog.csdn.net/2018082516213539?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+在 `ActivityStarter` 的 `startActivityUnchecked()` 方法中，调用了 `ActivityStack` （Activity 状态管理）的 `startActivityLocked()` 方法。此时Activity 还在启动过程中，窗口并未显示。
+
+**启动窗口的显示过程**
+
+![](https://img-blog.csdn.net/20180825170000818?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3FpYW41MjBhbw==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+首先，由 Activity 状态管理者 `ActivityStack` 开始执行显示启动窗口的流程。
+
+```java
+//ActivityStack
+
+
+ final void startActivityLocked(ActivityRecord r, boolean newTask, boolean keepCurTransition,
+            ActivityOptions options) {
+
+……
+        if (!isHomeStack() || numActivities() > 0) {//HOME_STACK表示Launcher桌面所在的Stack
+            // 1.首先当前启动栈不在Launcher的桌面栈里,并且当前系统已经有激活过Activity
+            
+            // We want to show the starting preview window if we are
+            // switching to a new task, or the next activity's process is
+            // not currently running.
+    
+            boolean doShow = true;
+            if (newTask) {
+                // 2.要将该Activity组件放在一个新的任务栈中启动
+                
+                // Even though this activity is starting fresh, we still need
+                // to reset it to make sure we apply affinities to move any
+                // existing activities from other tasks in to it.
+                if ((r.intent.getFlags() & Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED) != 0) {
+                    resetTaskIfNeededLocked(r, r);
+                    doShow = topRunningNonDelayedActivityLocked(null) == r;
+                }
+            } else if (options != null && options.getAnimationType()
+                    == ActivityOptions.ANIM_SCENE_TRANSITION) {
+                doShow = false;
+            }
+            if (r.mLaunchTaskBehind) {
+                //3. 热启动，不需要启动窗口
+                
+                // Don't do a starting window for mLaunchTaskBehind. More importantly make sure we
+                // tell WindowManager that r is visible even though it is at the back of the stack.
+                mWindowManager.setAppVisibility(r.appToken, true);
+                ensureActivitiesVisibleLocked(null, 0, !PRESERVE_WINDOWS);
+            } else if (SHOW_APP_STARTING_PREVIEW && doShow) {
+    
+    			……
+    			//4. 显示启动窗口
+                r.showStartingWindow(prev, showStartingIcon);
+            }
+        } else {
+            // 当前启动的是桌面Launcher (开机启动)
+            // If this is the first activity, don't do any fancy animations,
+            // because there is nothing for it to animate on top of.
+    		……
+        }
+    
+    }
+```
+
+1. 首先判断当前要启动的 Activity 不在Launcher栈里
+2. 要启动的 Activity 是否处于新的 Task 里，并且没有转场动画
+3. 如果是热/温启动则不需要启动窗口，直接设置App的Visibility
+
+接下来调用 `ActivityRecord` 的 `showStartingWindow()` 方法来设置启动窗口并且改变当前窗口的状态。
+
+如果 App 的应用进程创建完成，并且入口 Activity 准备就绪，就可以根据 `mStartingWindowState` 来判断是否需要关闭启动窗口。
+
+```java
+//ActivityRecord
+
+
+    void showStartingWindow(ActivityRecord prev, boolean createIfNeeded) {
+        final CompatibilityInfo compatInfo =
+                service.compatibilityInfoForPackageLocked(info.applicationInfo);
+        final boolean shown = service.mWindowManager.setAppStartingWindow(
+                appToken, packageName, theme, compatInfo, nonLocalizedLabel, labelRes, icon,
+                logo, windowFlags, prev != null ? prev.appToken : null, createIfNeeded);
+        if (shown) {
+            mStartingWindowState = STARTING_WINDOW_SHOWN;
+        }
+    }
+```
+
+WindowManagerService 会对当前 Activity 的token和主题进行判断。
+
+```java
+//WindowManagerService
+
+ @Override
+    public boolean setAppStartingWindow(IBinder token, String pkg,
+            int theme, CompatibilityInfo compatInfo,
+            CharSequence nonLocalizedLabel, int labelRes, int icon, int logo,
+            int windowFlags, IBinder transferFrom, boolean createIfNeeded) {
+
+        synchronized(mWindowMap) {
+
+			//1. 启动窗口也是需要token的
+            AppWindowToken wtoken = findAppWindowToken(token);
+            
+			//2. 如果已经设置过启动窗口了，不继续处理
+            if (wtoken.startingData != null) {
+                return false;
+            }
+
+            // If this is a translucent window, then don't
+            // show a starting window -- the current effect (a full-screen
+            // opaque starting window that fades away to the real contents
+            // when it is ready) does not work for this.
+            if (theme != 0) {
+                AttributeCache.Entry ent = AttributeCache.instance().get(pkg, theme,
+                        com.android.internal.R.styleable.Window, mCurrentUserId);
+                        
+               //3. 一堆代码对主题判断，不符合要求则不显示启动窗口（如透明主题）
+                if (windowIsTranslucent) {
+                    return false;
+                }
+                if (windowIsFloating || windowDisableStarting) {
+                    return false;
+                }
+……
+            }
+    
+    		//4. 创建StartingData，并且通过Handler发送消息
+    
+            wtoken.startingData = new StartingData(pkg, theme, compatInfo, nonLocalizedLabel,
+                    labelRes, icon, logo, windowFlags);
+            Message m = mH.obtainMessage(H.ADD_STARTING, wtoken);
+            // Note: we really want to do sendMessageAtFrontOfQueue() because we
+            // want to process the message ASAP, before any other queued
+            // messages.
+    
+            mH.sendMessageAtFrontOfQueue(m);
+        }
+        return true;
+    }
+```
+
+1. 启动窗口也需要和 Activity 拥有同样令牌 token ，虽然启动窗口可能是白屏，或者一张图片，但是仍然需要走绘制流程已经通过WMS显示窗口。
+2. StartingData对象用来表示启动窗口的相关数据，描述了启动窗口的视图信息。
+3. 如果当前 Activity 是透明主题或者是浮动窗口等，那么就不需要启动窗口来过渡启动过程，所以在上面视觉优化中的设置透明主题就没有显示白色的启动窗口。
+4. 显示启动窗口也是一件心急火燎的事情，WMS的内部类H (handler) 处于主线程处理消息，所以需要将当前Message放置队列头部。
+
+**为什么需要通过 Handler 发送消息 ？**
+
+你可以在各大服务Service中见到 Handler 的身影，并且它们可能都有一个很吊的命名 `H` ，因为可能调用这个服务的某个执行方法处于子线程中，所以 Handler 的职责就是将它们切换到主线程中，并且也可以统一管理调度。
+
+```java
+//WindowManagerService --> H 
+
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+
+                case ADD_STARTING: {
+                    final AppWindowToken wtoken = (AppWindowToken)msg.obj;
+                    final StartingData sd = wtoken.startingData;
+
+                    View view = null;
+                    try {
+                        final Configuration overrideConfig = wtoken != null && wtoken.mTask != null
+                                ? wtoken.mTask.mOverrideConfig : null;
+                        view = mPolicy.addStartingWindow(wtoken.token, sd.pkg, sd.theme,
+                            sd.compatInfo, sd.nonLocalizedLabel, sd.labelRes, sd.icon, sd.logo,
+                            sd.windowFlags, overrideConfig);
+                    } catch (Exception e) {
+                        Slog.w(TAG_WM, "Exception when adding starting window", e);
+                    }
+
+……
+
+                } break;
+   }     
+```
+
+在当前的 `handleMessage` 方法中，会处于主线程处理消息，拿到token和StartingData启动数据后，便通过 `mPolicy.addStartingWindow()` 方法将启动窗口添加到WIndow上。
+
+`mPolicy` 为 `PhoneWindowManager` ，控制着启动窗口的添加删除和修改。
+
+在PhoneWindowManager对启动窗口进行配置，获取当前Activity设置的主题和资源信息，设置到启动窗口中。
+
+```java
+//PhoneWindowManager
+
+
+@Override
+    public View addStartingWindow(IBinder appToken, String packageName, int theme,
+            CompatibilityInfo compatInfo, CharSequence nonLocalizedLabel, int labelRes,
+            int icon, int logo, int windowFlags, Configuration overrideConfig) {
+            
+         //可以通过SHOW_STARTING_ANIMATIONS设置不显示启动窗口
+        if (!SHOW_STARTING_ANIMATIONS) {
+            return null;
+        }
+        WindowManager wm = null;
+        View view = null;
+
+        try {
+	        //1. 获取上下文Context和主题theme以及标题
+            Context context = mContext;
+            if (theme != context.getThemeResId() || labelRes != 0) {
+                try {
+                    context = context.createPackageContext(packageName, 0);
+                    context.setTheme(theme);
+                } catch (PackageManager.NameNotFoundException e) {
+                    // Ignore
+                }
+            }
+
+			//2. 创建PhoneWindow 用来显示
+            final PhoneWindow win = new PhoneWindow(context);
+            win.setIsStartingWindow(true);
+
+			//3. 设置当前窗口type和flag,源码注释中描述的很清晰...
+            win.setType(
+                WindowManager.LayoutParams.TYPE_APPLICATION_STARTING);
+
+            // Force the window flags: this is a fake window, so it is not really
+            // touchable or focusable by the user.  We also add in the ALT_FOCUSABLE_IM
+            // flag because we do know that the next window will take input
+            // focus, so we want to get the IME window up on top of us right away.
+            win.setFlags(
+                windowFlags|
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE|
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM,
+                windowFlags|
+                WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE|
+                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE|
+                WindowManager.LayoutParams.FLAG_ALT_FOCUSABLE_IM);
+
+            win.setLayout(WindowManager.LayoutParams.MATCH_PARENT,
+                    WindowManager.LayoutParams.MATCH_PARENT);
+
+……
+
+            view = win.getDecorView();
+    
+    		//4. WindowManager的绘制流程
+            wm.addView(view, params);
+    
+            return view.getParent() != null ? view : null;
+        } catch (WindowManager.BadTokenException e) {
+            // ignore
+        } catch (RuntimeException e) {
+            // don't crash if something else bad happens, for example a
+            // failure loading resources because we are loading from an app
+            // on external storage that has been unmounted.
+            Log.w(TAG, appToken + " failed creating starting window", e);
+        }
+        return null;
+    }
+```
+
+1. 如果theme和labelRes的值不为0，那么说明开发者指定了启动窗口的主题和标题，那么就需要从当前要启动的Activity中获取这些信息，并设置到启动窗口中。
+2. 和其它窗口一样，启动窗口也需要通过PhoneWindow来设置布局信息DecorView。所以在上面视觉优化中的设置闪屏图片主题的启动窗口显示的就是图片内容。
+3. 启动窗口和普通窗口的不同之处在于它是 fake window ，不需要触摸事件
+4. 最后通过WindowManger走View的绘制流程(measure-layout-draw)将启动窗口显示出来，最后会请求WindowManagerService为启动窗口添加一个WindowState对象，真正的将启动窗口显示给用户，并且可以对启动窗口进行管理。
+
+# UI渲染优化
+理解工作中常用的UI渲染性能优化及调试方法对于我们编写高质量代码也是很有帮助的
+
+## CPU、GPU的职责
+对于大多数手机的屏幕刷新频率是60hz，也就是如果在1000/60=16.67ms内没有把这一帧的任务执行完毕，就会发生丢帧的现象，丢帧是造成界面卡顿的直接原因，渲染操作通常依赖于两个核心组件：CPU与GPU。CPU负责包括Measure，Layout等计算操作，GPU负责Rasterization(栅格化)操作(所谓栅格化就是将矢量图形转换为位图的过程，手机上显示是按照一个个像素来显示的，栅格化再普通一些的说法就是将一个Button,TextView等组件拆分到一个个像素上去显示)。
+
+UI渲染优化的目的就是减轻CPU,GPU的压力，除去不必要的操作，保证每帧16ms以内处理完所有的CPU与GPU的计算，绘制，渲染等等操作，使UI顺滑，流畅的展示出来。
+
+## 查找Overdraw
+Overdraw(过度绘制)描述的是屏幕上的某个像素在同一帧的时间内被绘制了多次。在重叠的UI布局中，如果不可见的UI也在做绘制的操作或者后一个控件将前一个控件遮挡，会导致某些像素区域被绘制了多次，从而增加了CPU,GPU的压力。
+
+那么如何找出布局中Overdraw的地方呢？很简单，一般手机里面开发者选项都有调试GPU过度绘制的开关，打开即可。
+
+以小米4手机为例，依次找到`设置->更多设置->开发者选项->调试GPU过度绘制开关`，打开就可以了。
+
+打开调试GPU过度绘制开关之后，再次回到自己开发的应用发现界面怎么多了一些花花绿绿的玩意，没错，不同的颜色代表过度绘制的程度，具体如下：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180420104948203-194071555.png)
+
+蓝色，淡绿，淡红，深红代表了4种不同程度的Overdraw情况，1x,2x,3x,4x分别表示同一像素上同一帧的时间内被绘制了多次，1x就表示一次(最理想情况)，4x表示4次(最差的情况)，我们要做的就是尽量减少3x,4x的情况出现。
+
+下面以一个简单demo来进一步说明一下，比如我们开发好一个界面，如下：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180426174522016-785166152.jpg)
+
+很简单的功能，功能做完了，能不能做下优化呢？打开OverDraw功能，再次查看界面，如下：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180426175106185-12883163.jpg)
+
+咦？怎么大部分都是浅绿色呢？也就是说同一像素上同一帧的时间内被绘制了2次，这是怎么回事？这时我们需要看下UI布局了，看哪些地方可以优化一下。
+
+主界面布局如下：
+```
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<ListView
+android:id="@+id/list_view"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:divider="#F1F1F1"
+android:dividerHeight="1dp"
+android:background="@android:color/white"
+android:scrollbars="vertical">
+</ListView>
+
+</RelativeLayout>
+```
+
+ListView每个条目布局如下：
+```
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="52dp"
+android:background="@drawable/ts_account_list_selector">
+
+<TextView
+android:id="@+id/ts_item_has_login_account"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginLeft="10dp"
+android:layout_marginTop="4dp"
+android:gravity="center"
+android:text="12345678999"
+android:textColor="@android:color/black"
+android:textSize="16sp" />
+
+<LinearLayout
+android:layout_width="wrap_content"
+android:layout_height="20dp"
+android:layout_alignParentBottom="true"
+android:layout_marginBottom="3dp"
+android:layout_marginLeft="10dp"
+android:gravity="center_vertical" >
+
+<ImageView
+android:id="@+id/ts_item_time_clock_image"
+android:layout_width="12dp"
+android:layout_height="12dp"
+android:src="@mipmap/ts_login_clock" />
+
+<TextView
+android:id="@+id/ts_item_last_login_time"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginLeft="5dp"
+android:layout_toRightOf="@id/ts_item_time_clock_image"
+android:text="上次登录"
+android:textColor="@android:color/darker_gray"
+android:textSize="11sp" />
+
+<TextView
+android:id="@+id/ts_item_login_time"
+android:layout_width="wrap_content"
+android:layout_height="wrap_content"
+android:layout_marginLeft="5dp"
+android:layout_toRightOf="@id/ts_item_last_login_time"
+android:text="59分钟前"
+android:textColor="@android:color/darker_gray"
+android:textSize="11sp" />
+</LinearLayout>
+
+<TextView
+android:id="@+id/ts_item_always_account_image_tips"
+android:layout_width="wrap_content"
+android:layout_height="13dp"
+android:layout_alignParentRight="true"
+android:layout_marginTop="2dp"
+android:background="@mipmap/ts_always_account_bg"
+android:gravity="center"
+android:text="常用"
+android:textColor="@android:color/white"
+android:textSize="9sp" />
+
+<ImageView
+android:id="@+id/ts_item_delete_account_image"
+android:layout_width="12dp"
+android:layout_height="12dp"
+android:layout_alignParentRight="true"
+android:layout_marginTop="2dp"
+android:layout_marginRight="13dp"
+android:layout_centerVertical="true"
+android:src="@mipmap/ts_close" />
+
+</RelativeLayout>
+```
+
+发现哪里有问题了吗？问题在于ListView多余设置了背景：`android:background="@android:color/white"`，设置此背景对于我们这个需求根本就没有用，显示不出来并且增加GPU额外压力，去掉ListView背景之后再次观察如下：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180427104105612-986672707.jpg)
+
+渲染性能提升了一个档次，在实际工作中情况会复杂很多，为了实现一个效果会不得不牺牲性能，这就需要自己团队权衡了。
+
+## clipRect解决自定义View的OverDraw
+平时写自定义View的时候有时会重写onDraw方法，但是Android系统是无法检测onDraw里面具体会执行什么操作，从而系统无法为我们做一些优化。这样对编程人员要求就高了，如果我们自己写的View有大量重叠的地方就造成了CPU,GPU资源的浪费，但是我们可以通过`canvas.clipRect()`来帮助系统识别那些可见的区域。这个方法可以指定一块矩形区域，只有在这个区域内才会被绘制，其他的区域会被忽视，下面我们通过谷歌提供的一个小demo进一步说明。实现效果如下：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180427134333601-937366791.png)
+
+主要就是卡片重叠效果，优化前代码实现如下：
+
+DroidCard类封装要绘制的一个个卡片的信息：
+```
+public class DroidCard {
+
+public int x;//左侧绘制起点
+public int width;
+public int height;
+public Bitmap bitmap;
+
+public DroidCard(Resources res,int resId,int x){
+this.bitmap = BitmapFactory.decodeResource(res,resId);
+this.x = x;
+this.width = this.bitmap.getWidth();
+this.height = this.bitmap.getHeight();
+}
+}
+```
+
+DroidCardsView为真正的自定义View:
+```
+public class DroidCardsView extends View {
+//图片与图片之间的间距
+private int mCardSpacing = 150;
+//图片与左侧距离的记录
+private int mCardLeft = 10;
+
+private List<DroidCard> mDroidCards = new ArrayList<DroidCard>();
+
+private Paint paint = new Paint();
+
+public DroidCardsView(Context context) {
+super(context);
+initCards();
+}
+
+public DroidCardsView(Context context, AttributeSet attrs) {
+super(context, attrs);
+initCards();
+}
+/**
+* 初始化卡片集合
+*/
+protected void initCards(){
+Resources res = getResources();
+mDroidCards.add(new DroidCard(res,R.drawable.alex,mCardLeft));
+
+mCardLeft+=mCardSpacing;
+mDroidCards.add(new DroidCard(res,R.drawable.claire,mCardLeft));
+
+mCardLeft+=mCardSpacing;
+mDroidCards.add(new DroidCard(res,R.drawable.kathryn,mCardLeft));
+}
+
+@Override
+protected void onDraw(Canvas canvas) {
+super.onDraw(canvas);
+for (DroidCard c : mDroidCards){
+drawDroidCard(canvas, c);
+}
+invalidate();
+}
+
+/**
+* 绘制DroidCard
+*/
+private void drawDroidCard(Canvas canvas, DroidCard c) {
+canvas.drawBitmap(c.bitmap,c.x,0f,paint);
+}
+}
+```
+
+代码不是重点，不过也不难，自行查看就可以了。我们打开overdraw开关，效果如下：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180427135142525-619373111.png)
+
+淡红色区域明显被绘制了三次（三张图片重合的地方），其实下面的图片完全没必要完全绘制，只需要绘制三分之一即可，接下来我们就需要对其优化，保证最下面两张图片只需要回执其三分之一最上面图片完全绘制出来就可。
+
+DroidCardsView代码优化为：
+```
+public class DroidCardsView extends View {
+
+//图片与图片之间的间距
+private int mCardSpacing = 150;
+//图片与左侧距离的记录
+private int mCardLeft = 10;
+
+private List<DroidCard> mDroidCards = new ArrayList<DroidCard>();
+
+private Paint paint = new Paint();
+
+public DroidCardsView(Context context) {
+super(context);
+initCards();
+}
+
+public DroidCardsView(Context context, AttributeSet attrs) {
+super(context, attrs);
+initCards();
+}
+/**
+* 初始化卡片集合
+*/
+protected void initCards(){
+Resources res = getResources();
+mDroidCards.add(new DroidCard(res, R.drawable.alex,mCardLeft));
+
+mCardLeft+=mCardSpacing;
+mDroidCards.add(new DroidCard(res, R.drawable.claire,mCardLeft));
+
+mCardLeft+=mCardSpacing;
+mDroidCards.add(new DroidCard(res, R.drawable.kathryn,mCardLeft));
+}
+
+@Override
+protected void onDraw(Canvas canvas) {
+super.onDraw(canvas);
+for (int i = 0; i < mDroidCards.size() - 1; i++){
+drawDroidCard(canvas, mDroidCards,i);
+}
+drawLastDroidCard(canvas,mDroidCards.get(mDroidCards.size()-1));
+invalidate();
+}
+
+/**
+* 绘制最后一个DroidCard
+* @param canvas
+* @param c
+*/
+private void drawLastDroidCard(Canvas canvas,DroidCard c) {
+canvas.drawBitmap(c.bitmap,c.x,0f,paint);
+}
+
+/**
+* 绘制DroidCard
+* @param canvas
+* @param mDroidCards
+* @param i
+*/
+private void drawDroidCard(Canvas canvas,List<DroidCard> mDroidCards,int i) {
+DroidCard c = mDroidCards.get(i);
+canvas.save();
+canvas.clipRect((float)c.x,0f,(float)(mDroidCards.get(i+1).x),(float)c.height);
+canvas.drawBitmap(c.bitmap,c.x,0f,paint);
+canvas.restore();
+}
+}
+```
+
+主要就是使用Canvas的clipRect方法，绘制之前裁剪出一个区域，这样绘制的时候只在这区域内绘制，超出部分不会绘制出来。
+
+重新执行程序，效果如下：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180427140830588-1561624230.png)
+
+处理后性能就提升了一丝丝，此外我们还可以使用canvas.quickReject方法来判断是否没和某个矩形相交，从而跳过那些非矩形区域内的绘制操作。
+
+## Hierarchy Viewer的使用
+Hierarchy Viewer可以很直观的呈现布局的层次关系。我们可以通过红，黄，绿三种不同的颜色来区分布局的Measure，Layout，Executive的相对性能表现如何
+
+提升布局性能的关键点是尽量保持布局层级的扁平化，避免出现重复的嵌套布局。如果我们写的布局层级比较深会严重增加CPU的负担，造成性能的严重卡顿，关于Hierarchy Viewer的使用举例这里就不列举了。
+
+## 内存抖动现象
+在我们优化过view的树形结构和overdraw之后，可能还是感觉自己的app有卡顿和丢帧，或者滑动慢：卡顿还是存在。这时我们就要查看一下是否存在内存抖动情况了
+
+Android有自动管理内存的机制，但是对内存的不恰当使用仍然容易引起严重的性能问题。在同一帧里面创建过多的对象是件需要特别引起注意的事情，在同一帧里创建大量对象可能引起GC的不停操作，执行GC操作的时候，所有线程的任何操作都会需要暂停，直到GC操作完成。大量不停的GC操作则会显著占用帧间隔时间。
+
+如果在帧间隔时间里面做了过多的GC操作，那么自然其他类似计算，渲染等操作的可用时间就变得少了，严重时可能引起卡顿：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180427152217272-597281776.png)
+
+导致GC频繁操作有两个主要原因：
+1. 内存抖动，所谓内存抖动就是短时间产生大量对象又在短时间内马上释放。
+2. 短时间产生大量对象超出阈值，内存不够，同样会触发GC操作。
+
+观察内存抖动我们可以借助android studio中的工具，3.0以前可以使用android monitor,3.0以后被替换为android Profiler。
+
+如果工具里面查看到短时间发生了多次内存的涨跌，这意味着很有可能发生了内存抖动，如图：
+
+![](https://images2018.cnblogs.com/blog/794139/201804/794139-20180427153938668-1405877845.png)
+
+为了避免发生内存抖动，我们需要避免在for循环里面分配对象占用内存，需要尝试把对象的创建移到循环体之外，自定义View中的onDraw方法也需要引起注意，每次屏幕发生绘制以及动画执行过程中，onDraw方法都会被调用到，避免在onDraw方法里面执行复杂的操作，避免创建对象。对于那些无法避免需要创建对象的情况，我们可以考虑对象池模型，通过对象池来解决频繁创建与销毁的问题，但是这里需要注意结束使用之后，需要手动释放对象池中的对象。
+
+# 崩溃优化
+## 崩溃
+崩溃率是衡量一个应用质量高低的基本指标，那么，该怎样客观地衡量崩溃这个指标，以及又该如何看待和崩溃相关的稳定性。
+
+Android 的两种崩溃：
+1. Java 崩溃
+2. Native 崩溃
+
+简单来说，Java 崩溃就是在 Java 代码中，出现了未捕获异常，导致程序异常退出。那 Native 崩溃一般都是因为在 Native 代码中访问非法地址，也可能是地址对齐出现了问题，或者发生了程序主动 Abort，这些都会产生相应的 Signal 信号，导致程序异常退出。
+
+### 崩溃的收集
+“崩溃”就是程序出现异常，而一个产品的崩溃率，跟我们如何捕获、处理这些异常有比较大的关系。对于很多中小型公司来说，可以选择一些第三方的服务。目前各种平台也是百花齐放，包括阿里的友盟、腾讯的Bugly、网易云捕、Google 的 Firebase 等等。要懂得借力！
+
+### ANR
+崩溃率是不是就能完全等价于应用的稳定性呢？答案是肯定不行。处理了崩溃，我们还会经常遇到 ANR（Application Not Responding，程序没有响应）这个问题。
+
+出现 ANR 的时候，系统还会弹出对话框打断用户的操作，这是用户非常不能忍受的。
+
+>ANR处理方法：
+使用 FileObserver 监听 /data/anr/traces.txt 的变化。非常不幸的是，很多高版本的 ROM，已经没有读取这个文件的权限了。这个时候你可能只能思考其他路径，海外可以使用 Google Play 服务，而国内微信利用Hardcoder框架（HC 框架是一套独立于安卓系统实现的通信框架，它让 App 和厂商 ROM 能够实时“对话”了，目标就是充分调度系统资源来提升 App 的运行速度和画质，切实提高大家的手机使用体验）向厂商获取了更大的权限。也可以将手机 ROOT 掉，然后取得 traces.txt 文件。
+
+### 应用退出
+除了常见的崩溃，还有一些会导致应用异常退出的情况，例如：
+1. 主动自杀。Process.killProcess()、exit() 等
+2. 崩溃。出现了 Java 或 Native 崩溃
+3. 系统重启。系统出现异常、断电、用户主动重启等，我们可以通过比较应用开机运行时间是否比之前记录的值更小
+4. 被系统杀死。被 low memory killer 杀掉、从系统的任务管理器中划掉等
+5. ANR
+
+我们可以在应用启动的时候设定一个标志，在主动自杀或崩溃后更新标志，这样下次启动时通过检测这个标志就能确认运行期间是否发生过异常退出。对应上面的五种退出场景，我们排除掉主动自杀和崩溃（崩溃会单独的统计）这两种场景，希望可以监控到剩下三种的异常退出，理论上这个异常捕获机制是可以达到 100% 覆盖的。
+
+通过这个异常退出的检测，可以反映如 ANR、low memory killer、系统强杀、死机、断电等其他无法正常捕获到的问题。当然异常率会存在一些误报，比如用户从系统的任务管理器中划掉应用。对于线上的大数据来说，还是可以帮助我们发现代码中的一些隐藏问题。
+
+根据应用的前后台状态，我们可以把异常退出分为前台异常退出和后台异常退出。“被系统杀死” 是后台异常退出的主要原因，当然我们会更关注前台的异常退出的情况，这会跟 ANR、OOM 等异常情况有更大的关联。
+
+## 崩溃处理
+我们每天工作也会遇到各种各样的疑难问题，“崩溃”就是其中比较常见的一种问题。解决问题跟破案一样需要经验，我们分析的问题越多越熟练，定位问题就会越快越准。
+
+当然这里也有很多套路，比如：
+>1. 对于 “案发现场” 我们应该留意哪些信息？
+>2. 怎样找到更多的 “证人” 和 “线索” ？ 
+>3. “侦查案件” 的一般流程是什么？
+>4. 对不同类型的 “案件” 分别应该使用什么样的调查方式？
+
+要相信 “真相永远只有一个”，崩溃也并不可怕。
+
+### 崩溃现场
+崩溃现场是我们的“第一案发现场”，它保留着很多有价值的线索。现在可以挖掘到的信息越多，下一步分析的方向就越清晰，而不是去靠盲目猜测。
+
+**崩溃信息**
+
+从崩溃的基本信息，我们可以对崩溃有初步的判断。进程名、线程名。崩溃的进程是前台进程还是后台进程，崩溃是不是发生在 UI 线程。
+
+崩溃堆栈和类型。崩溃是属于 Java 崩溃、Native 崩溃，还是 ANR，对于不同类型的崩溃关注的点也不太一样。特别需要看崩溃堆栈的栈顶，看具体崩溃在系统的代码，还是 APP 代码里面。
+
+**关键字：FATAL**
+```
+FATAL EXCEPTION: main
+Process: com.cchip.csmart, PID: 27456
+java.lang.NullPointerException: Attempt to invoke virtual method 'void android.widget.TextView.setText(int)' on a null object reference
+at com.cchip.alicsmart.activity.SplashActivity$1.handleMessage(SplashActivity.java:67)
+at android.os.Handler.dispatchMessage(Handler.java:102)
+at android.os.Looper.loop(Looper.java:179)
+at android.app.ActivityThread.main(ActivityThread.java:5672)
+at java.lang.reflect.Method.invoke(Native Method)
+at com.android.internal.os.ZygoteInit$MethodAndArgsCaller.run(ZygoteInit.java:784)
+at com.android.internal.os.ZygoteInit.main(ZygoteInit.java:674)
+```
+
+**系统信息**
+
+系统的信息有时候会带有一些关键的线索，对我们解决问题有非常大的帮助。
+
+Logcat。这里包括应用、系统的运行日志。由于系统权限问题，获取到的 Logcat 可能只包含与当前 APP 相关的。其中系统的 event logcat 会记录 APP 运行的一些基本情况，记录在文件 /system/etc/event-log-tags 中。
+```
+//system logcat:
+10-25 17:13:47.788 21430 21430 D dalvikvm: Trying to load lib ...
+
+//event logcat:
+10-25 17:13:47.788 21430 21430 I am_on_resume_called: 生命周期
+10-25 17:13:47.788 21430 21430 I am_low_memory: 系统内存不足
+10-25 17:13:47.788 21430 21430 I am_destroy_activity: 销毁 Activty
+10-25 17:13:47.888 21430 21430 I am_anr: ANR 以及原因
+10-25 17:13:47.888 21430 21430 I am_kill: APP 被杀以及原因
+```
+
+机型、系统、厂商、CPU、ABI、Linux 版本等。通过采集多达几十个维度，这对寻找共性问题会很有帮助。
+
+**内存信息**
+
+OOM、ANR、虚拟内存耗尽等，很多崩溃都跟内存有直接关系。如果把用户的手机内存分为“2GB 以下”和“2GB 以上”两个区，就会发现“2GB 以下”用户的崩溃率是“2GB 以上”用户的几倍。
+
+系统剩余内存。关于系统内存状态，可以直接读取文件 /proc/meminfo。当系统可用内存很小（低于 MemTotal 的 10%）时，OOM、大量 GC、系统频繁自杀拉起等问题都非常容易出现。
+
+应用使用内存。包括 Java 内存、RSS（Resident Set Size）、PSS（Proportional Set Size），我们可以得出应用本身内存的占用大小和分布。PSS 和 RSS 通过 /proc/self/smap 计算，可以进一步得到例如 apk、dex、so 等更加详细的分类统计。
+
+虚拟内存。虚拟内存可以通过 /proc/self/status 得到，通过 /proc/self/maps 文件可以得到具体的分布情况。有时候我们一般不太重视虚拟内存，但是很多类似 OOM、tgkill 等问题都是虚拟内存不足导致的。
+```
+Name: com.xmamiga.name // 进程名
+FDSize: 800 // 当前进程申请的文件句柄个数
+VmPeak: 3004628 kB // 当前进程的虚拟内存峰值大小
+VmSize: 2997032 kB // 当前进程的虚拟内存大小
+Threads: 600 // 当前进程包含的线程个数
+```
+
+一般来说，对于 32 位进程，如果是 32 位的 CPU，虚拟内存达到 3GB 就可能会引起内存申请失败的问题。如果是 64 位的 CPU，虚拟内存一般在 3～4GB 之间。当然如果我们支持 64 位进程，虚拟内存就不会成为问题。Google Play 要求 2019 年 8 月一定要支持 64 位，在国内虽然支持 64 位的设备已经在 90% 以上了，但是商店都不支持区分 CPU 架构类型发布，普及起来需要更长的时间。
+
+**资源信息**
+
+有的时候会发现应用堆内存和设备内存都非常充足，还是会出现内存分配失败的情况，这跟资源泄漏可能有比较大的关系。
+
+文件句柄 fd。文件句柄的限制可以通过 /proc/self/limits 获得，一般单个进程允许打开的最大文件句柄个数为 1024。但是如果文件句柄超过 800 个就比较危险，需要将所有的 fd 以及对应的文件名输出到日志中，进一步排查是否出现了有文件或者线程的泄漏。
+```
+opened files count 812:
+0 -> /dev/null
+1 -> /dev/log/main4
+2 -> /dev/binder
+3 -> /data/data/com.xmamiga.sample/files/test.conf
+...
+```
+
+线程数。当前线程数大小可以通过上面的 status 文件得到，一个线程可能就占 2MB 的虚拟内存，过多的线程会对虚拟内存和文件句柄带来压力。根据我的经验来说，如果线程数超过 400 个就比较危险。需要将所有的线程 id 以及对应的线程名输出到日志中，进一步排查是否出现了线程相关的问题。
+```
+threads count 412:
+1820 com.xmamiga.crashsdk
+1844 ReferenceQueueD
+1869 FinalizerDaemon
+...
+```
+
+JNI。使用 JNI 时，如果不注意很容易出现引用失效、引用爆表等一些崩溃。
+
+**应用信息**
+
+除了系统，其实我们的应用更懂自己，可以留下很多相关的信息。崩溃场景。崩溃发生在哪个 Activity 或 Fragment，发生在哪个业务中; 关键操作路径，不同于开发过程详细的打点日志，我们可以记录关键的用户操作路径，这对我们复现崩溃会有比较大的帮助。其他自定义信息。不同的应用关心的重点可能不太一样。
+
+### 崩溃分析
+有了这么多现场信息之后，就可以开始真正的“破案”之旅了。绝大部分的 “案件” 只要肯花功夫，最后都能真相大白。不要畏惧问题，经过耐心和细心地分析，总能敏锐地发现一些异常或关键点，并且还要敢于怀疑和验证。
+
+**第一步：确定重点**
+
+确认和分析重点，关键在于终过日志中找到重要的信息，对问题有一个大致判断。一般来说，我建议在确定重点这一步可以关注以下几点。
+>1. 确认严重程度。解决崩溃也要看性价比，我们优先解决 Top 崩溃或者对业务有重大影响，例如主要功能的崩溃。不要花几天去解决了一个边角的崩溃，有可能下个版本就把功能删除了。
+>2. 崩溃基本信息。确定崩溃的类型以及异常描述，对崩溃有大致的判断。
+>
+>    一般来说，大部分的简单崩溃经过这一步已经可以得到结论。
+
+Java 崩溃。Java 崩溃类型比较明显，比如 NullPointerException 是空指针，OutOfMemoryError 是资源不足，这个时候需要去进一步查看日志中的 “内存信息”和“资源信息”。
+
+Native 崩溃。需要观察 signal、code、fault addr 等内容，以及崩溃时 Java 的堆栈。关于各 signal 含义的介绍，你可以查看崩溃信号介绍。比较常见的是有 SIGSEGV 和 SIGABRT，前者一般是由于空指针、非法指针造成，后者主要因为 ANR 和调用 abort() 退出所导致。
+
+ANR。先看看主线程的堆栈，是否是因为锁等待导致。接着看看 ANR 日志中 iowait、CPU、GC、system server 等信息，进一步确定是 I/O 问题，或是 CPU 竞争问题，还是由于大量 GC 导致卡死。
+
+**第二步：查找共性**
+
+如果使用了上面的方法还是不能有效定位问题，我们可以尝试查找这类崩溃有没有什么共性。找到了共性，也就可以进一步找到差异，离解决问题也就更进一步。
+
+机型、系统、ROM、厂商、ABI，这些采集到的系统信息都可以作为维度聚合，共性问题例如是不是只出现在 x86 的手机，是不是只有三星这款机型，是不是只在 Android 8.0 的系统上。应用信息也可以作为维度来聚合，比如正在打开的链接、正在播放的视频、国家、地区等。
+
+找到了共性，可以对你下一步复现问题有更明确的指引。
+
+**第三步：尝试复现**
+
+如果我们已经大概知道了崩溃的原因，为了进一步确认更多信息，就需要尝试复现崩溃。如果我们对崩溃完全没有头绪，也希望通过用户操作路径来尝试重现，然后再去分析崩溃原因。
+
+“只要能本地复现，我就能解”，相信这是很多开发跟测试说过的话。有这样的底气主要是因为在稳定的复现路径上面，我们可以采用增加日志或使用 Debugger、GDB 等各种各样的手段或工具做进一步分析。
+
+我们可能会遇到了各种各样的奇葩问题。比如某个厂商改了底层实现、新的 Android 系统实现有所更改，都需要去 Google、翻源码，有时候还需要去抠厂商的 ROM 或手动刷 ROM。很多疑难问题需要我们耐得住寂寞，反复猜测、反复发灰度、反复验证。–但这种问题还是要看问题的严重程序，不可捡了芝麻丢了西瓜。
+
+### 系统崩溃
+系统崩溃常常令我们感到非常无助，它可能是某个 Android 版本的 Bug，也可能是某个厂商修改 ROM 导致。这种情况下的崩溃堆栈可能完全没有我们自己的代码，很难直接定位问题。能做的有：
+>1. 查找可能的原因。通过上面的共性归类，我们先看看是某个系统版本的问题，还是某个厂商特定 ROM 的问题。虽然崩溃日志可能没有我们自己的代码，但通过操作路径和日志，可以找到一些怀疑的点。
+>2. 尝试规避。查看可疑的代码调用，是否使用了不恰当的 API，是否可以更换其他的实现方式规避。
+>3. Hook 解决。这里分为 Java Hook 和 Native Hook。它可能只出现在 Android 7.0 的系统中，参考 Android 8.0 的做法，直接 catch 住这个异常。
+>
+>    如果做到了上面说的这些，以上大部分的崩溃应该都能解决或者规避，大部分的系统崩溃也是如此。当然总有一些疑难问题需要依赖到用户的真实环境，这些需要具备类似动态跟踪和调试的能力。
+
+崩溃攻防是一个长期的过程，我们尽可能地提前预防崩溃的发生，将它消灭在萌芽阶段。作为技术人员，我们不应该盲目追求崩溃率这一个数字，应该以用户体验为先，如果强行去掩盖一些问题往往更加适得其反。我们不应该随意使用 try catch 去隐藏真正的问题，要从源头入手，了解崩溃的本质原因，保证后面的运行流程。在解决崩溃的过程，也要做到由点到面，不能只针对这个崩溃去解决，而应该要考虑这一类崩溃怎么解决和预防。
+
+# 内存优化
+在内存管理上，JVM拥有垃圾内存回收的机制，自身会在虚拟机层面自动分配和释放内存，因此不需要像使用C/C++一样在代码中分配和释放某一块内存。Android系统的内存管理类似于JVM，通过new关键字来为对象分配内存，内存的释放由GC来回收。并且Android系统在内存管理上有一个Generational Heap Memory模型，当内存达到某一个阈值时，系统会根据不同的规则自动释放可以释放的内存。即便有了内存管理机制，但是，如果不合理地使用内存，也会造成一系列的性能问题，比如内存泄漏、内存抖动、短时间内分配大量的内存对象等等。
+
+## 优化工具
+### Memory Profiler
+Memory profiler是Android Studio自带的一个内存检测工具，通过实时图表的方式展示内存信息，具有可以识别内存泄露，内存抖动等现象，并可以将捕获到的内存信息进行堆转储、强制GC以及跟踪内存分配的能力。
+
+Android Studio打开Profiler工具
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3f47365d43d)
+
+观察Memory曲线，比较平缓即为内存分配正常，如果出现大的波动有可能发生了内存泄露。
+
+>GC：可手动触发GC
+>
+>Dump：Dump出当前Java Heap信息
+>
+>Record：记录一段时间内的内存信息
+
+**点击Dump后**
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab40e18dca203)
+
+可查看当前内存分配对象
+
+>Allocations：分配对象个数
+>
+>Native Size：Native内存大小
+>
+>Shallow Size：对象本身占用内存的大小，不包含其引用的对象
+
+>Retained Size: 对象的Retained Size = 对象本身的Shallow Size + 对象能直接或间接访问到的对象的Shallow Size，也就是说 Retained Size 就是该对象被 Gc 之后所能回收内存的总和
+
+点击Bitmap Preview可以进行预览图片，对查看图片占用内存情况比较有帮助
+
+**点击Record后**
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3f5189df885)
+
+可以记录一段时间内内存分配情况，可查看各对象分配大小及调用栈、对象生成位置
+
+### Memory Analyzer（MAT）
+比Memory Profiler更强大的Java Heap分析工具，可以准确查找内存泄露以及内存占用情况，还可以生成整体报告，用来分析问题等。
+
+MAT一般用来线下结合Memory Profiler分析问题使用，Memory Profiler可以直观看出内存抖动，然后生成的hdprof文件，通过MAT深入分析及定位内存泄露问题。
+
+### LeakCannary
+Leak Cannary是一个能自动监测内存泄露的线下监测工具。
+
+## 内存管理
+### 内存区域
+Java内存划分为方法区、堆、程序计数器、本地方法栈、虚拟机栈五个区域；
+
+线程维度分为线程共享区和线程隔离区，方法区和堆是线程共享的，程序计数器、本地方法栈、虚拟机栈是线程隔离的，如下图
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3f4abba75fe)
+
+**方法区**
+
+- 线程共享区域，用于存储类信息、静态变量、常量、即时编译器编译出来的代码数据
+- 无法满足内存分配需求时会发生OOM
+
+**堆**
+
+- 线程共享区域，是JAVA虚拟机管理的内存中最大的一块，在虚拟机启动时创建
+- 存放对象实例，几乎所有的对象实例都在堆上分配，GC管理的主要区域
+
+**虚拟机栈**
+
+- 线程私有区域，每个java方法在执行的时候会创建一个栈帧用于存储局部变量表、操作数栈、动态链接、方法出口等信息。方法从执行开始到结束过程就是栈帧在虚拟机栈中入栈出栈过程
+- 局部变量表存放编译期可知的基本数据类型、对象引用、returnAddress类型。所需的内存空间会在编译期间完成分配，进入一个方法时在帧中局部变量表的空间是完全确定的，不需要运行时改变
+- 若线程申请的栈深度大于虚拟机允许的最大深度，会抛出SatckOverFlowError错误
+- 虚拟机动态扩展时，若无法申请到足够内存，会抛出OutOfMemoryError错误
+
+**本地方法栈**
+
+- 为虚拟机中Native方法服务，对本地方法栈中使用的语言、数据结构、使用方式没有强制规定，虚拟机可自有实现
+- 占用的内存区大小是不固定的，可根据需要动态扩展
+
+**程序计数器**
+
+- 一块较小的内存空间，线程私有，存储当前线程执行的字节码行号指示器
+- 字节码解释器通过改变这个计数器的值来选取下一条需要执行的字节码指令：分支、循环、跳转等
+- 每个线程都有一个独立的程序计数器
+- 唯一一个在java虚拟机中不会OOM的区域
+
+### 对象存活判断
+**引用计数法**
+- 给对象添加引用计数器，每当一个地方引用时，计数器加1，引用失效时计数器减1；当引用计数器为0时即为对象不可用
+- 实现简单，效率高，但是无法解决相互引用问题，主流虚拟机一般不使用此方法判断对象是否存活
+
+**可达性分析法**
+- 从一些称为”GC Roots”的对象作为起点，向下搜索，搜索走过的路径称为引用链，当一个对象到GC Roots没有任何引用链时即为对象不可用，可被回收的
+- 可被称为GC Roots的对象：虚拟机栈中引用的对象、方法区中类静态属性引用的对象、方法区中常量引用的对象、本地方法栈中引用的对象
+
+**GC Root有以下几种：**
+1. Class-由系统ClassLoader加载的对象
+2. Thread-活着的线程
+3. Stack Local-Java方法的local变量或参数
+4. JNI Local – JNI方法的local变量或参数
+5. JNI Global – 全局JNI引用
+6. Monitor Used – 用于同步的监控对象
+
+### 垃圾回收算法
+**标记清除算法**
+
+标记清除算法有两个阶段，首先标记出需要回收的对象，在标记完成后统一回收所有标记的对象；
+
+缺点：
+- 效率问题：标记和清除两个过程效率都不高
+- 空间问题：标记清除之后会导致很多不连续的内存碎片，会导致需要分配大对象时无法找到足够的连续空间而不得不触发GC的问题
+
+**复制算法**
+
+将可用内存按空间分为大小相同的两小块，每次只使用其中的一块，等这块内存使用完了将还存活的对象复制到另一块内存上，然后将这块内存区域对象整体清除掉。每次对整个半区进行内存回收，不会导致碎片问题，实现简单高效。
+
+缺点：
+- 需要将内存缩小为原来的一半，空间代价太高
+
+**标记整理算法**
+
+标记整理算法标记过程和标记清除算法一样，但清除过程并不是对可回收对象直接清理，而是将所有存活对象像一端移动，然后集中清理到端边界以外的内存。
+
+**分代收集算法**
+
+当代虚拟机垃圾回收算法都采用分代收集算法来收集，根据对象存活周期不同将内存划分为新生代和老年代，再根据每个年代的特点采用最合适的算法。
+- 新生代存活对象较少，每次垃圾回收都有大量对象死去，一般采用复制算法，只需要付出复制少量存活对象的成本就可以实现垃圾回收；
+- 老年代存活对象较多，没有额外空间进行分配担保，就必须采用标记清除算法和标记整理算法进行回收；
+
+## 内存抖动
+内存频繁分配和回收导致内存不稳定
+- 频繁GC，内存曲线呈现锯齿状，会导致卡顿
+- 频繁的创建对象会导致内存不足及碎片
+- 不连续的内存碎片无法被释放，导致OOM
+
+### 模拟内存抖动
+执行此段代码
+```
+private static Handler mShakeHandler = new Handler() {
+    @Override public void handleMessage(Message msg) {
+        super.handleMessage(msg);
+        // 频繁创建对象，模拟内存抖动
+        for(int index = 0;index <= 100;index ++) {
+            String strArray[] = new String[100000];
+        }
+        mShakeHandler.sendEmptyMessageDelayed(0,30);
+    }
+};
+```
+
+### 分析并定位
+利用Memory Profiler工具查看内存信息
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3f4b2e12bbc)
+
+发现内存曲线由原来的平稳曲线变成锯齿状
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3f4bd27aed8)
+
+点击record记录内存信息，查找发生内存抖动位置，发现String对象ShallowSize非常异常，可直接通过Jump to Source定位到代码位置
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab428ac88b8cf)
+
+## 内存泄露
+**定义**：内存中存在已经没有用确无法回收的对象
+
+**现象**：会导致内存抖动，可用内存减少，进而导致GC频繁、卡顿、OOM
+
+### 模拟内存泄露
+模拟内存泄露代码，反复进入退出该Activity
+```
+/**
+ * 模拟内存泄露的Activity
+ */
+    public class MemoryLeakActivity extends AppCompatActivity implements CallBack{
+    @Override
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_memoryleak);
+        ImageView imageView = findViewById(R.id.iv_memoryleak);
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.splash);
+        imageView.setImageBitmap(bitmap);
+        
+        // 添加静态类引用
+        CallBackManager.addCallBack(this);
+    }
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    //        CallBackManager.removeCallBack(this);
+    }
+    @Override
+    public void dpOperate() {
+        // do sth
+    }
+```
+
+### 分析并定位
+通过Memory Profiler工具查看内存曲线，发现内存在不断的上升
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab40e2d62dbc7)
+
+如果想分析定位具体发生内存泄露位置需要借助MAT工具
+
+首先生成hprof文件
+
+点击dump将当前内存信息转成hprof文件，需要对生成的文件转换成MAT可读取文件
+
+执行一下转换命令（Android/sdk/platorm-tools路径下）
+```
+hprof-conv 刚刚生成的hprof文件 memory-mat.hprof
+```
+
+使用mat打开刚刚转换的hprof文件
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab40de67d9377)
+
+点击Historygram，搜索MemoryLeakActivity
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3f7b7828c99)
+
+可以看到有8个MemoryLeakActivity未释放
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3fa542aa377)
+
+查看所有引用对象
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3fb31c51990)
+
+查看到GC Roots的引用链
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab415cc3f2f0f)
+
+可以看到GC Roots是CallBackManager
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3fd8e85b3d9)
+
+解决问题，当Activity销毁时将当前引用移除
+```
+@Override
+protected void onDestroy() {
+    super.onDestroy();
+    CallBackManager.removeCallBack(this);
+}
+```
+
+## MAT分析工具
+### Overview
+当前内存整体信息
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3fd96215a96)
+
+### Histogram
+列举对象所有的实例及实例所占大小，可按package排序
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3fde16df094)
+
+可以查看应用包名下Activity存在实例个数，可以查看是否存在内存泄露，这里发现内存中有8个Activity实例未释放
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab40e2ebdfd30)
+
+查看未被释放的Activity的引用链
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab3fea58ec50a)
+
+### Dominator_tree
+当前所有实例的支配树，和Histogram区别时Histogram是类维度，dominator_tree是实例维度，可以查看所有实例的所占百分比和引用链
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab400fb3064a1)
+
+### SQL
+通过sql语句查询相关类信息
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab40f7375b7b4)
+
+### Thread_overview
+查看当前所有线程信息
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab40fed68db9e)
+
+### Top Consumers
+通过图形方式展示占用内存较高的对象，对降低内存栈优化可用内存比较有帮助
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab402bef16ff2)
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab40ffa3c75d1)
+
+### Leak Suspects
+内存泄露分析页面
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab4034a3f9c59)
+
+直接定位到内存泄露位置
+
+![](https://user-gold-cdn.xitu.io/2020/3/5/170ab4038d5229f9)
+
+## 通过ARTHook检测不合理图片
+### 获取Bitmap占用内存
+- 通过getByteCount方法，但是需要在运行时获取
+- width * height * 一个像素所占内存 * 图片所在资源目录压缩比
+
+### 检测大图
+当图片控件load图片大小超过控件自身大小时会造成内存浪费，所以检测出不合理图片对内存优化是很重要的。
+
+**ARTHook方式检测不合理图片**
+
+通过ARTHook方法可以优雅的获取不合理图片，侵入性低，但是因为兼容性问题一般在线下使用。
+
+引入epic开源库
+```
+implementation 'me.weishu:epic:0.3.6'
+```
+实现Hook方法
+```
+public class CheckBitmapHook extends XC_MethodHook {
+    @Override protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+        super.afterHookedMethod(param);
+        ImageView imageView = (ImageView)param.thisObject;
+        checkBitmap(imageView,imageView.getDrawable());
+    }
+    private static void checkBitmap(Object o,Drawable drawable) {
+        if(drawable instanceof BitmapDrawable && o instanceof View) {
+            final Bitmap bitmap = ((BitmapDrawable) drawable).getBitmap();
+            if(bitmap != null) {
+                final View view = (View)o;
+                int width = view.getWidth();
+                int height = view.getHeight();
+                if(width > 0 && height > 0) {
+                    if(bitmap.getWidth() > (width <<1) && bitmap.getHeight() > (height << 1)) {
+                        warn(bitmap.getWidth(),bitmap.getHeight(),width,height,
+                                new RuntimeException("Bitmap size is too large"));
+                    }
+                } else {
+                    final Throwable stacktrace = new RuntimeException();
+                    view.getViewTreeObserver().addOnPreDrawListener(
+                            new ViewTreeObserver.OnPreDrawListener() {
+                                @Override public boolean onPreDraw() {
+                                    int w = view.getWidth();
+                                    int h = view.getHeight();
+                                    if(w > 0 && h > 0) {
+                                        if (bitmap.getWidth() >= (w << 1)
+                                                && bitmap.getHeight() >= (h << 1)) {
+                                            warn(bitmap.getWidth(), bitmap.getHeight(), w, h, stacktrace);
+                                        }
+                                        view.getViewTreeObserver().removeOnPreDrawListener(this);
+                                    }
+                                    return true;
+                                }
+                            });
+                }
+            }
+        }
+    }
+    private static void warn(int bitmapWidth, int bitmapHeight, int viewWidth, int viewHeight, Throwable t) {
+        String warnInfo = new StringBuilder("Bitmap size too large: ")
+                .append("\n real size: (").append(bitmapWidth).append(',').append(bitmapHeight).append(')')
+                .append("\n desired size: (").append(viewWidth).append(',').append(viewHeight).append(')')
+                .append("\n call stack trace: \n").append(Log.getStackTraceString(t)).append('\n')
+                .toString();
+        LogUtils.i(warnInfo);
+```
+
+Application初始化时注入Hook
+```
+DexposedBridge.hookAllConstructors(ImageView.class, new XC_MethodHook() {
+    @Override protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+        super.afterHookedMethod(param);
+        DexposedBridge.findAndHookMethod(ImageView.class,"setImageBitmap", Bitmap.class,
+                new CheckBitmapHook());
+    }
+});
+```
+
+## 线上内存监控
+### 常规方案
+**常规方案一**
+
+在特定场景中获取当前占用内存大小，如果当前内存大小超过系统最大内存80%，对当前内存进行一次Dump（Debug.dumpHprofData()），选择合适时间将hprof文件进行上传，然后通过MAT工具手动分析该文件。
+
+缺点：
+- Dump文件比较大，和用户使用时间、对象树正相关
+- 文件较大导致上传失败率较高，分析困难
+
+**常规方案二**
+
+将LeakCannary带到线上，添加预设怀疑点，对怀疑点进行内存泄露监控，发现内存泄露回传到server。
+
+缺点：
+- 通用性较低，需要预设怀疑点，对没有预设怀疑点的地方监控不到
+- LeakCanary分析比较耗时、耗内存，有可能会发生OOM
+
+### LeakCannary定制改造
+1. 将需要预设怀疑点改为自动寻找怀疑点，自动将前内存中所占内存较大的对象类中设置怀疑点。
+2. LeakCanary分析泄露链路比较慢，改造为只分析Retain size大的对象。
+3. 分析过程会OOM，是因为LeakCannary分析时会将分析对象全部加载到内存当中，我们可以记录下分析对象的个数和占用大小，对分析对象进行裁剪，不全部加载到内存当中。
+
+### 完整方案
+1. 监控常规指标：待机内存、重点模块占用内存、OOM率
+2. 监控APP一个生命周期内和重点模块界面的生命周期内的GC次数、GC时间等
+3. 将定制的LeakCanary带到线上，自动化分析线上的内存泄露
+
+# 卡顿优化
+
+## 卡顿
+
+在应用开发中如果留意到log的话有时候可能会发下下面的log信息：
+
+```java
+I/Choreographer(1200): Skipped 60 frames!  The application may be doing too much work on its main thread.
+```
+
+在大部分Android平台的设备上，Android系统是16ms刷新一次，也就是一秒钟60帧。要达到这种刷新速度就要求在ui线程中处理的任务时间必须要小于16ms，如果ui线程中处理时间长，就会导致跳过帧的渲染，也就是导致界面看起来不流畅，卡顿。如果用户点击事件5s中没反应就会导致ANR。
+
+## 帧率
+
+即 Frame Rate，单位 fps，是指 gpu 生成帧的速率，60fps，Android中更帧率相关的类是SurfaceFlinger。
+
+**SurfaceFlinger**
+surfaceflinger作用是接受多个来源的图形显示数据，将他们合成，然后发送到显示设备。比如打开应用，常见的有三层显示，顶部的statusbar底部或者侧面的导航栏以及应用的界面，每个层是单独更新和渲染，这些界面都是有surfaceflinger合成一个刷新到硬件显示。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200617103126541.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+在显示过程中使用到了bufferqueue，surfaceflinger作为consumer方，比如windowmanager管理的surface作为生产方产生页面，交由surfaceflinger进行合成。
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200617101750496.png)
+**VSync**
+
+Android系统每隔16ms发出VSYNC信号，触发对UI进行渲染，VSync是Vertical Synchronization(垂直同步)的缩写，是一种在PC上很早就广泛使用的技术，可以简单的把它认为是一种定时中断。而在Android 4.1(JB)中已经开始引入VSync机制，用来同步渲染，让UI和SurfaceFlinger可以按硬件产生的VSync节奏进行工作。
+
+安卓系统中有 2 种 VSync 信号：
+1、屏幕产生的硬件 VSync： 硬件 VSync 是一个脉冲信号，起到开关或触发某种操作的作用。
+2、由 SurfaceFlinger 将其转成的软件 Vsync 信号：经由 Binder 传递给 Choreographer。
+
+除了Vsync的机制，Android还使用了多级缓冲的手段以优化UI流程度，例如双缓冲(A+B)，在显示buffer A的数据时，CPU/GPU就开始在buffer B中准备下一帧数据：但是不能保证每一帧CPU、GPU都运行状态良好，可能由于资源抢占等性能问题导致某一帧GPU掉链子，vsync信号到来时buffer B的数据还没准备好，而此时Display又在显示buffer A的数据，导致后面CPU/GPU没有新的buffer着手准备数据，导致卡顿（jank）。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619101533702.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+
+## 卡顿原因
+
+从系统层面上看主要以下几个方面的原因会导致卡顿：
+**1. SurfaceFlinger 主线程耗时**
+
+SurfaceFlinger 负责 Surface 的合成 , 一旦 SurfaceFlinger 主线程调用超时 , 就会产生掉帧 .
+SurfaceFlinger 主线程耗时会也会导致 hwc service 和 crtc 不能及时完成, 也会阻塞应用的 binder 调用, 如 dequeueBuffer \ queueBuffer 等.
+
+**2. 后台活动进程太多导致系统繁忙**
+
+后台进程活动太多,会导致系统非常繁忙, cpu \ io \ memory 等资源都会被占用, 这时候很容易出现卡顿问题 , 这也是系统这边经常会碰到的问题。
+**dumpsys cpuinfo 可以查看一段时间内 cpu 的使用情况：**
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619101827920.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+**3.主线程调度不到 , 处于 Runnable 状态**
+
+当线程为 Runnable 状态的时候 , 调度器如果迟迟不能对齐进行调度 , 那么就会产生长时间的 Runnable 线程状态 , 导致错过 Vsync 而产生流畅性问题。
+
+**4、System 锁**
+
+system_server 的 AMS 锁和 WMS 锁 , 在系统异常的情况下 , 会变得非常严重 , 如下图所示 , 许多系统的关键任务都被阻塞 , 等待锁的释放 , 这时候如果有 App 发来的 Binder 请求带锁 , 那么也会进入等待状态 , 这时候 App 就会产生性能问题 ; 如果此时做 Window 动画 , 那么 system_server 的这些锁也会导致窗口动画卡顿
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619102031218.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+**5、Layer过多导致 SurfaceFlinger Layer Compute 耗时**
+
+Android P 修改了 Layer 的计算方法 , 把这部分放到了 SurfaceFlinger 主线程去执行, 如果后台 Layer 过多, 就会导致 SurfaceFlinger 在执行 rebuildLayerStacks 的时候耗时 , 导致 SurfaceFlinger 主线程执行时间过长。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619102324220.png)
+从应用层来看以下会导致卡顿：
+
+**1、主线程执行时间长**
+主线程执行 Input \ Animation \ Measure \ Layout \ Draw \ decodeBitmap 等操作超时都会导致卡顿 。
+
+- 1、Measure \ Layout 耗时\超时
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619103556294.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+
+- 2、draw耗时
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619103632673.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+
+- 3、Animation回调耗时
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619103717321.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+
+- 4、View 初始化耗时
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619103810150.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+
+- 5、List Item 初始化耗时
+
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619103839118.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+
+- 6、主线程操作数据库
+
+**2、主线程 Binder 耗时**
+
+Activity resume 的时候, 与 AMS 通信要持有 AMS 锁, 这时候如果碰到后台比较繁忙的时候, 等锁操作就会比较耗时, 导致部分场景因为这个卡顿, 比如多任务手势操作。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020061910395626.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+
+**3、WebView 性能不足**
+
+应用里面涉及到 WebView 的时候, 如果页面比较复杂, WebView 的性能就会比较差, 从而造成卡顿
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619104046115.png)
+
+**4、帧率与刷新率不匹配**
+
+如果屏幕帧率和系统的 fps 不相符 , 那么有可能会导致画面不是那么顺畅. 比如使用 90 Hz 的屏幕搭配 60 fps 的动画。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619104123839.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+
+## 卡顿检测
+
+卡顿检测可以使用以下多种方法同时进行：
+**1、使用dumpsys gfxinfo**
+**2、使用Systrace获取相关信息**
+**3、使用LayoutInspect 检测布局层次**
+**4、使用BlockCanary**
+**5、利用Choreographer。**
+**6、使用严格模式（StrictMode ）。**
+
+### 使用dumpsys gfxinfo
+
+在开发过程中发现有卡顿发生时可以使用下面的命令来获取卡顿相关的信息：
+
+```java
+adb shell dumpsys gfxinfo [PACKAGE_NAME]
+```
+
+输入这个命令后可能会打印下面的信息：
+
+```java
+Applications Graphics Acceleration Info:
+Uptime: 102809662 Realtime: 196891968
+** Graphics info for pid 31148 [com.android.settings] **
+Stats since: 524615985046231ns
+Total frames rendered: 8325
+Janky frames: 729 (8.76%)
+90th percentile: 13ms
+95th percentile: 20ms
+99th percentile: 73ms
+Number Missed Vsync: 294
+Number High input latency: 47
+Number Slow UI thread: 502
+Number Slow bitmap uploads: 44
+Number Slow issue draw commands: 135
+```
+
+上面参数说明：
+
+**Graphics info for pid 31148 [com.android.settings]**: 表明当前dump的为设置界面的帧信息，pid为31148
+**Total frames rendered**: 8325 本次dump搜集了8325帧的信息
+
+**Janky frames** :729 (8.76%)出现卡顿的帧数有729帧，占8.76%
+
+**Number Missed Vsync**: 294 垂直同步失败的帧
+
+**Number Slow UI thread**: 502 因UI线程上的工作导致超时的帧数
+
+**Number Slow bitmap uploads**: 44 因bitmap的加载耗时的帧数
+
+**Number Slow issue draw commands**: 135 因绘制导致耗时的帧数
+
+### 使用systrace
+
+上面使用的dumpsys是能发现问题或者判断问题的严重性，但无法定位真正的原因。如果要定位原因，应当配合systrace工具使用。
+
+**systrace使用**
+
+Systrace可以帮助分析应用是如何设备上运行起来的，它将系统和应用程序线程集中在一个共同的时间轴上，分析systrace的第一步需要在程序运行的时间段中抓取trace log，在抓取到的trace文件中，包含了这段时间中想要的关键信息，交互情况。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/2020061911445373.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+图1显示的是当一个app在滑动时出现了卡顿的现象，默认的界面下，横轴是时间，纵向为trace event，trace event 先按进程分组，然后再按线程分组.从上到下的信息分别为Kernel，SurfaceFlinger，应用包名。通过配置trace的分类，可以根据配置情况记录每个应用程序的所有线程信息以及trace event的层次结构信息。
+
+**Android studio中使用systrace**
+
+1、在android设备的 设置 – 开发者选项 – 监控 – 开启traces。
+2、选择要追中的类别，并且点击确定。
+
+完成以上配置后，开始抓trace文件
+
+```java
+$ python systrace.py --cpu-freq --cpu-load --time=10 -o mytracefile.html
+```
+
+**分析trace文件**
+抓到trace.html文件后，通过web浏览器打开
+
+检查Frames
+每个应用程序都有一排代表渲染帧的圆圈，通常为绿色，如果绘制的时间超过16.6毫秒则显示黄色或红色。通过“W”键查看帧。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619114729357.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+**trace应用程序代码**
+在framework中的trace marker并没有覆盖到所有代码，因此有些时候需要自己去定义trace marker。在Android4.3之后，可以通过Trace类在代码中添加标记，这样将能够看到在指定时间内应用的线程在做哪些工作，当然，trace 的begin和end操作也会增加一些额外的开销，但都只有几微秒左右。
+通过下面的例子来说明Trace类的 用法。
+
+```java
+public class MyAdapter extends RecyclerView.Adapter<MyViewHolder> {
+
+    ...
+
+    @Override
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        Trace.beginSection("MyAdapter.onCreateViewHolder");
+        MyViewHolder myViewHolder;
+        try {
+            myViewHolder = MyViewHolder.newInstance(parent);
+        } finally {
+            Trace.endSection();
+        }
+        return myViewHolder;
+    }
+
+   @Override
+    public void onBindViewHolder(MyViewHolder holder, int position) {
+        Trace.beginSection("MyAdapter.onBindViewHolder");
+        try {
+            try {
+                Trace.beginSection("MyAdapter.queryDatabase");
+                RowItem rowItem = queryDatabase(position);
+                mDataset.add(rowItem);
+            } finally {
+                Trace.endSection();
+            }
+            holder.bind(mDataset.get(position));
+        } finally {
+            Trace.endSection();
+        }
+    }
+
+…
+
+}
+```
+
+### 使用BlockCanary
+
+BlockCanary是国内开发者MarkZhai开发的一套性能监控组件，它对主线程操作进行了完全透明的监控，并能输出有效的信息，帮助开发分析、定位到问题所在，迅速优化应用。
+其特点有：
+**1、非侵入式，简单的两行就打开监控，不需要到处打点，破坏代码优雅性。**
+**2、精准，输出的信息可以帮助定位到问题所在（精确到行），不需要像Logcat一样，慢慢去找。**
+**3、目前包括了核心监控输出文件，以及UI显示卡顿信息功能**
+
+**BlockCanary基本原理**
+
+android应用程序只有一个主线程ActivityThread，这个主线程会创建一个Looper(Looper.prepare)，而Looper又会关联一个MessageQueue，主线程Looper会在应用的生命周期内不断轮询(Looper.loop)，从MessageQueue取出Message 更新UI。
+
+```java
+public static void loop() {
+    ...
+    for (;;) {
+        ...
+        // This must be in a local variable, in case a UI event sets the logger
+        Printer logging = me.mLogging;
+        if (logging != null) {
+            logging.println(">>>>> Dispatching to " + msg.target + " " +
+                    msg.callback + ": " + msg.what);
+        }
+        msg.target.dispatchMessage(msg);
+        if (logging != null) {
+            logging.println("<<<<< Finished to " + msg.target + " " + msg.callback);
+        }
+        ...
+    }
+}
+```
+
+BlockCanary主要是检测`msg.target.dispatchMessage(msg);`之前的`>>>>> Dispatching to` 和之后的`<<<<< Finished to`的间隔时间。
+应用发生卡顿，一定是在dispatchMessage中执行了耗时操作。通过给主线程的Looper设置一个Printer，打点统计dispatchMessage方法执行的时间，如果超出阀值，表示发生卡顿，则dump出各种信息，提供开发者分析性能瓶颈。
+
+### 使用Choreographer
+
+Android 主线程运行的本质，其实就是 Message 的处理过程，我们的各种操作，包括每一帧的渲染操作 ，都是通过 Message 的形式发给主线程的 MessageQueue ，MessageQueue 处理完消息继续等下一个消息。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619115744338.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+Choreographer 的引入，主要是配合 Vsync ，给上层 App 的渲染提供一个稳定的 Message 处理的时机，也就是 Vsync 到来的时候 ，系统通过对 Vsync 信号周期的调整，来控制每一帧绘制操作的时机. 目前大部分手机都是 60Hz 的刷新率，也就是 16.6ms 刷新一次，系统为了配合屏幕的刷新频率，将 Vsync 的周期也设置为 16.6 ms，每个 16.6 ms ， Vsync 信号唤醒 Choreographer 来做 App 的绘制操作 ，这就是引入 Choreographer 的主要作用。
+
+**Choreographer 两个主要作用**
+
+1、承上：负责接收和处理 App 的各种更新消息和回调，等到 Vsync 到来的时候统一处理。比如集中处理 Input(主要是 Input 事件的处理) 、Animation(动画相关)、Traversal(包括 measure、layout、draw 等操作) ，判断卡顿掉帧情况，记录 CallBack 耗时等。
+
+2、启下：负责请求和接收 Vsync 信号。接收 Vsync 事件回调(通过 FrameDisplayEventReceiver.onVsync )；请求 Vsync(FrameDisplayEventReceiver.scheduleVsync) .
+
+**使用Choreographer 计算帧率**
+
+Choreographer 处理绘制的逻辑核心在 Choreographer.doFrame 函数中，从下图可以看到，FrameDisplayEventReceiver.onVsync post 了自己，其 run 方法直接调用了 doFrame 开始一帧的逻辑处理：
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619120044126.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+Choreographer周期性的在UI重绘时候触发，在代码中记录上一次和下一次绘制的时间间隔，如果超过16ms，就意味着一次UI线程重绘的“丢帧”。丢帧的数量为间隔时间除以16，如果超过3，就开始有卡顿的感知。
+使用Choreographer检测帧的代码如下：
+
+```java
+public class MyFrameCallback implements Choreographer.FrameCallback {
+        private String TAG = "性能检测";
+        private long lastTime = 0;
+
+        @Override
+        public void doFrame(long frameTimeNanos) {
+            if (lastTime == 0) {
+                //代码第一次初始化。不做检测统计。
+                lastTime = frameTimeNanos;
+            } else {
+                long times = (frameTimeNanos - lastTime) / 1000000;
+                int frames = (int) (times / 16);
+
+                if (times > 16) {
+                    Log.w(TAG, "UI线程超时(超过16ms):" + times + "ms" + " , 丢帧:" + frames);
+                }
+
+                lastTime = frameTimeNanos;
+            }
+
+            Choreographer.getInstance().postFrameCallback(mFrameCallback);
+        }
+    }
+```
+
+## 优化
+
+由上面的分析可知**对象分配**、**垃圾回收**(GC)、**线程调度**以及**Binder调用** 是Android系统中常见的卡顿原因，因此卡顿优化主要以下几种方法，更多的要结合具体的应用来进行：
+
+**1、布局优化**
+
+- 通过减少冗余或者嵌套布局来降低视图层次结构。比如使用约束布局代替线性布局和相对布局。
+- 用 ViewStub 替代在启动过程中不需要显示的 UI 控件。
+- 使用自定义 View 替代复杂的 View 叠加。
+- 
+
+**2、减少主线程耗时操作**
+
+- 主线程中不要直接操作数据库，数据库的操作应该放在数据库线程中完成。
+- sharepreference尽量使用apply，少使用commit，可以使用MMKV框架来代替sharepreference。
+- 网络请求回来的数据解析尽量放在子线程中，不要在主线程中进行复制的数据解析操作。
+- 不要在activity的onResume和onCreate中进行耗时操作，比如大量的计算等。
+
+**3、减少过度绘制**
+过度绘制是同一个像素点上被多次绘制，减少过度绘制一般减少布局背景叠加等方式，如下图所示右边是过度绘制的图片。
+![在这里插入图片描述](https://img-blog.csdnimg.cn/20200619153239362.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3UwMTMzMDk4NzA=,size_16,color_FFFFFF,t_70)
+**4、列表优化**
+
+- RecyclerView使用优化，使用DiffUtil和notifyItemDataSetChanged进行局部更新等。
+
+**5、对象分配和回收优化**
+
+自从Android引入 ART 并且在Android 5.0上成为默认的运行时之后，对象分配和垃圾回收（GC）造成的卡顿已经显著降低了，但是由于对象分配和GC有额外的开销，它依然又可能使线程负载过重。 在一个调用不频繁的地方（比如按钮点击）分配对象是没有问题的，但如果在在一个被频繁调用的紧密的循环里，就需要避免对象分配来降低GC的压力。
+
+- 减少小对象的频繁分配和回收操作。
+
+
+# 存储优化
+## 交换数据格式
+
+Google 推出的 [Protocal Buffers](https://developers.google.com/protocol-buffers/) 是一种更轻便高效的存储结构，但消耗内存较大。
+
+[FlatBuffers](https://github.com/google/flatbuffers) 同样由 Google 推出，专注性能，适合移动端。占用存储比 Protocal 要大。
+
+## SharePreferences 优化
+
+- 当 SharedPreferences 文件还没有被加载到内存时，调用 getSharedPreferences 方法会初始化文件并读入内存，这容易导致 耗时更长。
+- Editor 的 commit 或者 apply 方法的区别在于同步写入和异步 写入，以及是否需要返回值。在不需要返回值的情况下，**使用 apply 方法可以极大提高性能**。
+- SharedPreferences 类 中的 commitToMemory() 会锁定 SharedPreference 对象，put() 和 getEditor() 方法会锁定 Editor 对象，在写入磁盘时更会锁定一个写入锁。因此，最好的优化方法就是避免频繁地读写 SharedPreferences，减少无谓的调用。对于 SharedPreferences 的批量操作，最好先获取一个 editor 进行批量操作，然后调用 apply 方法。
+
+## Bitmap 解码
+
+- 4.4 以上 decodeFile 内部没有使用缓存，效率不高。要使用 decodeStream，同时传入的文件流为 BufferedInputStream。
+- decodeResource 同样存在性能问题，用 decodeResourceStream。
+
+## 数据库优化
+
+1. 使用 StringBuilder 代替 String
+
+2. 查询时返回更少的结果集及更少的字段
+
+   查询时只取需要的字段和结果集，更多的结果集会消耗更多的时间及内存，更多的字段会导致更多的内存消耗。
+
+3. 少用 cursor.getColumnIndex
+
+   根据性能调优过程中的观察 cursor.getColumnIndex 的时间消耗跟 cursor.getInt 相差无几。可以在建表的时候用 static 变量记住某列的 index，直接调用相应 index 而不是每次查询。
+
+4. 异步线程
+
+   Android 中数据不多时表查询可能耗时不多，不会导致 ANR，不过大于 100ms 时同样会让用户感觉到延时和卡顿，可以放在线程中运行，但 sqlite 在并发方面存在局限，多线程控制较麻烦，这时候可使用单线程池，在任务中执行 db 操作，通过 handler 返回结果和 UI 线程交互，既不会影响 UI 线程，同时也能防止并发带来的异常。
+
+5. SQLiteOpenHelper **维持一个单例**
+
+   因为 SQLite 对多线程的支持并不是很完善，如果两个线程同时操作数据库，因为数据库被另一个线程占用， 这种情况下会报“Database is locked” 的异常。所以在数据库管理类中使用单例模式，就可以保证无论在哪个线程中获取数据库对象，都是同一个。
+
+   最好的方法是所有的数据库**操作统一到同一个线程队列管理**，而业务层使用缓存同步，这样可以完全避免多线程操作数据库导致的不同步和死锁问题。
+
+6. Application 中初始化
+
+   - 使用 Application 的 Context 创建数据库，在 Application 生命周期结束时再关闭。
+   - 在应用启动过程中最先初始化完数据库，避免进入应用后再初始化导致相关操作时间变长。
+
+7. 少用 AUTOINCREMENT
+
+   主键加上 AUTOINCREMENT 后，可以保证主键严格递增，但并不能保证每次都加 1，因为在插入失败后，失败的行号不会被复用，会造成主键有间隔，继而使 INSERT 耗时 1 倍以上。
+
+   这个 AUTOINCREMENT 关键词会增加 CPU，内存，磁盘空间和磁盘 I/O 的负担，所以 尽量不要用，除非必需。通常情况下都不是必需的。
+
+### 事务
+
+使用事务的两大好处是原子提交和更优性能：
+
+- 原子提交：意味着同一事务内的所有修改要么都完成要么都不做，如果某个修改失败，会自动回滚使得所有修改不生效。
+- 更优性能：Sqlite 默认会为每个插入、更新操作创建一个事务，并且在每次插入、更新后立即提交。这样如果连续插入 100 次数据实际是创建事务、执行语句、提交这个过程被重复执行了 100 次。如果显式的创建事务，这个过程只做一次，通过这种一次性事务可以使得性能大幅提升。尤其当数据库位于 sd 卡时，时间上能节省两个数量级左右。
+
+主要三个方法：beginTransaction，setTransactionSuccessful，endTransaction。
+
+### SQLiteStatement
+
+使用 Android 系统提供的 SQLiteStatement 来插入数据，在性能上有一定的提高，并且也解决了 SQL 注入的问题。
+
+
+
+```java
+SQLiteStatement statement = dbOpenHelper.getWritableDatabase().compileStatement("INSERT INTO EMPERORS(name, dynasty, start_year) values(?,?,?)"); 
+statement.clearBindings();
+statement.bindString(1, "Max"); 
+statement.bindString(2, "Luk"); 
+statement.bindString(3, "1998"); 
+statement.executeInsert();
+```
+
+SQLiteStatement 只能插入一个表中的数据，在插入前要清除上一次的数据。
+
+### 索引
+
+索引就像书本的目录，目录可以快速找到所在页数，数据库中索引可以帮助快速找到数据，而不用全表扫描，合适的索引可以大大提高数据库查询的效率。
+
+优点：大大加快了数据库检索的速度，包括对单表查询、连表查询、分组查询、排序查询。经常是一到两个数量级的性能提升，且随着数据数量级增长。
+
+缺点：
+
+- 索引的创建和维护存在消耗，索引会占用物理空间，且随着数据量的增加而增加。
+- 在对数据库进行增删改时需要维护索引，所以会对增删改的性能存在影响。
+
+**分类**
+
+1. 直接创建索引和间接创建索引
+   - 直接创建: 使用 sql 语句创建，Android 中可以在 SQLiteOpenHelper 的 onCreate 或是 onUpgrade 中直接 excuSql 创建语句，如 `CREATE INDEX mycolumn_index ON mytable (myclumn)`
+   - 间接创建: 定义主键约束或者唯一性键约束，可以间接创建索引，主键默认为唯一索引。
+2. 普通索引和唯一性索引
+   - 普通索引：`CREATEINDEXmycolumn_indexONmytable(myclumn)`
+   - 唯一性索引：保证在索引列中的全部数据是唯一的，对聚簇索引和非聚簇索引都可以使用，语句为 `CREATE UNIQUE COUSTERED INDEX myclumn_cindex ON mytable(mycolumn)`
+3. 单个索引和复合索引
+   - 单个索引：索引建立语句中仅包含单个字段，如上面的普通索引和唯一性索引创建示例。
+   - 复合索引：又叫组合索引，在索引建立语句中同时包含多个字段，如 `CREATEINDEXname_indexONusername(firstname,lastname)`，其中 firstname 为前导列。
+4. 聚簇索引和非聚簇索引 (聚集索引，群集索引)
+   - 聚簇索引：物理索引，与基表的物理顺序相同，数据值的顺序总是按照顺序排列，如 `CREATE CLUSTERED INDEX mycolumn_cindex ON mytable(mycolumn) WITH ALLOW_DUP_ROW`，其中 `WITH ALLOW_DUP_ROW` 表示允许有重复记录的聚簇索引
+   - 非聚簇索引：`CREATEUNCLUSTEREDINDEXmycolumn_cindexONmytable(mycolumn)`，索引默认为非聚簇索引
+
+**使用场景**
+
+1. 当某字段数据更新频率较低，查询频率较高，经常有范围查询 `(>, <, =,>=, <=)` 或 `order by`、`group by` 发生时建议使用索引。并且选择度（一个字段中唯一值的数量 / 总的数量）越大，建索引越有优势
+2. 经常同时存取多列，且每列都含有重复值可考虑建立复合索引
+
+**使用规则**
+
+1. 对于复合索引，把使用最频繁的列做为前导列 (索引中第一个字段)。如果查询时前导列不在查询条件中则该复合索引不会被使用。如 `create unique index PK_GRADE_CLASS on student (grade, class)`，`select * from student where class = 2` 未使用到索引，`select * from dept where grade = 3` 使用到了索引
+2. 避免对索引列进行计算，对 where 子句列的任何计算如果不能被编译优化，都会导致查询时索引失效 `select * from student where tochar(grade)=’2`
+3. 比较值避免使用 NULL
+4. 多表查询时要注意是选择合适的表做为内表。连接条件要充份考虑带有索引的表、行数多的表，内外表的选择可由公式：外层表中的匹配行数 `*` 内层表中每一次查找的次数确定，乘积最小为最佳方案。实际多表操作在被实际执行前，查询优化器会根据连接条件，列出几组可能的连接方案并从中找出系统开销最小的最佳方案
+5. 查询列与索引列次序一致
+6. 用多表连接代替 EXISTS 子句
+7. 把过滤记录数最多的条件放在最前面
+8. 善于使用存储过程，它使 sql 变得更加灵活和高效 (Sqlite 不支持存储过程)
+
+## 其它通用优化
+
+- 经常用的数据读取后缓存起来，以免多次重复读写造成“写入放大”
+- 子线程读写数据
+- ObjectOutputStream 在序列化磁盘时，会把内存中的每个对象保存到磁盘，在保存对象的 时候，每个数据成员会带来一次 I/O 操作。在 ObjectOutputStream 上面再封装一个输出流 ByteArrayOutputStream 或 BufferedOutputStream，先将对象序列化后的信息写到缓存区中，然后再一次性地写到磁盘上；相应的，用 ByteArrayInputStream 或 BufferedInputStream 替代 ObjectInputStream。
+- 合理选择缓冲区 Buffer 的大小。太小导致 I/O 操作次数增多，太大导致申请时间变长。比如 4-8 KB。
+
+# 网络优化
+互联网时代, App作为于用户交互的端, 可以说实际上是一个界面, 产品的业务, 服务都是由Server提供的. 而App与Server的交互依赖于网络, 故而网络优化, 也是我们的App优化中不可缺少的一个优化项。除了客户端, 接口的优化外, 很多一部分优化还依赖于服务器端, 包括服务器端的代码开发, 部署方式等。
+
+## 网络连接对用户的影响
+
+App的网络连接对于用户来说, 影响很多, 且多数情况下都很直观, 直接影响用户对这个App的使用体验. 其中较为重要的几点:
+
+- **流量**
+  App的流量消耗对用户来说是比较敏感的, 毕竟流量是花钱的嘛. 现在大部分人的手机上都有安装流量监控的工具App, 用来监控App的流量使用. 如果我们的App这方面没有控制好, 会给用户不好的使用体验.
+- **电量**
+  电量相对于用户来说, 没有那么明显. 一般用户可能不会太注意. 但是如电量优化中的那样, 网络连接(radio)是对电量影响很大的一个因素. 所以我们也要加以注意.
+- **用户等待**
+  也就是用户体验, 良好的用户体验, 才是我们留住用户的第一步. 如果App请求等待时间长, 会给用户网络卡, 应用反应慢的感觉, 如果有对比, 有替代品, 我们的App很可能就会被用户无情抛弃.
+
+## 分析网络连接的工具
+
+### Network Monitor
+
+Android Studio内置的Monitor工具中就有一个Network Monitor:
+
+![img](https://img-blog.csdn.net/20180910062232358?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2F1Z2Z1bg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+其中:
+
+- Rx --- R(ecive) 表示下行流量, 即下载接收.
+- Tx --- T(ransmit) 表示上行流量, 即上传发送.
+
+**怎么使用Network Monitor?**
+
+Network monitor实时跟踪选定应用的数据请求情况. 我们可以连上手机, 选定调试应用进程, 然后在App上操作我们需要分析的页面请求.
+
+例如, 上图就是以[CoderPub](https://github.com/mingjunli/GithubApp)为例, 针对从repo列表界面进入repo详情界面的监控数据.
+
+可以看到从10s到30s之间, 20s时间内发生了多次数据请求, 且22s到27s之间的请求数据量还很大.
+
+分析代码可以看到, 在请求repo详情的时候是打包了很多请求的:
+
+```java
+@Override
+public Observable<RepoDetail> getRepoDetail(String owner, String name) {
+    return Observable.zip(mRepoService.get(owner, name),
+            mRepoService.contributors(owner, name),
+            mRepoService.listForks(owner, name, "newest"),
+            mRepoService.readme(owner, name),
+            isStarred(owner, name),
+            new Func5<Repo, ArrayList<User>, ArrayList<Repo>, Content, Boolean, RepoDetail>() {
+                @Override
+                public RepoDetail call(Repo repo, ArrayList<User> users, ArrayList<Repo> forks, Content readme, Boolean isStarred) {
+                    RepoDetail detail = new RepoDetail();
+ 
+                    repo.setStarred(isStarred);
+                    detail.setBaseRepo(repo);
+                    detail.setForks(forks);
+ 
+                    // because the readme content is encode with Base64 by github.
+                    readme.content = StringUtil.base64Decode(readme.content);
+                    detail.setReadme(readme);
+ 
+                    detail.setContributors(users);
+                    return detail;
+                }
+            });
+}
+```
+
+这也验证了14s到20s间的四次数据请求, 另外由于repo详情界面会显示作者以及贡献者的图片, 而图片的数据量相对大, 故而23s到27s间有多次数据量很大的请求发生.
+
+### 网络代理工具
+
+一般来说, 网络代理工具有两个作用:
+
+1. 截获网络请求响应包, 分析网络请求
+2. 设置代理网络, 移动App开发中一般用来做不同网络环境的测试, 例如Wifi/4G/3G/弱网等.
+
+代理工具很多, 诸如[Wireshark](https://www.wireshark.org/), [Fiddler](https://www.telerik.com/fiddler), [Charles](https://www.charlesproxy.com/)等, 在此不一一细说了, 使用方法自行问谷歌度娘. :)
+
+## 从哪些方面优化网络连接
+
+简单来说, 两个方面:
+
+- **减少Radio活跃时间**
+  - 也就是减少网络数据获取的频次.
+  - 这就减少了radio的电量消耗, 控制电量使用.
+- **减少获取数据包的大小**
+  - 可以减少流量消耗
+  - 也可以让每次请求更快, 在网络情况不好的情况下也有良好表现, 提升用户体验.
+
+### 接口设计
+
+**API设计**
+
+App与Server之间的API设计要考虑网络请求的频次, 资源的状态等. 以便App可以以较少的请求来完成业务需求和界面的展示.
+
+例如, 注册登录. 正常会有两个API, 注册和登录, 但是设计API时我们应该给注册接口包含一个隐式的登录. 来避免App在注册后还得请求一次登录接口(有可能失败, 从而导致业务流程失败).
+
+例如, 之前提到的获取repo详情, 实际上请求了4个接口, 请求了repo的信息, forks列表, contributors列表, readme, 这是因为github提供的接口是尽量单一职责的. 然而在我们的实际开发中, 我们的Server除了提供这些单一职责的小接口外, 最好还能组合一个满足客户端业务需求的repo详情接口出来.
+
+**Gzip压缩**
+
+使用Gzip来压缩request和response, 减少传输数据量, 从而减少流量消耗.
+
+**考虑使用Protocol Buffer代替JSON**
+
+以前我们传输数据使用XML, 后来使用JSON代替了XML, 很大程度上也是为了可读性和减少数据量(当然还有映射成POJO的方便程度).
+
+[Protocol Buffer](https://github.com/google/protobuf/)是Google推出的一种数据交换格式.
+
+如果我们的接口每次传输的数据量很大的话, 可以考虑下protobuf, 会比JSON数据量小很多.
+
+当然相比来说, JSON也有其优势, 可读性更高.
+
+> 本节以网络流量优化的角度推荐protobuf作为一个选择, 具体还需更具实际情况考虑.
+
+**图片的Size**
+
+上面Network Monitor中看到的22s到27s之间的有多次请求, 且数据量还很大. 就是在获取图片资源.
+
+图片相对于接口请求来说, 数据量要大得多. 故而也是我们需要优化的一个点.
+
+我们可以在获取图片时告知服务器需要的图片的宽高, 以便服务器给出合适的图片, 避免浪费.
+
+我们现在很多公司的图片资源都是使用第三方的云存储服务的(七牛, 阿里云存储之类的).
+
+以七牛为例, 可以在请求图片的url中添加诸如质量, 格式, width, height等path来获取合适的图片资源:
+
+```
+imageView2/<mode>/w/<LongEdge>
+                 /h/<ShortEdge>
+                 /format/<Format>
+                 /interlace/<Interlace>
+                 /q/<Quality>
+                 /ignore-error/<ignoreError>
+```
+
+### 网络缓存
+
+适当的缓存, 既可以让我们的应用看起来更快, 也能避免一些不必要的流量消耗.
+
+**打包网络请求**
+
+当接口设计不能满足我们的业务需求时. 例如可能一个界面需要请求多个接口, 或是网络良好, 处于Wifi状态下时我们想获取更多的数据等.
+
+这时就可以打包一些网络请求, 例如请求列表的同时, 获取Header点击率较高的的item项的详情数据.
+
+> 可以通过一些统计数据来帮助我们定位用户接下来的操作是高概率的, 提前获取这部分的数据.
+
+**监听相关状态**
+
+通过监听设备的状态:
+
+- 休眠状态
+- 充电状态
+- 网络状态
+
+结合[JobScheduler](https://developer.android.com/reference/android/app/job/JobScheduler.html)来根据实际情况做网络请求. 比方说Splash闪屏广告图片, 我们可以在连接到Wifi时下载缓存到本地; 新闻类的App可以在充电, Wifi状态下做离线缓存.
+
+### 弱网测试&优化
+
+除了正常的网络优化, 我们还需考虑到弱网情况下, App的表现.
+
+**弱网测试**
+
+有几种方式来模拟弱网进行测试.
+
+Android Emulator
+
+创建和启动Android模拟器可以设置网络速度和延迟:
+
+**创建时**:
+
+![img](https://img-blog.csdn.net/20180910062617283?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2F1Z2Z1bg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+**启动时**, 使用emulator命令:
+
+```
+$emulator -netdelay gprs -netspeed gsm -avd Nexus_5_API_22
+```
+
+具体参数参考[这里](https://developer.android.com/studio/run/emulator-commandline.html#netdelay)和[这里](https://developer.android.com/studio/run/emulator-commandline.html#netspeed), 需要翻墙.
+
+使用网络代理工具
+
+以[Charles](https://www.charlesproxy.com/)为例:
+保持手机和PC处于同一个局域网, 在手机端wifi设置高级设置中设置代理方式为手动, 代理ip填写PC端ip地址, 端口号默认8888.
+
+![img](https://img-blog.csdn.net/2018091006274452?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2F1Z2Z1bg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+![img](https://img-blog.csdn.net/20180910062757452?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2F1Z2Z1bg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+**其他模拟弱网方式**
+
+如果你恰好也是iOS的开发者, Apple提供了[Network Link Conditioner](http://nshipster.cn/network-link-conditioner/), 非常好用.
+
+可以模拟的网络情况与上述类似:
+
+​                            ![img](https://img-blog.csdn.net/20180910062859260?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2F1Z2Z1bg==/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
+
+如果你使用Linux环境开发, 还可以试下facebook出的[ATC](http://facebook.github.io/augmented-traffic-control/).
+
+**弱网优化**
+
+利用上述工具模拟弱网, 在弱网情况下体验我们的App. 一般来说, 网络延迟在60ms内, 是OK的, 超过200ms就比较糟糕了. 我们需要做的是在比较糟糕的网络环境下还能给用户较好的体验.
+
+弱网优化, 本质上是在弱网的情况下能让用户流畅的使用我们的App. 我们要做的就是结合上述的优化项:
+
+- 压缩/减少数据传输量
+- 利用缓存减少网络传输
+- 针对弱网(移动网络), 不自动加载图片
+- 界面先反馈, 请求延迟提交
+  例如, 用户点赞操作, 可以直接给出界面的点赞成功的反馈, 使用[**JobScheduler**](https://developer.android.com/reference/android/app/job/JobScheduler.html)在网络情况较好的时候打包请求.
+
+# 耗电优化
+
+实践中，如果我们的应用需要播放视频、需要获取 GPS 信息、需要拍照，这些耗电看起来是无法避免的。
+
+如何判断哪些耗电是可以避免，或者是需要去优化的呢？可以看下面这张图，当用户去看耗电排行榜的时候，发现“王者荣耀”使用了 7 个多小时，这时用户对“王者荣耀”的耗电是有预期的。
+
+![image](https://static001.geekbang.org/resource/image/5f/90/5f98c8a117745ce2fd7ef8f873894090.png)
+
+假设这个时候发现某个应用他根本没怎么使用（前台时间很少），但是耗电却非常多。这种情况会跟用户的预期差别很大，他可能就会想去投诉。
+
+**所以耗电优化的第一个方向是优化应用的后台耗电。**
+
+知道了系统是如何计算耗电的，那反过来看，我们也就可以知道应用在后台不应该做什么，例如长时间获取 WakeLock、WiFi 和蓝牙的扫描等。为什么说耗电优化第一个方向就是优化应用后台耗电，因为大部分厂商预装项目要求最严格的正是应用后台待机耗电。
+
+![image](https://static001.geekbang.org/resource/image/b0/2b/b01e359b45d22bd80efda51eee2f5f2b.png)
+
+当然前台耗电我们不会完全不管，但是标准会放松很多。再来看看下面这张图，如果系统对你的应用弹出这个对话框，可能对于微信来说，用户还可以忍受，但是对其他大多数的应用来说，可能很多用户就直接把你加入到后台限制的名单中了
+
+![image](https://static001.geekbang.org/resource/image/c6/1b/c6d2c20c09e84190c7b4a64578d0cc1b.png)
+
+**耗电优化的第二个方向是符合系统的规则，让系统认为你耗电是正常的。**
+
+而 Android P 是通过 Android Vitals 监控后台耗电，所以我们需要符合 Android Vitals 的规则，目前它的具体规则如下：
+
+![image](https://static001.geekbang.org/resource/image/62/15/620748a58e45e50fdea1098f15c77d15.png)
+
+虽然上面的标准可能随时会改变，但是可以看到，Android 系统目前比较关心后台 Alarm 唤醒、后台网络、后台 WiFi 扫描以及部分长时间 WakeLock 阻止系统后台休眠。
+
+## 耗电监控
+
+对于耗电监控也是如此，我们首先需要抽象出具体的规则，然后收集尽量多的辅助信息，帮助问题的排查。
+
+### Android Vitals
+
+Android Vitals 的几个关于电量的监控方案与规则：
+
+- [Alarm Manager wakeup 唤醒过多](https://developer.android.com/topic/performance/vitals/wakeup)
+- [频繁使用局部唤醒锁](https://developer.android.google.cn/topic/performance/vitals/wakelock)
+- [后台网络使用量过高](https://developer.android.com/topic/performance/vitals/bg-network-usage)
+- [后台 WiFi scans 过多](https://developer.android.com/topic/performance/vitals/bg-wifi)
+
+在使用了一段时间之后，我发现它并不是那么好用。以 Alarm wakeup 为例，Vitals 以每小时超过 10 次作为规则。由于这个规则无法做修改，很多时候我们可能希望针对不同的系统版本做更加细致的区分。
+
+其次跟 Battery Historian 一样，我们只能拿到 wakeup 的标记的组件，拿不到申请的堆栈，也拿不到当时手机是否在充电、剩余电量等信息。
+![image](https://static001.geekbang.org/resource/image/33/1d/33aa19f951d577b759527c717c7d6e1d.png)
+
+对于网络、WiFi scans 以及 WakeLock 也是如此。虽然 Vitals 帮助我们缩小了排查的范围，但是依然需要在茫茫的代码中寻找对应的可疑代码。
+
+## 耗电监控都监控什么
+
+Android Vitals并不是那么好用，而且对于国内的应用来说其实也根本无法使用。不管怎样，我们还是需要搭建自己的耗电监控系统。
+
+那我们的耗电监控系统应该监控哪些内容，怎么样才能比 Android Vitals 做得更好呢？
+
+- **监控信息**。简单来说系统关心什么，我们就监控什么，而且应该以后台耗电监控为主。类似 Alarm wakeup、WakeLock、WiFi scans、Network 都是必须的，其他的可以根据应用的实际情况。如果是地图应用，后台获取 GPS 是被允许的；如果是计步器应用，后台获取 Sensor 也没有太大问题。
+- **现场信息**。监控系统希望可以获得完整的堆栈信息，比如哪一行代码发起了 WiFi scans、哪一行代码申请了 WakeLock 等。还有当时手机是否在充电、手机的电量水平、应用前台和后台时间、CPU 状态等一些信息也可以帮助我们排查某些问题。
+- **提炼规则**。最后我们需要将监控的内容抽象成规则，当然不同应用监控的事项或者参数都不太一样。 由于每个应用的具体情况都不太一样，下面是一些可以用来参考的简单规则。
+
+![image](https://static001.geekbang.org/resource/image/d4/be/d48b7e4d3fdceb101fa7716b5892b0be.png)
+
+在安卓绿色联盟的会议中，华为公开过他们后台资源使用的“红线”，你也可以参考里面的一些规则：
+![image](https://static001.geekbang.org/resource/image/86/ff/86a65ea0d9216a11a341d7224fce93ff.png)
+
+## 如何监控耗电
+
+明确了我们需要监控什么以及具体的规则之后，就可以来到实现这个环节了。跟 I/O 监控、网络监控一样，我首先想到的还是 Hook 方案。
+
+### Java Hook
+
+Hook 方案的好处在于使用者接入非常简单，不需要去修改自己的代码。下面我以几个比较常用的规则为例，看看如果使用 Java Hook 达到监控的目的。
+
+- [WakeLock](https://developer.android.com/training/scheduling/wakelock)。WakeLock 用来阻止 CPU、屏幕甚至是键盘的休眠。类似 Alarm、JobService 也会申请 WakeLock 来完成后台 CPU 操作。WakeLock 的核心控制代码都在[PowerManagerService](http://androidxref.com/7.0.0_r1/xref/frameworks/base/services/core/java/com/android/server/power/PowerManagerService.java)中，实现的方法非常简单。
+
+```java
+// 代理 PowerManagerService
+ProxyHook().proxyHook(context.getSystemService(Context.POWER_SERVICE), "mService", this)；
+
+@Override
+public void beforeInvoke(Method method, Object[] args) {
+    // 申请 Wakelock
+    if (method.getName().equals("acquireWakeLock")) {
+        if (isAppBackground()) {
+            // 应用后台逻辑，获取应用堆栈等等     
+         } else {
+            // 应用前台逻辑，获取应用堆栈等等
+         }
+    // 释放 Wakelock
+    } else if (method.getName().equals("releaseWakeLock")) {
+       // 释放的逻辑    
+    }
+}
+```
+
+- [Alarm](https://developer.android.com/training/scheduling/alarms)。Alarm 用来做一些定时的重复任务，它一共有四个类型，其中[ELAPSED_REALTIME_WAKEUP](https://developer.android.com/reference/android/app/AlarmManager.html#ELAPSED_REALTIME_WAKEUP)和[RTC_WAKEUP](https://developer.android.com/reference/android/app/AlarmManager.html#RTC_WAKEUP)类型都会唤醒设备。同样，Alarm 的核心控制逻辑都在[AlarmManagerService](http://androidxref.com/7.0.0_r1/xref/frameworks/base/services/core/java/com/android/server/AlarmManagerService.java)中，实现如下：
+
+```java
+// 代理 AlarmManagerService
+new ProxyHook().proxyHook(context.getSystemService
+(Context.ALARM_SERVICE), "mService", this)；
+
+public void beforeInvoke(Method method, Object[] args) {
+    // 设置 Alarm
+    if (method.getName().equals("set")) {
+        // 不同版本参数类型的适配，获取应用堆栈等等
+    // 清除 Alarm
+    } else if (method.getName().equals("remove")) {
+        // 清除的逻辑
+    }
+}
+```
+
+- 其他。对于后台 CPU，我们可以使用卡顿监控相关的方法。对于后台网络，同样我们可以通过网络监控相关的方法。对于 GPS 监控，我们可以通过 Hook 代理[LOCATION_SERVICE](http://androidxref.com/7.0.0_r1/xref/frameworks/base/services/core/java/com/android/server/LocationManagerService.java)。对于 Sensor，我们通过 Hook [SENSOR_SERVICE](http://androidxref.com/7.0.0_r1/xref/frameworks/base/core/java/android/hardware/SystemSensorManager.java)中的“mSensorListeners”，可以拿到部分信息。
+- **通过 Hook，我们可以在申请资源的时候将堆栈信息保存起来。当我们触发某个规则上报问题的时候，可以将收集到的堆栈信息、电池是否充电、CPU 信息、应用前后台时间等辅助信息也一起带上。**
+
+### 插桩
+
+虽然使用 Hook 非常简单，但是某些规则可能不太容易找到合适的 Hook 点。而且在 Android P 之后，很多的 Hook 点都不支持了。
+
+出于兼容性考虑，我首先想到的是写一个基础类，然后在统一的调用接口中增加监控逻辑。以 WakeLock 为例：
+
+```java
+public class WakelockMetrics {
+    // Wakelock 申请
+    public void acquire(PowerManager.WakeLock wakelock) {
+        wakeLock.acquire();
+        // 在这里增加 Wakelock 申请监控逻辑
+    }
+    // Wakelock 释放
+    public void release(PowerManager.WakeLock wakelock, int flags) {
+        wakelock.release();
+        // 在这里增加 Wakelock 释放监控逻辑
+    }
+}
+```
+
+Facebook 也有一个耗电监控的开源库Battery-Metrics，它监控的数据非常全，包括 Alarm、WakeLock、Camera、CPU、Network 等，而且也有收集电量充电状态、电量水平等信息。
+
+Battery-Metrics 只是提供了一系列的基础类，在实际使用中，接入者可能需要修改大量的源码。但对于一些第三方 SDK 或者后续增加的代码，我们可能就不太能保证可以监控到了。这些场景也就无法监控了，所以 Facebook 内部是使用插桩来动态替换。
+
+遗憾的是，Facebook 并没有开源它们内部的插桩具体实现方案。不过这实现起来其实并不困难，事实上在 [Sample](https://github.com/AndroidAdvanceWithGeektime/Chapter19) 中，已经使用过 ASM、Aspectj 这两种插桩方案了。
+
+插桩方案使用起来兼容性非常好，并且使用者也没有太大的接入成本。但是它并不是完美无缺的，对于系统的代码插桩方案是无法替换的，例如 JobService 申请 PARTIAL_WAKE_LOCK 的场景。
+
+# 多线程并发优化
+
+在程序开发的实践当中，为了让程序表现得更加流畅，我们肯定会需要使用到多线程来提升程序的并发执行性能。但是编写多线程并发的代码一直以来都是一个相对棘手的问题，所以想要获得更佳的程序性能，非常有必要掌握多线程并发编程的基础技能。
+
+## Thread 使用
+
+Thread使用需要注意的点：
+
+### Thread 中断
+
+常用的有两种方式：
+
+**(1).通过抛出InterruptedException来中断线程**
+
+```java
+    public  static  class  MyThread extends Thread{
+        private  int count=0;
+        @Override
+        public void run() {
+            super.run();
+            try{
+                while(true){
+                        count++;
+                        System.out.println("count value:"+count);
+                        if (this.interrupted() || this.isInterrupted()){
+                            System.out.println("check interrupted show!");
+                            throw new InterruptedException();
+                        }
+                }
+            }catch ( InterruptedException e) {
+                System.out.println("thread is stop!");
+                e.printStackTrace();
+            }
+        }
+        
+    } 
+```
+
+**(2).通过变量来中断（常用）**
+
+```java
+    public  static  class  CustomThread extends Thread{
+        private  int count=0;
+        private volatile boolean isCancel = false;
+        @Override
+        public void run() {
+            super.run();
+            while(!isCancel){
+                    count++;
+                    System.out.println("count value:"+count);
+            }
+        }
+        
+        public synchronized void cancel(){
+            isCancel = true;
+        }
+    } 
+```
+
+### 同步
+
+分变量同步和代码块同步两个方面来讲解
+
+**(1).变量同步**
+
+使用volatile关键字
+
+```cpp
+    /**
+     * 主内存和线程内存缓存进行同步
+     */
+    volatile int val = 5;
+    public int getVal() {
+        return val;
+    }
+    public void setVal(int val) {
+        this.val = val;
+    }
+```
+
+使用synchronized关键字
+
+```java
+    int val2 = 5;
+    /**
+     * 使用一个motinor来监听（实现资源由一个线程进行操作）
+     * 主内存和线程内存缓存进行同步
+     * @return
+     */
+    public synchronized int getVal2() {
+        return val2;
+    }
+    public synchronized int setVal2(int val) {
+        this.val2 = val;
+    }
+```
+
+使用关键字AtomicXXXXX
+
+```csharp
+    AtomicInteger mAtomicValue = new  AtomicInteger(0);
+    public void setAtomicValue(int value){
+        mAtomicValue.getAndSet(value);
+    }
+    public int getAtomicValue(){
+        return mAtomicValue.get();
+    }
+```
+
+**(2).代码块同步**
+
+代码块同步分乐观锁和悲观锁来讲解
+
+使用悲观锁时，其他线程等待，进入睡眠，频繁切换任务，消耗cpu资源
+
+```java
+    synchronized (this) {
+        .....   
+    }
+```
+
+使用乐观锁时，失败重试，避免任务重复切换，减少cpu消耗
+
+```csharp
+    ReentrantLock lock = new  ReentrantLock();
+    lock.lock();
+    ......
+    lock.unlock();
+```
+
+## Android Threading
+
+android中很多操作需要在主线程中执行，比如UI的操作，点击事件等等，但是如果主线程操作太多，占有的执行时间过长就会出现前面我们说的卡顿现象：
+
+![img](https://upload-images.jianshu.io/upload_images/5748654-d4e4ae18dd8cd437.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/661/format/webp)
+
+为了减轻主线程操作过多，避免出现卡顿的现象，我们把一些操作复杂的消耗时间长的任务放到线程池中去执行。下面我们就来介绍android中几种线程的类。
+
+### AsyncTask
+
+为UI线程与工作线程之间进行快速的切换提供一种简单便捷的机制。适用于当下立即需要启动，但是异步执行的生命周期短暂的使用场景。
+它提供了一种简便的异步处理机制，但是它又同时引入了一些令人厌恶的麻烦。一旦对AsyncTask使用不当，很可能对程序的性能带来负面影响，同时还可能导致内存泄露。(关于内存泄漏在上面已经讲过)
+
+**使用AsyncTask需要注意的问题?**
+
+(1).在AsyncTask中所有的任务都是被线性调度执行的，他们处在同一个任务队列当中，按顺序逐个执行。一旦有任务执行时间过长，队列中其他任务就会阻塞。
+
+![img](https://upload-images.jianshu.io/upload_images/5748654-713e085214020903.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/559/format/webp)
+
+对于上面的问题，我们可以使用AsyncTask.executeOnExecutor()让AsyncTask变成并发调度。
+
+(2).AsyncTask对正在执行的任务不具备取消的功能，所以我们要在任务代码中添加取消的逻辑（和上面Thread类似）
+
+(3).AsyncTask使用不当会导致内存泄漏（可以参考内存泄漏一章）
+
+### HandlerThread
+
+为某些回调方法或者等待某些任务的执行设置一个专属的线程，并提供线程任务的调度机制。
+先来了解下Looper，Handler，MessageQueue
+**Looper:** 能够确保线程持续存活并且可以不断的从任务队列中获取任务并进行执行。
+**Handler:** 能够帮助实现队列任务的管理，不仅仅能够把任务插入到队列的头部，尾部，还可以按照一定的时间延迟来确保任务从队列中能够来得及被取消掉。
+**MessageQueue:** 使用Intent，Message，Runnable作为任务的载体在不同的线程之间进行传递。
+ 把上面三个组件打包到一起进行协作，这就是HandlerThread
+
+![img](https://upload-images.jianshu.io/upload_images/5748654-e88d1a439d37bf38.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/622/format/webp)
+
+我们先来看下源码：
+
+```java
+    public class HandlerThread extends Thread {
+        public HandlerThread(String name, int priority) {
+            super(name);
+            mPriority = priority;
+        }
+
+        @Override
+        public void run() {
+            mTid = Process.myTid();
+            Looper.prepare();
+            synchronized (this) {
+                mLooper = Looper.myLooper();
+                notifyAll();
+            }
+            Process.setThreadPriority(mPriority);
+            onLooperPrepared();
+            Looper.loop();
+            mTid = -1;
+        }
+
+        public Looper getLooper() {
+            if (!isAlive()) {
+                return null;
+            }
+            // If the thread has been started, wait until the looper has been created.
+            synchronized (this) {
+                while (isAlive() && mLooper == null) {
+                    try {
+                        wait();
+                    } catch (InterruptedException e) {
+                    }
+                }
+            }
+            return mLooper;
+        }
+    }
+```
+
+从上面的源码发现，HandlerThread其实就是在线程中维持一个消息循环队列。下面我们看下使用：
+
+```java
+    HandlerThread mHanderThread = new HandlerThread("hanlderThreadTest", Process.THREAD_PRIORITY_BACKGROUND);
+    mHanderThread.run();
+    Looper mHanderThreadLooper = mHanderThread.getLooper();
+
+    Handler mHandler = new Handler(mHanderThreadLooper){
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            //子线程中执行
+            ...
+        }
+    };
+    //发送消息
+    mHandler.post(new Runnable() {
+        @Override
+        public void run() {
+            ...
+        }
+    });  
+```
+
+### IntentService
+
+适合于执行由UI触发的后台Service任务，并可以把后台任务执行的情况通过一定的机制反馈给UI。
+默认的Service是执行在主线程的，可是通常情况下，这很容易影响到程序的绘制性能(抢占了主线程的资源)。除了前面介绍过的AsyncTask与HandlerThread，我们还可以选择使用IntentService来实现异步操作。IntentService继承自普通Service同时又在内部创建了一个HandlerThread，在onHandlerIntent()的回调里面处理扔到IntentService的任务。所以IntentService就不仅仅具备了异步线程的特性，还同时保留了Service不受主页面生命周期影响的特点。
+
+![img](https://upload-images.jianshu.io/upload_images/5748654-b85e16cfc4e1ebf4.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/744/format/webp)
+
+**使用IntentService需要特别注意的点：**
+
+(1).因为IntentService内置的是HandlerThread作为异步线程，所以每一个交给IntentService的任务都将以队列的方式逐个被执行到，一旦队列中有某个任务执行时间过长，那么就会导致后续的任务都会被延迟处理。
+
+(2).通常使用到IntentService的时候，我们会结合使用BroadcastReceiver把工作线程的任务执行结果返回给主UI线程。使用广播容易引起性能问题，我们可以使用LocalBroadcastManager来发送只在程序内部传递的广播，从而提升广播的性能。我们也可以使用runOnUiThread()快速回调到主UI线程。
+
+(3).包含正在运行的IntentService的程序相比起纯粹的后台程序更不容易被系统杀死，该程序的优先级是介于前台程序与纯后台程序之间的。
+
+### Loader
+
+对于3.0后ContentProvider中的耗时操作，推荐使用Loader异步加载数据机制。相对其他加载机制，Loader有那些优点呢？
+
+* 提供异步加载数据机制
+
+* 对数据源变化进行监听，实时更新数据
+
+* 在Activity配置发生变化（如横竖屏切换）时不用重复加载数据
+
+* 适用于任何Activity和Fragment
+
+下面我们来看下Loader的具体使用：
+ 我们以获得手机中所有的图片为例：
+
+```java
+    getLoaderManager().initLoader(LOADER_TYPE, null, mLoaderCallback);
+    LoaderManager.LoaderCallbacks<Cursor> mLoaderCallback = new LoaderManager.LoaderCallbacks<Cursor>() {
+        private final String[] IMAGE_COLUMNS={
+                MediaStore.Images.Media.DATA,//图片路径
+                MediaStore.Images.Media.DISPLAY_NAME,//显示的名字
+                MediaStore.Images.Media.DATE_ADDED,//添加时间
+                MediaStore.Images.Media.MIME_TYPE,//图片扩展类型
+                MediaStore.Images.Media.SIZE,//图片大小
+                MediaStore.Images.Media._ID,//图片id
+        };
+
+        @Override
+        public Loader<Cursor> onCreateLoader(int id, Bundle args) {
+            toggleShowLoading(true,getString(R.string.common_loading));
+
+            CursorLoader cursorLoader = new CursorLoader(ImageSelectActivity.this,                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,IMAGE_COLUMNS,
+                    IMAGE_COLUMNS[4] + " > 0 AND "+IMAGE_COLUMNS[3] + " =? OR " +IMAGE_COLUMNS[3] + " =? ",
+                    new String[]{"image/jpeg","image/png"},IMAGE_COLUMNS[2] + " DESC");
+            return cursorLoader;
+        }
+
+        @Override
+        public void onLoadFinished(Loader<Cursor> loader, Cursor data) {
+            if(data != null && data.getCount() > 0){
+                ArrayList<String> imageList = new ArrayList<>();
+
+                if(mShowCamera){
+                    imageList.add("");
+                }
+                while (data.moveToNext()){
+                    String path = data.getString(data.getColumnIndexOrThrow(IMAGE_COLUMNS[0]));
+                    imageList.add(path);
+                    Log.e("ImageSelect", "IIIIIIIIIIIIIIIIIIII=====>"+path);
+                }
+                //显示数据
+                showListData(imageList);
+                toggleShowLoading(false,getString(R.string.common_loading));
+            }
+        }
+
+        @Override
+        public void onLoaderReset(Loader<Cursor> loader) {  
+        }   
+```
+
+onCreateLoader()  实例化并返回一个新创建给定ID的Loader对象
+onLoadFinished() 当创建好的Loader完成了数据的load之后回调此方法
+onLoaderReset() 当创建好的Loader被reset时调用此方法，这样保证它的数据无效
+LoaderManager会对查询的操作进行缓存，只要对应Cursor上的数据源没有发生变化，在配置信息发生改变的时候(例如屏幕的旋转)，Loader可以直接把缓存的数据回调到onLoadFinished()，从而避免重新查询数据。另外系统会在Loader不再需要使用到的时候(例如使用Back按钮退出当前页面)回调onLoaderReset()方法，我们可以在这里做数据的清除等等操作。
+
+### ThreadPool
+
+把任务分解成不同的单元，分发到各个不同的线程上，进行同时并发处理。
+线程池适合用在把任务进行分解，并发进行执行的场景。
+系统提供ThreadPoolExecutor帮助类来帮助我们简化实现线程池。
+
+![img](https://upload-images.jianshu.io/upload_images/5748654-91d21d03a19a7610.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/670/format/webp)
+
+使用线程池需要特别注意同时并发线程数量的控制，理论上来说，我们可以设置任意你想要的并发数量，但是这样做非常的不好。因为CPU只能同时执行固定数量的线程数，一旦同时并发的线程数量超过CPU能够同时执行的阈值，CPU就需要花费精力来判断到底哪些线程的优先级比较高，需要在不同的线程之间进行调度切换。
+一旦同时并发的线程数量达到一定的量级，这个时候CPU在不同线程之间进行调度的时间就可能过长，反而导致性能严重下降。另外需要关注的一点是，每开一个新的线程，都会耗费至少64K+的内存。为了能够方便的对线程数量进行控制，ThreadPoolExecutor为我们提供了初始化的并发线程数量，以及最大的并发数量进行设置。
+
+```dart
+    /**
+     * 核心线程数
+     * 最大线程数
+     * 保活时间
+     * 时间单位
+     * 任务队列
+     * 线程工厂
+     */
+    threadPoolExecutor = new ThreadPoolExecutor(
+            CORE_POOL_SIZE, MAXIMUM_POOL_SIZE, KEEP_ALIVE_SECONDS, TimeUnit.SECONDS,
+            linkedBlockingQueue, sThreadFactory);
+    threadPoolExecutor.execute(runnable);
+```
+
+我们知道系统还提供了Executors类中几种线程池，下面我们来看下这些线程池的缺点：
+
+**newFixedThreadPool 和 newSingleThreadExecutor:**主要问题是堆积的请求处理队列可能会耗费非常大的内存，甚至 OOM。
+**newCachedThreadPool 和 newScheduledThreadPool:**主要问题是线程数最大数是 Integer.MAX_VALUE，可能会创建数量非常多的线程，甚至 OOM
+
+我们看到这些线程池但是有缺点的，所以具体使用那种方式实现要根据我们的需求来选择。
+
+如果想要避开上面的问题，可以参考OKHttp中线程池的实现，OKHttp中队线程调度又封装了一层，使用安全且方便，有兴趣的可以去看看源码。
+
+## 线程优先级
+
+Android系统会根据当前运行的可见的程序和不可见的后台程序对线程进行归类，划分为forground的那部分线程会大致占用掉CPU的90%左右的时间片，background的那部分线程就总共只能分享到5%-10%左右的时间片。之所以设计成这样是因为forground的程序本身的优先级就更高，理应得到更多的执行时间。
+
+![img](https://upload-images.jianshu.io/upload_images/5748654-fedda45234d2551d.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/574/format/webp)
+
+默认情况下，新创建的线程的优先级默认和创建它的母线程保持一致。如果主UI线程创建出了几十个工作线程，这些工作线程的优先级就默认和主线程保持一致了，为了不让新创建的工作线程和主线程抢占CPU资源，需要把这些线程的优先级进行降低处理，这样才能给帮组CPU识别主次，提高主线程所能得到的系统资源。
+
+在Android系统里面，我们可以通过android.os.Process.setThreadPriority(int)设置线程的优先级，参数范围从-20到24，数值越小优先级越高。Android系统还为我们提供了以下的一些预设值，我们可以通过给不同的工作线程设置不同数值的优先级来达到更细粒度的控制。
+
+![img](https://upload-images.jianshu.io/upload_images/5748654-1f22773258ff2ed1.jpg?imageMogr2/auto-orient/strip|imageView2/2/w/525/format/webp)
+
+大多数情况下，新创建的线程优先级会被设置为默认的0，主线程设置为0的时候，新创建的线程还可以利用THREAD_PRIORITY_LESS_FAVORABLE或者THREAD_PRIORITY_MORE_FAVORABLE来控制线程的优先级。
+
+# 安装包优化
+
+安装包优化的主要方向就是APP瘦身，那么App瘦身带来哪些好处呢？
+ (1).下载时省流量
+ (2).用户好的体验，下载更快，安装更快
+
+## 常用的优化方式
+
+### 清理无用资源
+
+在我们应用版本的迭代中，肯定有废弃的代码和资源，我们要及时地清理，来减小App体积。
+
+清理的方法：
+
+**(1).使用Refactor->Remove unused Resource**
+
+这个一键清除的小功能不是特别的又用，因为资源是经过反射或字符拼接等方式获取，所以检查不完全，需要我们不断的实验。
+
+![img](https://upload-images.jianshu.io/upload_images/5748654-8e0439bf866e6a33.png?imageMogr2/auto-orient/strip|imageView2/2/w/408/format/webp)
+
+**(2).使用Lint工具**
+
+lint工具还是很有用的，它给我们需要优化的点
+
+需要注意的点：
+
+* 检测没有用的布局并且删除
+
+* 把未使用到的资源删除
+
+* 建议String.xml有一些没有用到的字符也删除掉
+
+**(3).开启shrinkResources去除无用资源**
+
+在build.gradle 里面配置shrinkResources true，在打包的时候会自动清除掉无用的资源，但经过实验发现打出的包并不会，而是会把部分无用资源用更小的东西代替掉。注意，这里的“无用”是指调用图片的所有父级函数最终是废弃代码，而shrinkResources true 只能去除没有任何父函数调用的情况.
+
+```bash
+    android {
+        buildTypes {
+            release {
+                shrinkResources true
+            }
+        }
+    }
+```
+
+**(4).删除无用的语言资源**
+
+大部分应用其实并不需要支持几十种语言的国际化支持。比如我们只是保存中文支持：
+
+```bash
+    android {
+        defaultConfig {
+            resConfigs "zh"
+        }
+    }
+```
+
+**(5).清理第三方库中冗余代码**
+
+对于第三方库，可能我们只是用到库中的一个功能，那么我们就可以导入源码，并且删除无关的代码，来减小体积。
+
+### 图片资源优化
+
+图片是占用空间比较大的资源，这是我们要重点优化的地方。
+
+**(1).使用压缩过的图片**
+
+这个点在这里就不再累赘。
+
+**(2).只用一套图片**
+
+对于绝大对数APP来说，只需要取一套设计图就足够了。从内存占用和适配的角度考虑，这一套图建议放在xhdpi文件夹下；
+
+**(3).使用不带alpha值的jpg图片**
+
+对于非透明的大图，jpg将会比png的大小有显著的优势，虽然不是绝对的，但是通常会减小到一半都不止。
+
+**(4).使用tinypng有损压缩**
+
+支持上传PNG图片到官网上压缩，然后下载保存，在保持alpha通道的情况下对PNG的压缩可以达到1/3之内，而且用肉眼基本上分辨不出压缩的损失.
+
+**(5).使用webp格式**
+
+webp支持透明度，压缩比比jpg更高但显示效果却不输于jpg,从Android 4.0+开始原生支持，但是不支持包含透明度，直到Android 4.2.1+才支持显示含透明度的webp，使用的时候要特别注意。
+
+**(6).使用svg**
+
+矢量图是由点与线组成,和位图不一样,它再放大也能保持清晰度，而且使用矢量图比位图设计方案能节约30～40%的空间，现在谷歌一直在强调扁平化方式，矢量图可很好的契合该设计理念。
+
+* 占用存储空间小
+
+* 无极拉伸不会出现锯齿，可以照顾不同尺寸的机型
+
+* Android Studio自带很多资源
+
+**(7).使用shape**
+
+特别是在扁平化盛行的当下，很多纯色的渐变的圆角的图片都可以用shape实现，代码灵活可控，省去了大量的背景图片。
+
+**(8).使用着色方案**
+
+相信你的工程里也有很多selector文件，也有很多相似的图片只是颜色不同，通过着色方案我们能大大减轻这样的工作量，减少这样的文件。
+
+**(9).对打包后的图片进行压缩**
+
+使用7zip压缩方式对图片进行压缩,建议使用微信的[AndResGuard](https://github.com/shwenzhang/AndResGuard)
+
+### 资源动态加载
+
+资源可以动态加载，减小apk体积。
+
+**(1).在线化素材库**
+
+如果你的APP支持素材库(比如聊天表情库)的话，考虑在线加载模式，因为往往素材库都有不小的体积
+
+**(2).皮肤加载**
+
+有的app用到皮肤库，这是就可以使用动态加载。
+
+**(3).模块插件化**
+
+如果模块过多，apk体积过大，可以考虑插件化，来减少体积。
+
+### lib库优化
+
+只提供对主流架构的支持，比如arm，对于mips和x86架构可以考虑不支持，这样可以大大减小APK的体积.
+
+### 7zip压缩资源
+
+对于assets或者raw文件夹中的资源，可以使用7zip压缩，使用时进行解压。
+
+### 代码混淆
+
+在gradle使用minifyEnabled进行Proguard混淆的配置.
+
+```bash
+    android {
+        buildTypes {
+            release {
+                minifyEnabled true
+            }
+        }
+    }
+```
+
+* 为什么代码混淆可以让apk变小?
+
+1. 可以删除注释和不用的代码。
+2. 将java文件名改成短名
+3. 将方法名改成短名
+
+### 资源(res)混淆
+
+资源混淆简单来说希望实现将res/drawable/icon,png变成res/drawable/a.png,或我们甚至可以将文件路径也同时混淆，改成r/s/a.png。
+ 建议使用微信的[AndResGuard](https://github.com/shwenzhang/AndResGuard)
+
+### 使用微信AndResGuard
+
+使用微信AndResGuard对资源混淆并且压缩图片res等资源
+
+```csharp
+    apply plugin: 'AndResGuard'
+    buildscript {
+        dependencies {
+            classpath 'com.tencent.mm:AndResGuard-gradle-plugin:1.1.7'
+        }
+    }
+    andResGuard {
+        mappingFile = null
+        use7zip = true
+        useSign = true
+        keepRoot = false
+        // add <your_application_id>.R.drawable.icon into whitelist.
+        // because the launcher will get thgge icon with his name
+        def packageName = <your_application_id>
+                whiteList = [
+        //for your icon
+        packageName + ".R.drawable.icon",
+                //for fabric
+                packageName + ".R.string.com.crashlytics.*",
+                //for umeng update
+                packageName + ".R.string.umeng*",
+                packageName + ".R.string.UM*",
+                packageName + ".R.string.tb_*",
+                packageName + ".R.layout.umeng*",
+                packageName + ".R.layout.tb_*",
+                packageName + ".R.drawable.umeng*",
+                packageName + ".R.drawable.tb_*",
+                packageName + ".R.anim.umeng*",
+                packageName + ".R.color.umeng*",
+                packageName + ".R.color.tb_*",
+                packageName + ".R.style.*UM*",
+                packageName + ".R.style.umeng*",
+                packageName + ".R.id.umeng*"
+        ]
+        compressFilePattern = [
+        "*.png",
+                "*.jpg",
+                "*.jpeg",
+                "*.gif",
+                "resources.arsc"
+        ]
+        sevenzip {
+            artifact = 'com.tencent.mm:SevenZip:1.1.7'
+            //path = "/usr/local/bin/7za"
+        }
+    }
+```
+
+### Facebook的redex优化字节码
+
+redex是facebook发布的一款android字节码的优化工具.
+ [redex](https://github.com/facebook/redex)
