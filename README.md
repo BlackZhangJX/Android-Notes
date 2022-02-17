@@ -1290,16 +1290,7 @@ VX号：**mm14525201314**（需要资料备注一下GitHub，资料）
 
 ## QQ群
 
-Android开发交流QQ群：**1078864380**  （备注一下GitHub，免得被认成打无良广告的）
-
-快捷加群方式：[点击此处加入群聊Android开发交流群](https://jq.qq.com/?_wv=1027&k=VG8FccoS)
-
-<div align="center">
-<img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/Android%E5%BC%80%E5%8F%91%E4%BA%A4%E6%B5%812%E7%BE%A4%E7%BE%A4%E8%81%8A%E4%BA%8C%E7%BB%B4%E7%A0%81.png">
-</div>
-
->PS：
->>平常很忙，找桃子小姐姐领取就好了，别找我
+暂时停止QQ群申请审核，有需要的朋友们请直接添加微信
 
 ## 微信公众号
 
