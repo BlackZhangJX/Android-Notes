@@ -1280,7 +1280,8 @@ Android开发核心知识点笔记-目录：
 
 ## 微信
 
-VX号：**mm14525201314**（需要资料备注一下GitHub，资料）
+~VX号：**mm14525201314**（需要资料备注一下GitHub，资料）~
+**VX暂时停用，目前不通过VX**
 
 <div align="center">
 <img src="https://github.com/BlackZhangJX/Android-Notes/blob/master/screenshots/%E5%BE%AE%E4%BF%A1%E4%BA%8C%E7%BB%B4%E7%A0%81.jpg?raw=true">
@@ -1290,7 +1291,7 @@ VX号：**mm14525201314**（需要资料备注一下GitHub，资料）
 
 ## QQ群
 
-暂时停止QQ群申请审核，有需要的朋友们请直接添加微信
+暂时停止QQ群申请审核，有需要的朋友们请直接添加QQ：1592368815
 
 ## 微信公众号
 
